@@ -1,23 +1,29 @@
 ﻿using Microsoft.DotNet.DesignTools.Protocol.DataPipe;
 using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 
 namespace TileRepeater.ClientServerProtocol
 {
     [DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
     public partial class TypeInfoData : IDataPipeObject
     {
-        public string? AssemblyFullName { get; private set; }
+        [AllowNull]
+        public string AssemblyFullName { get; private set; }
 
-        public string? Namespace { get; private set; }
+        [AllowNull]
+        public string Namespace { get; private set; }
 
-        public string? FullName { get; private set; }
+        [AllowNull]
+        public string FullName { get; private set; }
 
-        public string? AssemblyQualifiedName { get; private set; }
+        [AllowNull]
+        public string AssemblyQualifiedName { get; private set; }
 
         public bool ImplementsINotifyPropertyChanged { get; private set; }
 
-        public string? Name { get; private set; }
+        [AllowNull]
+        public string Name { get; private set; }
 
         public TypeInfoData()
         {
