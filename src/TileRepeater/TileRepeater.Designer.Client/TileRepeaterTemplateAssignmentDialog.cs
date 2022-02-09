@@ -1,4 +1,6 @@
 ﻿using System;
+using System.ComponentModel;
+using System.ComponentModel.Design;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
@@ -16,7 +18,7 @@ namespace TileRepeater.Designer.Client
             TileRepeaterTemplateAssignmentViewModelClient viewModel)
         {
             ServiceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
-            ViewModel = viewModel ?? throw new ArgumentNullException(nameof(viewModel));
+            ViewModelClient = viewModel ?? throw new ArgumentNullException(nameof(viewModel));
 
             InitializeComponent();
 
@@ -27,7 +29,9 @@ namespace TileRepeater.Designer.Client
 
         public IServiceProvider ServiceProvider { get; }
 
-        public TileRepeaterTemplateAssignmentViewModelClient ViewModel { get; set; }
-
+        public TileRepeaterTemplateAssignmentViewModelClient ViewModelClient { get; set; }
+        public ITypeDescriptorContext? Context { get; set; }
+        public IDesignerHost? Host { get; set; }
+        public bool IsDirty { get; private set; }
     }
 }

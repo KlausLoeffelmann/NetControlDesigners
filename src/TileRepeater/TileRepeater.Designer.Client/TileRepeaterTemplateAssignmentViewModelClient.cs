@@ -4,6 +4,7 @@ using Microsoft.DotNet.DesignTools.Client.Views;
 using System;
 using System.Collections.Generic;
 using TileRepeater.ClientServerProtocol;
+using WinForms.Tiles.Designer.Protocol.Endpoints;
 
 namespace TileRepeater.Designer.Client
 {
@@ -28,10 +29,18 @@ namespace TileRepeater.Designer.Client
         /// <returns>
         ///  The ViewModelClient for controlling the NewObjectDataSource dialog.
         /// </returns>
-        public static TileRepeaterTemplateAssignmentViewModelClient? Create(DesignerSession session)
+        public static TileRepeaterTemplateAssignmentViewModelClient Create(
+            IServiceProvider provider,
+            object tileRepeaterTemplateAssignmentProxy)
         {
-            // TODO: Get from Server.
-            TileRepeaterTemplateAssignmentViewModelClient? clientViewModel = null;
+            var session = provider.GetRequiredService<DesignerSession>();
+            var client = provider.GetRequiredService<IDesignToolsClient>();
+
+            var createViewModelEndpoint = client.Protocol.GetEndpoint<CreateTemplateTypesViewModelEndpoint>().GetSender(client);
+            var response = createViewModelEndpoint.SendRequest(new CreateTemplateTypesViewModelRequest(session.Id, tileRepeaterTemplateAssignmentProxy));
+            var viewModel = (ObjectProxy)response.ViewModel!;
+            var clientViewModel = provider.CreateViewModelClient<TileRepeaterTemplateAssignmentViewModelClient>(viewModel);
+
             return clientViewModel;
         }
 
