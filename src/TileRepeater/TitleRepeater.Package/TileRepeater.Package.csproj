@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<IncludeBuildOutput>false</IncludeBuildOutput>
+		<ProduceReferenceAssembly>false</ProduceReferenceAssembly>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<RepositoryUrl>https://github.com/dotnet/winforms-designer</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);_GetFilesToPackage</TargetsForTfmSpecificContentInPackage>
+	</PropertyGroup>
+
+	<Target Name="_GetFilesToPackage">
+		
+		<ItemGroup>
+			<_File Include="$(MSBuildProjectDirectory)\..\TileRepeater.Controls\bin\$(Configuration)\net6.0-windows\TileRepeater.Controls.dll"/>
+			<_File Include="$(MSBuildProjectDirectory)\..\TileRepeater.Designer.Client\bin\$(Configuration)\net472\TileRepeater.Designer.Client.dll" TargetDir="Design/WinForms"/>
+			<_File Include="$(MSBuildProjectDirectory)\..\TileRepeater.ClientServerProtocol\bin\$(Configuration)\net472\TileRepeater.ClientServerProtocol.dll" TargetDir="Design/WinForms"/>
+			<_File Include="$(MSBuildProjectDirectory)\..\TileRepeater.Designer.Server\bin\$(Configuration)\net6.0-windows\TileRepeater.Designer.Server.dll" TargetDir="Design/WinForms/Server"/>
+			<_File Include="$(MSBuildProjectDirectory)\..\TileRepeater.ClientServerProtocol\bin\$(Configuration)\net6.0-windows\TileRepeater.ClientServerProtocol.dll" TargetDir="Design/WinForms/Server"/>
+		</ItemGroup>
+
+		<ItemGroup>
+			<TfmSpecificPackageFile Include="@(_File)" PackagePath="$(BuildOutputTargetFolder)/$(TargetFramework)/%(_File.TargetDir)" />
+		</ItemGroup>
+	</Target>
+</Project>
