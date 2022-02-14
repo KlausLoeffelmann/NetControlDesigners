@@ -14,8 +14,8 @@ namespace WinForms.Tiles.Designer.Client
             {
                 new TypeRoutingDefinition(
                     TypeRoutingKinds.Editor, 
-                    nameof(EditorNames.TileRepeaterTemplateAssignmentEditor), 
-                    typeof(TileRepeaterTemplateAssignmentEditor))
+                    nameof(EditorNames.TemplateAssignmentEditor), 
+                    typeof(TemplateAssignmentEditor))
             };
         }
     }

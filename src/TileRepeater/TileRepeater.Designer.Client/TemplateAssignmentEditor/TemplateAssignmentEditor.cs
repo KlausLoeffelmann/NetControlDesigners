@@ -4,13 +4,14 @@ using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Drawing.Design;
+using System.Windows.Forms;
 using System.Windows.Forms.Design;
 
 namespace TileRepeater.Designer.Client
 {
-    internal class TileRepeaterTemplateAssignmentEditor : UITypeEditor
+    internal class TemplateAssignmentEditor : UITypeEditor
     {
-        private TileRepeaterTemplateAssignmentDialog? _templateAssignmentDialog;
+        private TemplateAssignmentDialog? _templateAssignmentDialog;
 
         public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
         {
@@ -22,9 +23,9 @@ namespace TileRepeater.Designer.Client
             var editorService = provider.GetRequiredService<IWindowsFormsEditorService>();
             var designerHost = provider.GetRequiredService<IDesignerHost>();
 
-            var viewModelClient = TileRepeaterTemplateAssignmentViewModelClient.Create(provider, value);
+            var viewModelClient = TemplateAssignmentViewModelClient.Create(provider, value);
 
-            _templateAssignmentDialog ??= new TileRepeaterTemplateAssignmentDialog(provider, viewModelClient);
+            _templateAssignmentDialog ??= new TemplateAssignmentDialog(provider, viewModelClient);
             _templateAssignmentDialog.Context = context;
             _templateAssignmentDialog.Host = designerHost;
             _templateAssignmentDialog.ViewModelClient = viewModelClient;

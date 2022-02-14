@@ -2,6 +2,6 @@
 {
     public static class EditorNames
     {
-        public const string TileRepeaterTemplateAssignmentEditor = nameof(TileRepeaterTemplateAssignmentEditor);
+        public const string TemplateAssignmentEditor = nameof(TemplateAssignmentEditor);
     }
 }

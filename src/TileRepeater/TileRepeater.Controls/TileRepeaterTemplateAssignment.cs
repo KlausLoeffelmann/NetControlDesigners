@@ -1,5 +1,9 @@
-﻿namespace WinForms.Tiles
+﻿using System.ComponentModel;
+using System.Drawing.Design;
+
+namespace WinForms.Tiles
 {
+    [Editor("TemplateAssignmentEditor", typeof(UITypeEditor))]
     public class TileRepeaterTemplateAssignment
     {
         private Type _templateType;
@@ -24,4 +28,3 @@
         }
     }
 }
-

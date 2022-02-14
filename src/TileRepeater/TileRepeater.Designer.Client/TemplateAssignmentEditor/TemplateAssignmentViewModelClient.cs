@@ -4,13 +4,21 @@ using Microsoft.DotNet.DesignTools.Client.Views;
 using System;
 using System.Collections.Generic;
 using TileRepeater.ClientServerProtocol;
+using WinForms.Tiles.Designer.Protocol;
 using WinForms.Tiles.Designer.Protocol.Endpoints;
 
 namespace TileRepeater.Designer.Client
 {
-    internal partial class TileRepeaterTemplateAssignmentViewModelClient : ViewModelClient
+    internal partial class TemplateAssignmentViewModelClient : ViewModelClient
     {
-        private TileRepeaterTemplateAssignmentViewModelClient(ObjectProxy? viewModel)
+        [ExportViewModelClientFactory(ViewModelNames.TemplateAssignmentViewModel)]
+        private class Factory : ViewModelClientFactory<TemplateAssignmentViewModelClient>
+        {
+            protected override TemplateAssignmentViewModelClient CreateViewModelClient(ObjectProxy? viewModel)
+                => new(viewModel);
+        }
+
+        private TemplateAssignmentViewModelClient(ObjectProxy? viewModel)
             : base(viewModel)
         {
             if (viewModel is null)
@@ -29,30 +37,40 @@ namespace TileRepeater.Designer.Client
         /// <returns>
         ///  The ViewModelClient for controlling the NewObjectDataSource dialog.
         /// </returns>
-        public static TileRepeaterTemplateAssignmentViewModelClient Create(
+        public static TemplateAssignmentViewModelClient Create(
             IServiceProvider provider,
             object tileRepeaterTemplateAssignmentProxy)
         {
             var session = provider.GetRequiredService<DesignerSession>();
             var client = provider.GetRequiredService<IDesignToolsClient>();
 
-            var createViewModelEndpoint = client.Protocol.GetEndpoint<CreateTemplateTypesViewModelEndpoint>().GetSender(client);
-            var response = createViewModelEndpoint.SendRequest(new CreateTemplateTypesViewModelRequest(session.Id, tileRepeaterTemplateAssignmentProxy));
+            var createViewModelEndpoint = client.Protocol.GetEndpoint<CreateTemplateAssignmentViewModelEndpoint>().GetSender(client);
+
+            var response = createViewModelEndpoint.SendRequest(new CreateTemplateAssignmentViewModelRequest(session.Id, tileRepeaterTemplateAssignmentProxy));
             var viewModel = (ObjectProxy)response.ViewModel!;
-            var clientViewModel = provider.CreateViewModelClient<TileRepeaterTemplateAssignmentViewModelClient>(viewModel);
+
+            var clientViewModel = provider.CreateViewModelClient<TemplateAssignmentViewModelClient>(viewModel);
+            clientViewModel.Initialize(response.TemplateServerTypes, response.TileServerTypes);
 
             return clientViewModel;
         }
 
-        private void Initialize(TypeInfoData[] serverTypes)
+        private void Initialize(TypeInfoData[] templateServerTypes, TypeInfoData[] tileServerTypes)
         {
-            ServerTypes = serverTypes;
+            TemplateServerTypes = templateServerTypes;
+            TileServerTypes = tileServerTypes;
         }
 
         /// <summary>
         ///  Contains the types which have been discovered by the Server Process.
         /// </summary>
-        public TypeInfoData[] ServerTypes { get; private set; } = null!;
+        public TypeInfoData[] TemplateServerTypes { get; private set; } = null!;
+
+        /// <summary>
+        ///  Contains the tile-based types which have been discovered by the Server Process.
+        /// </summary>
+        public TypeInfoData[] TileServerTypes { get; private set; } = null!;
+
 
         internal void ExecuteOkCommand(
             List<TypeInfoData> newTypes,

@@ -7,7 +7,7 @@ namespace WinForms.Tiles
 {
     public partial class TileRepeater
     {
-        public class UserControlTemplateConverter : TypeConverter
+        public class TileContentConverter : TypeConverter
         {
             private Dictionary<string, UserControlTemplate>? userControlTypes;
 

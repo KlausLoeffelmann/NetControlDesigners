@@ -5,20 +5,20 @@ using Microsoft.DotNet.DesignTools.Protocol.Endpoints;
 
 namespace WinForms.Tiles.Designer.Protocol.Endpoints
 {
-    public class CreateTemplateTypesViewModelRequest : Request
+    public class CreateTemplateAssignmentViewModelRequest : Request
     {
         public SessionId SessionId { get; private set; }
         public object? TileRepeaterTemplateAssignmentProxy { get; private set; }
 
-        public CreateTemplateTypesViewModelRequest() { }
+        public CreateTemplateAssignmentViewModelRequest() { }
 
-        public CreateTemplateTypesViewModelRequest(SessionId sessionId, object tileRepeaterTemplateAssignmentProxy)
+        public CreateTemplateAssignmentViewModelRequest(SessionId sessionId, object tileRepeaterTemplateAssignmentProxy)
         {
             SessionId = sessionId.IsNull ? throw new ArgumentNullException(nameof(sessionId)) : sessionId;
             TileRepeaterTemplateAssignmentProxy = tileRepeaterTemplateAssignmentProxy;
         }
 
-        public CreateTemplateTypesViewModelRequest(IDataPipeReader reader) : base(reader) { }
+        public CreateTemplateAssignmentViewModelRequest(IDataPipeReader reader) : base(reader) { }
 
         protected override void ReadProperties(IDataPipeReader reader)
         {

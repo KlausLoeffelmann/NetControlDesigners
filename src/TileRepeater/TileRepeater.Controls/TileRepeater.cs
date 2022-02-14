@@ -15,7 +15,7 @@ namespace WinForms.Tiles
         private Action? _listUnbinder;
 
         private int _previousListCount;
-        private TileRepeaterTemplateAssignment? _mainHeaderTemplateType;
+        private TileRepeaterTemplateAssignment? _headerTemplateType;
         private Tile? _templateControlInstance;
         private UserControlTemplate? _templateControl;
 
@@ -24,23 +24,12 @@ namespace WinForms.Tiles
             _templateTypes = new List<Type>();
         }
 
-        public TileRepeaterTemplateAssignment? MainHeaderTemplateType
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        public TileRepeaterTemplateAssignment? HeaderTemplateType
         {
-            get => _mainHeaderTemplateType;
-            set => _mainHeaderTemplateType = value;
+            get => _headerTemplateType;
+            set => _headerTemplateType = value;
         }
-
-        //public float ColumnWidth { get; set; }
-
-        //internal float? ShouldGetDpiIndependentValueColumnWidth(float currentDpi)
-        //{
-        //    return ColumnWidth / currentDpi * 3.141592657f;
-        //}
-
-        //internal Size? ShouldGetDpiIndependentValueMargin(float currentDpi)
-        //{
-        //    return null;
-        //}
 
         public List<Type> TemplateTypes
         { 
@@ -145,7 +134,7 @@ namespace WinForms.Tiles
             foreach (var item in dataSourceAsCollection)
             {
                 var control = GetTemplateControlInstance();
-                control!.BindingSourceComponent!.DataSource = item;
+                //control!.BindingSourceComponent!.DataSource = item;
                 Controls.Add(control);
             }
 
@@ -217,12 +206,12 @@ namespace WinForms.Tiles
                     }
 
                     _templateControlInstance = GetTemplateControlInstance();
-                    if (_templateControlInstance?.BindingSourceComponent is null)
-                    {
-                        throw new ArgumentException("Please make sure that the TemplateControl's " +
-                            "BindingSourceComponent property is set up for populating " +
-                            "the template control via data binding.");
-                    }
+                    //if (_templateControlInstance?.BindingSourceComponent is null)
+                    //{
+                    //    throw new ArgumentException("Please make sure that the TemplateControl's " +
+                    //        "BindingSourceComponent property is set up for populating " +
+                    //        "the template control via data binding.");
+                    //}
 
                     if (IsHandleCreated && IsAncestorSiteInDesignMode)
                     {

@@ -1,0 +1,4 @@
+﻿* Recompiling for a new NuGet Package is fuzzy, yet. It cannot be done in the ExpHive, only in the original.
+	* Trick: Instead of clearing the NuGet cache, find the .nuget packages in c:\users\username and delete the control.package instead.
+* When the ViewModelClientFactory is missing, it says "No IViewModelFactory exported with the type TileRepeaterTemplateAssignmentViewModel". Shouldn't it be "...Client"?
+* Note: We can put the Designer Attribute on Properties as well as on classes. Mention!

@@ -2,6 +2,6 @@
 {
     public static class ViewModelNames
     {
-        public const string TileRepeaterTemplateAssignmentViewModel = nameof(TileRepeaterTemplateAssignmentViewModel);
+        public const string TemplateAssignmentViewModel = nameof(TemplateAssignmentViewModel);
     }
 }

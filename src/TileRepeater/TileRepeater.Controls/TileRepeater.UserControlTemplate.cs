@@ -4,7 +4,7 @@ namespace WinForms.Tiles
 {
     public partial class TileRepeater
     {
-        [TypeConverter(typeof(UserControlTemplateConverter))]
+        [TypeConverter(typeof(TileContentConverter))]
         public class UserControlTemplate
         {
             public UserControlTemplate()
@@ -30,6 +30,7 @@ namespace WinForms.Tiles
                 => UserControlType?.Name;
 
             public Type? UserControlType { get; set; }
+
             public override string ToString()
                 => UserControlType?.Name ?? "(none)";
         }
