@@ -31,7 +31,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.tileRepeater1 = new WinForms.Tiles.TileRepeater();
-            this.groupTile1 = new TileRepeaterDemo.TileTemplates.GroupTile();
+            this.button3 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button2
@@ -55,27 +55,27 @@
             // tileRepeater1
             // 
             this.tileRepeater1.DataSource = null;
-            this.tileRepeater1.Location = new System.Drawing.Point(23, 26);
+            this.tileRepeater1.Location = new System.Drawing.Point(18, 31);
             this.tileRepeater1.Name = "tileRepeater1";
-            this.tileRepeater1.Size = new System.Drawing.Size(464, 199);
+            this.tileRepeater1.Size = new System.Drawing.Size(790, 409);
             this.tileRepeater1.TabIndex = 0;
             this.tileRepeater1.TemplateControl = null;
             // 
-            // groupTile1
+            // button3
             // 
-            this.groupTile1.BindingSourceComponent = null;
-            this.groupTile1.Location = new System.Drawing.Point(115, 303);
-            this.groupTile1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.groupTile1.Name = "groupTile1";
-            this.groupTile1.Size = new System.Drawing.Size(290, 171);
-            this.groupTile1.TabIndex = 1;
+            this.button3.Location = new System.Drawing.Point(218, 468);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(145, 33);
+            this.button3.TabIndex = 1;
+            this.button3.Text = "button3";
+            this.button3.UseVisualStyleBackColor = true;
             // 
             // TileRepeaterTestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(833, 513);
-            this.Controls.Add(this.groupTile1);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.tileRepeater1);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "TileRepeaterTestForm";
@@ -89,6 +89,6 @@
         private Button button2;
         private Button button1;
         private WinForms.Tiles.TileRepeater tileRepeater1;
-        private TileTemplates.GroupTile groupTile1;
+        private Button button3;
     }
 }

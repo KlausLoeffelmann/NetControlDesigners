@@ -1,7 +1,8 @@
-﻿using System;
-using System.Diagnostics.CodeAnalysis;
-using Microsoft.DotNet.DesignTools.Protocol.DataPipe;
+﻿using Microsoft.DotNet.DesignTools.Protocol.DataPipe;
 using Microsoft.DotNet.DesignTools.Protocol.Endpoints;
+using System;
+using System.Diagnostics.CodeAnalysis;
+using TileRepeater.ClientServerProtocol.DataTransport;
 
 namespace WinForms.Tiles.Designer.Protocol.Endpoints
 {

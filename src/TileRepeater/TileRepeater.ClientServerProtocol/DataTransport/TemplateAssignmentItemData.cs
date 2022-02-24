@@ -1,10 +1,10 @@
-﻿using System;
+﻿using Microsoft.DotNet.DesignTools.Protocol.DataPipe;
+using System;
 using System.Diagnostics.CodeAnalysis;
-using Microsoft.DotNet.DesignTools.Protocol.DataPipe;
 
-namespace WinForms.Tiles.Designer.Protocol.Endpoints
+namespace TileRepeater.ClientServerProtocol.DataTransport
 {
-    public class TemplateAssignmentItemData : IDataPipeObject
+    public partial class TemplateAssignmentItemData : IDataPipeObject
     {
         [AllowNull]
         public object TemplateAssignment { get; private set; }
@@ -16,7 +16,9 @@ namespace WinForms.Tiles.Designer.Protocol.Endpoints
         {
         }
 
-        public TemplateAssignmentItemData(object templateAssignment, string text)
+        public TemplateAssignmentItemData(
+            object templateAssignment,
+            string text)
         {
             TemplateAssignment = templateAssignment ?? throw new ArgumentNullException(nameof(templateAssignment));
             Text = text ?? throw new ArgumentNullException(nameof(text));

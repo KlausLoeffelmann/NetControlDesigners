@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Drawing.Design;
 
 namespace WinForms.Tiles
 {
@@ -15,7 +16,7 @@ namespace WinForms.Tiles
         private Action? _listUnbinder;
 
         private int _previousListCount;
-        private TileRepeaterTemplateAssignment? _headerTemplateType;
+        private TemplateAssignment? _headerTemplateType;
         private Tile? _templateControlInstance;
         private UserControlTemplate? _templateControl;
 
@@ -25,12 +26,13 @@ namespace WinForms.Tiles
         }
 
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public TileRepeaterTemplateAssignment? HeaderTemplateType
+        public TemplateAssignment? HeaderTemplateType
         {
             get => _headerTemplateType;
             set => _headerTemplateType = value;
         }
 
+        [Editor("TemplateAssignmentCollectionEditor", typeof(UITypeEditor))]
         public List<Type> TemplateTypes
         { 
             get => _templateTypes;

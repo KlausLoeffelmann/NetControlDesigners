@@ -8,7 +8,7 @@ namespace WinForms.Tiles.Designer.Protocol.Endpoints
     [ExportEndpoint]
     public class TemplateAssignmentEditorOKClickEndpoint : Endpoint<TemplateAssignmentEditorOKClickRequest, OKClickResponse>
     {
-        public override string Name => EndpointNames.TemplateAssignmentCollectionEditorOKClick;
+        public override string Name => EndpointNames.TemplateAssignmentEditorOKClick;
 
         protected override TemplateAssignmentEditorOKClickRequest CreateRequest(IDataPipeReader reader)
             => new(reader);

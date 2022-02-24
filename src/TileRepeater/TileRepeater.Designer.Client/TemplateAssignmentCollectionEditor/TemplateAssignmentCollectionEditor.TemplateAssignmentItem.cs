@@ -1,7 +1,7 @@
 ﻿using Microsoft.DotNet.DesignTools.Client.Proxies;
 using System;
 using System.Diagnostics.CodeAnalysis;
-using WinForms.Tiles.Designer.Protocol.Endpoints;
+using TileRepeater.ClientServerProtocol.DataTransport;
 
 namespace TileRepeater.Designer.Client
 {

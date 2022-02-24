@@ -11,9 +11,4 @@
 	<ItemGroup>
 		<PackageReference Include="TileRepeater.Package" Version="1.0.0" />
 	</ItemGroup>
-
-	<!--<ItemGroup>
-	  <ProjectReference Include="..\TileRepeater.Controls\TileRepeater.Controls.csproj" />
-	</ItemGroup>-->
-
 </Project>
