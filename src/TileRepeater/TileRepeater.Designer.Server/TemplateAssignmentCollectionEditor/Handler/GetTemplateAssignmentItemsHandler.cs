@@ -1,7 +1,7 @@
 ﻿using Microsoft.DotNet.DesignTools.Protocol.Endpoints;
 using WinForms.Tiles.Designer.Protocol.Endpoints;
 
-namespace TileRepeater.Designer.Server.TemplateAssignmentCollectionEditor
+namespace TileRepeater.Designer.Server.TemplateAssignmentCollectionEditor.Handler
 {
     [ExportRequestHandler(EndpointNames.GetTemplateAssignmentItems)]
     internal class GetTemplateAssignmentItemsHandler 
