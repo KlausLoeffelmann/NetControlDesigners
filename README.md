@@ -2,7 +2,7 @@
 Demo for authoring Control Designers for .NET WinForms Apps
 
 Please note:
-To make this demo compile, you need to add the output of the package project (which gets build into the folder
+To make this demo compile, you need to add the output of the package project, which gets build into the folder,
 
 ```
 NetControlDesigners\src\TileRepeater\NuGet\BuildOut
