@@ -1,6 +1,6 @@
 ﻿namespace TileRepeaterDemo.TileTemplates
 {
-    partial class GroupTile
+    partial class GroupSeperatorContent
     {
         /// <summary> 
         /// Required designer variable.
@@ -29,10 +29,6 @@
         private void InitializeComponent()
         {
             this.SuspendLayout();
-            // 
-            // _contentPanel
-            // 
-            this._contentPanel.Size = new System.Drawing.Size(280, 262);
             // 
             // GroupTile
             // 

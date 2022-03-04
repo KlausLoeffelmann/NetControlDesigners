@@ -2,8 +2,11 @@
 using System;
 using System.ComponentModel;
 using System.ComponentModel.Design;
+using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using TileRepeater.ClientServerProtocol;
+using TileRepeater.Controls;
 using WinForms.Tiles.Designer.Protocol.Endpoints;
 
 namespace TileRepeater.Designer.Server
@@ -15,8 +18,8 @@ namespace TileRepeater.Designer.Server
         private const string SystemNamespace = "System";
         private const string MicrosoftNamespace = "Microsoft";
         private const string AccessibilityNamespace = "Accessibility";
-        private const string WinFormsTileType = "WinForms.Tiles.Tile";
 
+        private static readonly Type s_tileContentType = typeof(TileContent);
         private static readonly string[] s_systemAssembliesFilter = new[]
         {
             AccessibilityNamespace,
@@ -38,9 +41,6 @@ namespace TileRepeater.Designer.Server
             TitleTypeList = GetTileTypeList();
             return new CreateTemplateAssignmentViewModelResponse(this, TemplateTypeList, TitleTypeList);
         }
-
-        public TypeInfoData[] TemplateTypeList { get; private set; } = null!;
-        public TypeInfoData[] TitleTypeList { get; private set; } = null!;
 
         private TypeInfoData[] GetTemplateTypelist()
         {
@@ -68,10 +68,11 @@ namespace TileRepeater.Designer.Server
 
             return types.ToArray();
         }
-
         private TypeInfoData[] GetTileTypeList()
         {
             _typeResolutionService ??= GetRequiredService<ITypeDiscoveryService>();
+
+            if (Debugger.IsAttached) Debugger.Break();
 
             var types = _typeResolutionService.GetTypes(typeof(object), true)
                 .Cast<Type>()
@@ -79,7 +80,7 @@ namespace TileRepeater.Designer.Server
                                    !typeItem.IsEnum && typeItem.IsPublic && !typeItem.IsGenericType &&
 
                                    // We only want types derived from WinForms.Tiles.Tile.
-                                   typeItem.IsAssignableFrom(Type.GetType(WinFormsTileType)))
+                                   s_tileContentType.IsAssignableFrom(typeItem))
 
                 .Select(typeItem => new TypeInfoData(
                     typeItem.Assembly.FullName!,
@@ -93,5 +94,11 @@ namespace TileRepeater.Designer.Server
 
             return types.ToArray();
         }
+
+        [AllowNull]
+        public TypeInfoData[] TemplateTypeList { get; private set; }
+
+        [AllowNull]
+        public TypeInfoData[] TitleTypeList { get; private set; }
     }
 }
