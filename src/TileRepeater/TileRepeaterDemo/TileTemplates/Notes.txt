@@ -6,3 +6,6 @@
 * Note: We need better Exception Reporting, if we are encountering a double Endpoint definition. It's a nightmare to debug.
   D:\git\winforms-designer\src\Microsoft.DotNet.DesignTools.Protocol\ProtocolDefinition_Endpoints.cs, Line 23, we to report _what_ endpoint caused the exception.
 
+  Note: We need to show any exception which might have occured in the CollectionEditor.cs in Microsoft.Dotnet.DesignTools.Client, so people would know 
+        what lead to a unexpected closing of the dialog without showing any error message.
+

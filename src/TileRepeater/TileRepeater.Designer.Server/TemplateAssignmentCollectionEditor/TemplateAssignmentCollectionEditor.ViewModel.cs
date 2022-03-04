@@ -11,33 +11,33 @@ namespace TileRepeater.Designer.Server.TemplateAssignmentCollectionEditor
     {
         internal class ViewModel : CollectionEditorViewModel
         {
-            private readonly List<TemplateAssignmentItem> _items;
+            private readonly List<TemplateAssignmentCollectionItem> _items;
 
             public ViewModel(CollectionEditor editor)
                 : base(editor)
             {
-                _items = new List<TemplateAssignmentItem>();
+                _items = new List<TemplateAssignmentCollectionItem>();
             }
 
             protected override void OnEditValueChanged()
             {
                 _items.Clear();
 
-                if (EditValue is not Collection<TemplateAssignment> collection)
+                if (EditValue is not Collection<TemplateAssignmentItem> collection)
                 {
                     return;
                 }
 
-                foreach (var templateAssignment in collection)
+                foreach (var templateAssignmentItem in collection)
                 {
-                    _items.Add(new TemplateAssignmentItem(templateAssignment));
+                    _items.Add(new TemplateAssignmentCollectionItem(templateAssignmentItem));
                 }
             }
 
             public TemplateAssignmentItemData AddItem()
             {
-                var templateAssignment = new TemplateAssignment(null, null);
-                var item = new TemplateAssignmentItem(templateAssignment);
+                var templateAssignmentItem = new TemplateAssignmentItem();
+                var item = new TemplateAssignmentCollectionItem(templateAssignmentItem);
                 _items.Add(item);
 
                 return item.ToData();
@@ -56,7 +56,7 @@ namespace TileRepeater.Designer.Server.TemplateAssignmentCollectionEditor
 
             public void OKClick()
                 => Items = _items
-                    .Select(i => i.TemplateAssignment)
+                    .Select(i => i.TemplateAssignmentItem)
                     .ToArray();
         }
     }

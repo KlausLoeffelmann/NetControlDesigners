@@ -17,7 +17,7 @@ namespace TileRepeater.Designer.Client
 
             private TemplateAssignmentItem(ObjectProxy templateAssignmentProxy, string text)
             {
-                TemplateAssignmentProxy = TemplateAssignmentProxy ?? throw new ArgumentNullException(nameof(templateAssignmentProxy));
+                TemplateAssignmentProxy = templateAssignmentProxy ?? throw new ArgumentNullException(nameof(templateAssignmentProxy));
                 Text = text ?? throw new ArgumentNullException(nameof(text));
             }
 

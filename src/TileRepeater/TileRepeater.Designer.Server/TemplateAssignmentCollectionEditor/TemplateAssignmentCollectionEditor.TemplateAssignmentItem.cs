@@ -6,22 +6,22 @@ namespace TileRepeater.Designer.Server.TemplateAssignmentCollectionEditor
 {
     internal partial class TemplateAssignmentCollectionEditor
     {
-        private class TemplateAssignmentItem
+        private class TemplateAssignmentCollectionItem
         {
-            public TemplateAssignment TemplateAssignment { get; }
+            public TemplateAssignmentItem TemplateAssignmentItem { get; }
 
-            public TemplateAssignmentItem(TemplateAssignment templateAssignment)
+            public TemplateAssignmentCollectionItem(TemplateAssignmentItem templateAssignmentItem)
             {
-                TemplateAssignment = templateAssignment ?? throw new ArgumentNullException(nameof(templateAssignment));
+                TemplateAssignmentItem = templateAssignmentItem ?? throw new ArgumentNullException(nameof(templateAssignmentItem));
             }
 
             public override string ToString()
             {
-                return TemplateAssignment.ToString()!;
+                return TemplateAssignmentItem.ToString()!;
             }
 
             public TemplateAssignmentItemData ToData()
-                => new(TemplateAssignment, TemplateAssignment.ToString()!);
+                => new(TemplateAssignmentItem, TemplateAssignmentItem.ToString()!);
         }
     }
 }
