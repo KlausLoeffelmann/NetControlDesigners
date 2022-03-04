@@ -36,7 +36,7 @@ namespace TileRepeater.Designer.Server.TemplateAssignmentCollectionEditor
 
             public TemplateAssignmentItemData AddItem()
             {
-                var templateAssignmentItem = new TemplateAssignmentItem();
+                var templateAssignmentItem = new TemplateAssignmentItem(_items.Count);
                 var item = new TemplateAssignmentCollectionItem(templateAssignmentItem);
                 _items.Add(item);
 

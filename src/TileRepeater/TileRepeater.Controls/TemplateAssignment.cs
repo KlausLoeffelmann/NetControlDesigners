@@ -9,6 +9,8 @@ namespace WinForms.Tiles
         private Type? _templateType;
         private Type? _tileContentControlType;
 
+        private const string TypeNullString = "- - -";
+
         public TemplateAssignment(Type? templateType, Type? tileContentControlType)
         {
             _templateType = templateType;
@@ -25,6 +27,14 @@ namespace WinForms.Tiles
         {
             get => _tileContentControlType;
             set => _tileContentControlType = value ?? throw new ArgumentException(nameof(value));
+        }
+
+        public override string ToString()
+        {
+            return $"Template: {NullableTypename(TemplateType)}/Content: {NullableTypename(TileContentControlType)}";
+
+            string NullableTypename(Type? type)
+                => $"{(type is null ? TypeNullString : type.Name)}";
         }
     }
 }
