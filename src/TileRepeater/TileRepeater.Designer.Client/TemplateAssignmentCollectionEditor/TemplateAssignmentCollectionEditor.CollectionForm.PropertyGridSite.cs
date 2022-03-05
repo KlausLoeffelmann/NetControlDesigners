@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 
-namespace TileRepeater.Designer.Client
+namespace WinForms.Tiles.Designer.Client
 {
     internal partial class TemplateAssignmentCollectionEditor
     {

@@ -2,7 +2,7 @@
 using System;
 using WinForms.Tiles.Designer.Protocol;
 
-namespace TileRepeater.Designer.Server
+namespace WinForms.Tiles.Designer.Server
 {
     internal partial class TemplateAssignmentViewModel
     {

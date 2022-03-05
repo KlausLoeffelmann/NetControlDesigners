@@ -5,9 +5,9 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
-using TileRepeater.ClientServerProtocol;
+using WinForms.Tiles.ClientServerProtocol;
 
-namespace TileRepeater.Designer.Client
+namespace WinForms.Tiles.Designer.Client
 {
     internal partial class TemplateAssignmentDialog : Form
     {
@@ -104,7 +104,7 @@ namespace TileRepeater.Designer.Client
         private void ClearSelectionsButton_Click(object sender, EventArgs e)
             => _templateTypesListBox.SelectedIndex = _tileContentTypesControlComboBox.SelectedIndex = -1;
 
-        private void _filterTypesImplementingINotifyPropertyChangedCheckBox_CheckedChanged(object sender, EventArgs e)
+        private void FilterTypesImplementingINotifyPropertyChangedCheckBox_CheckedChanged(object sender, EventArgs e)
             => RepopulateTemplateTypes();
 
         private void UpdateUI()
@@ -149,7 +149,7 @@ namespace TileRepeater.Designer.Client
                 $"{NullString(templateType?.Name)}/{NullString(tileContentType?.Name)}";
 
             // Our NullString-Function.
-            string NullString(object? thingToPrint)
+            static string NullString(object? thingToPrint)
                 => thingToPrint is null
                     ? "- - -"
                     : thingToPrint.ToString();

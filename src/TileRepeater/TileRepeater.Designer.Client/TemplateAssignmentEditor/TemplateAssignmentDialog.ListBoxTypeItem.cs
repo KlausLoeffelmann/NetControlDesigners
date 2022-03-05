@@ -1,6 +1,6 @@
-﻿using TileRepeater.ClientServerProtocol;
+﻿using WinForms.Tiles.ClientServerProtocol;
 
-namespace TileRepeater.Designer.Client
+namespace WinForms.Tiles.Designer.Client
 {
     internal partial class TemplateAssignmentDialog
     {

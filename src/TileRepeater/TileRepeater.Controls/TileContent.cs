@@ -1,4 +1,4 @@
-﻿namespace TileRepeater.Controls
+﻿namespace WinForms.Tiles
 {
     public partial class TileContent : UserControl
     {
@@ -12,7 +12,7 @@
         public virtual bool IsSeparator => false;
 
         public virtual Padding SelectionFramePadding
-            => new Padding(DefaultSelectionFramePadding);
+            => new(DefaultSelectionFramePadding);
 
         public BindingSource? BindingSourceComponent { get; set; }
     }

@@ -3,12 +3,12 @@ using System;
 using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using TileRepeater.ClientServerProtocol;
-using TileRepeater.Controls;
+using WinForms.Tiles.ClientServerProtocol;
 using WinForms.Tiles.Designer.Protocol.Endpoints;
 
-namespace TileRepeater.Designer.Server
+namespace WinForms.Tiles.Designer.Server
 {
     internal partial class TemplateAssignmentViewModel : ViewModel
     {
@@ -31,13 +31,16 @@ namespace TileRepeater.Designer.Server
         {
         }
 
-        public CreateTemplateAssignmentViewModelResponse Initialize()
+        public CreateTemplateAssignmentViewModelResponse Initialize(object templateAssignment)
         {
             // Here in the Server process, we first get the list of potential template types...
             TemplateTypeList = GetTemplateTypelist();
 
             // ...and then every type which is derived from 'Tile'.
             TileContentTypeList = GetTileTypeList();
+
+            this.TemplateAssignment = (TemplateAssignment)templateAssignment;
+
             return new CreateTemplateAssignmentViewModelResponse(this, TemplateTypeList, TileContentTypeList);
         }
 
@@ -94,11 +97,27 @@ namespace TileRepeater.Designer.Server
             return types.ToArray();
         }
 
+        // When we reach this, TemplateQualifiedTypename as well as
+        // TileContentQualifiedTypename have been set by the Client-
+        // viewmodel (see there).
+        internal void OKClick()
+        {
+            // Create a new Instance of the TemplateAssignment:
+            var templateType = Type.GetType(TemplateQualifiedTypename!);
+            var tileContentType = Type.GetType(TileContentQualifiedTypename!);
+            TemplateAssignment = new(templateType, tileContentType);
+        }
+
+        [AllowNull]
         public TypeInfoData[]? TemplateTypeList { get; private set; }
 
+        [AllowNull]
         public TypeInfoData[]? TileContentTypeList { get; private set; }
 
         public string? TemplateQualifiedTypename { get; set; }
         public string? TileContentQualifiedTypename { get; set; }
+
+        [AllowNull]
+        public TemplateAssignment TemplateAssignment { get; set; }
     }
 }

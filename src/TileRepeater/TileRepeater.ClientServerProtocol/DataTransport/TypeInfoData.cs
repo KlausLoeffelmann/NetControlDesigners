@@ -3,7 +3,7 @@ using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 
-namespace TileRepeater.ClientServerProtocol
+namespace WinForms.Tiles.ClientServerProtocol
 {
     [DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
     public partial class TypeInfoData : IDataPipeObject
@@ -46,13 +46,13 @@ namespace TileRepeater.ClientServerProtocol
         }
 
         public static TypeInfoData CreateMissingTypeInfoData(string assemblyQualifiedName, string name)
-            => new TypeInfoData(
-                        assemblyFullName: string.Empty,
-                        @namespace: string.Empty,
-                        fullName: string.Empty,
-                        assemblyQualifiedName: assemblyQualifiedName,
-                        implementsINotifyPropertyChanged: false,
-                        name: name);
+            => new(
+                assemblyFullName: string.Empty,
+                @namespace: string.Empty,
+                fullName: string.Empty,
+                assemblyQualifiedName: assemblyQualifiedName,
+                implementsINotifyPropertyChanged: false,
+                name: name);
 
         public void ReadProperties(IDataPipeReader reader)
         {

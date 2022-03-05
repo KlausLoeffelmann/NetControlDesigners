@@ -4,7 +4,7 @@
     {
         private const string UndefinedDefaultName = "Unassigned template";
         private TemplateAssignment? _templateAssignment;
-        private int currentCollectionCountSnapshot;
+        private readonly int currentCollectionCountSnapshot;
 
         public TemplateAssignmentItem(int collectionCount)
         {

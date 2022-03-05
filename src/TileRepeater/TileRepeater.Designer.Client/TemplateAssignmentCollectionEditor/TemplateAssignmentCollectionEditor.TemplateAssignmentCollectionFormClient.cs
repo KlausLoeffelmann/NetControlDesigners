@@ -4,7 +4,7 @@ using System;
 using System.Linq;
 using WinForms.Tiles.Designer.Protocol.Endpoints;
 
-namespace TileRepeater.Designer.Client
+namespace WinForms.Tiles.Designer.Client
 {
     internal partial class TemplateAssignmentCollectionEditor
     {

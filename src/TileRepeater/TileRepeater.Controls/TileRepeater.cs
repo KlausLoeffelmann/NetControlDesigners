@@ -9,7 +9,7 @@ namespace WinForms.Tiles
     public partial class TileRepeater : Panel
     {
         private const int DefaultMaxColumn = 3;
-        private List<Type> _templateTypes;
+        private readonly List<Type> _templateTypes;
 
         private object? _dataSource;
         private int _maxColumn = DefaultMaxColumn;
@@ -53,7 +53,7 @@ namespace WinForms.Tiles
                         INotifyCollectionChanged collectionChange => collectionChange,
                         IBindingList bindingList => WireBindingList(bindingList),
                         _ => throw new ArgumentException(
-                            nameof(value),
+                            nameof(DataSource),
                             "DataSource must be of type IListSource or INotifyCollectionChanged"),
                     };
                 }
@@ -126,8 +126,7 @@ namespace WinForms.Tiles
             SuspendLayout();
             Controls.Clear();
 
-            var dataSourceAsCollection = _dataSource as ICollection;
-            if (dataSourceAsCollection is null || _templateControlInstance is null)
+            if (_dataSource is not ICollection dataSourceAsCollection || _templateControlInstance is null)
             {
                 ResumeLayout();
                 return;

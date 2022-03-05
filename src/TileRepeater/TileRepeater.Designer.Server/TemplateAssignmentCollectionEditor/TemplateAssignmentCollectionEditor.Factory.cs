@@ -1,8 +1,8 @@
 ﻿using Microsoft.DotNet.DesignTools.Editors;
 using System;
-using TileRepeater.ClientServerProtocol;
+using WinForms.Tiles.ClientServerProtocol;
 
-namespace TileRepeater.Designer.Server.TemplateAssignmentCollectionEditor
+namespace WinForms.Tiles.Designer.Server.TemplateAssignmentCollectionEditor
 {
     internal partial class TemplateAssignmentCollectionEditor
     {

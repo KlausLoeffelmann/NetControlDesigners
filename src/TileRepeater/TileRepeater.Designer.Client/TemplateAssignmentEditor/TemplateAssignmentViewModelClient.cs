@@ -2,11 +2,11 @@
 using Microsoft.DotNet.DesignTools.Client.Proxies;
 using Microsoft.DotNet.DesignTools.Client.Views;
 using System;
-using TileRepeater.ClientServerProtocol;
+using WinForms.Tiles.ClientServerProtocol;
 using WinForms.Tiles.Designer.Protocol;
 using WinForms.Tiles.Designer.Protocol.Endpoints;
 
-namespace TileRepeater.Designer.Client
+namespace WinForms.Tiles.Designer.Client
 {
     internal partial class TemplateAssignmentViewModelClient : ViewModelClient
     {
@@ -38,14 +38,14 @@ namespace TileRepeater.Designer.Client
         /// </returns>
         public static TemplateAssignmentViewModelClient Create(
             IServiceProvider provider,
-            object tileRepeaterTemplateAssignmentProxy)
+            object templateAssignmentProxy)
         {
             var session = provider.GetRequiredService<DesignerSession>();
             var client = provider.GetRequiredService<IDesignToolsClient>();
 
             var createViewModelEndpointSender = client.Protocol.GetEndpoint<CreateTemplateAssignmentViewModelEndpoint>().GetSender(client);
 
-            var response = createViewModelEndpointSender.SendRequest(new CreateTemplateAssignmentViewModelRequest(session.Id, tileRepeaterTemplateAssignmentProxy));
+            var response = createViewModelEndpointSender.SendRequest(new CreateTemplateAssignmentViewModelRequest(session.Id, templateAssignmentProxy));
             var viewModel = (ObjectProxy)response.ViewModel!;
 
             var clientViewModel = provider.CreateViewModelClient<TemplateAssignmentViewModelClient>(viewModel);
@@ -87,5 +87,8 @@ namespace TileRepeater.Designer.Client
             var okClickEndpointSender = Client!.Protocol.GetEndpoint<TemplateAssignmentCollectionEditorOKClickEndpoint>().GetSender(Client);
             okClickEndpointSender.SendRequest(new TemplateAssignmentCollectionEditorOKClickRequest(ViewModelProxy));
         }
+
+        public object? TemplateAssignment
+            => ViewModelProxy!.GetPropertyValue(nameof(TemplateAssignment));
     }
 }

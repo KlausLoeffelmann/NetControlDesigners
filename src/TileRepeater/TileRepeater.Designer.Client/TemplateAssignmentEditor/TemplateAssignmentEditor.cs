@@ -7,13 +7,16 @@ using System.Drawing.Design;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
 
-namespace TileRepeater.Designer.Client
+namespace WinForms.Tiles.Designer.Client
 {
     internal class TemplateAssignmentEditor : UITypeEditor
     {
         private TemplateAssignmentDialog? _templateAssignmentDialog;
 
-        public override object EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
+        public override object? EditValue(
+            ITypeDescriptorContext context,
+            IServiceProvider provider,
+            object? value)
         {
             if (provider is null)
             {
@@ -23,6 +26,7 @@ namespace TileRepeater.Designer.Client
             var editorService = provider.GetRequiredService<IWindowsFormsEditorService>();
             var designerHost = provider.GetRequiredService<IDesignerHost>();
 
+            // value now holds the proxy of the TemplateAssignment object which is edited.
             var viewModelClient = TemplateAssignmentViewModelClient.Create(provider, value);
 
             _templateAssignmentDialog ??= new TemplateAssignmentDialog(provider, viewModelClient);
@@ -30,10 +34,12 @@ namespace TileRepeater.Designer.Client
             _templateAssignmentDialog.Host = designerHost;
             _templateAssignmentDialog.ViewModelClient = viewModelClient;
 
-            var result = editorService.ShowDialog(_templateAssignmentDialog);
-            if (result == DialogResult.OK)
+            // We don't need to do anything, since the Dialog has already set the
+            // property server-side.
+            var dialogResult = editorService.ShowDialog(_templateAssignmentDialog);
+            if (dialogResult == DialogResult.OK)
             {
-
+                value = viewModelClient.TemplateAssignment;
             }
 
             return value;
@@ -43,4 +49,3 @@ namespace TileRepeater.Designer.Client
             => UITypeEditorEditStyle.Modal;
     }
 }
-

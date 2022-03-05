@@ -1,4 +1,4 @@
-﻿namespace TileRepeater.ClientServerProtocol
+﻿namespace WinForms.Tiles.ClientServerProtocol
 {
     public static class CollectionEditorNames
     {

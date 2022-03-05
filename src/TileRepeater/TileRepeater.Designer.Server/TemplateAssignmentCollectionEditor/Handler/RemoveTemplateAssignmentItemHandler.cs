@@ -1,8 +1,7 @@
 ﻿using Microsoft.DotNet.DesignTools.Protocol.Endpoints;
-using TileRepeater.Designer.Server.TemplateAssignmentCollectionEditor;
 using WinForms.Tiles.Designer.Protocol.Endpoints;
 
-namespace Server.Handlers
+namespace WinForms.Tiles.Designer.Server.TemplateAssignmentCollectionEditor.Handler
 {
     [ExportRequestHandler(EndpointNames.RemoveTemplateAssignmentItem)]
     internal class RemovePersonItemHandler : RequestHandler<RemoveTemplateAssignmentItemRequest, RemoveTemplateAssignmentItemResponse>

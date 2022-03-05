@@ -1,9 +1,9 @@
 ﻿using Microsoft.DotNet.DesignTools.Client.Editors;
 using Microsoft.DotNet.DesignTools.Client.Proxies;
 using System;
-using TileRepeater.ClientServerProtocol;
+using WinForms.Tiles.ClientServerProtocol;
 
-namespace TileRepeater.Designer.Client
+namespace WinForms.Tiles.Designer.Client
 {
     internal partial class TemplateAssignmentCollectionEditor : CollectionEditor
     {

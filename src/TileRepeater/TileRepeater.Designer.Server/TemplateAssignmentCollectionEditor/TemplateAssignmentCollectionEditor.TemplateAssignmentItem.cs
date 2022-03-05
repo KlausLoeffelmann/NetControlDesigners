@@ -1,8 +1,7 @@
 ﻿using System;
-using TileRepeater.ClientServerProtocol.DataTransport;
-using WinForms.Tiles;
+using WinForms.Tiles.ClientServerProtocol.DataTransport;
 
-namespace TileRepeater.Designer.Server.TemplateAssignmentCollectionEditor
+namespace WinForms.Tiles.Designer.Server.TemplateAssignmentCollectionEditor
 {
     internal partial class TemplateAssignmentCollectionEditor
     {

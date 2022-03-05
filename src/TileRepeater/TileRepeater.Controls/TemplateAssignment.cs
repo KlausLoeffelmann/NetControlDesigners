@@ -20,20 +20,20 @@ namespace WinForms.Tiles
         public Type? TemplateType
         {
             get => _templateType;
-            set => _templateType = value ?? throw new ArgumentNullException(nameof(value));
+            set => _templateType = value ?? throw new ArgumentNullException(nameof(TemplateType));
         }
 
         public Type? TileContentControlType
         {
             get => _tileContentControlType;
-            set => _tileContentControlType = value ?? throw new ArgumentException(nameof(value));
+            set => _tileContentControlType = value ?? throw new ArgumentException(nameof(TileContentControlType));
         }
 
         public override string ToString()
         {
             return $"Template: {NullableTypename(TemplateType)}/Content: {NullableTypename(TileContentControlType)}";
 
-            string NullableTypename(Type? type)
+            static string NullableTypename(Type? type)
                 => $"{(type is null ? TypeNullString : type.Name)}";
         }
     }

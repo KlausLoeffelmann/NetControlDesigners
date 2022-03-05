@@ -2,7 +2,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace TileRepeater.ClientServerProtocol.DataTransport
+namespace WinForms.Tiles.ClientServerProtocol.DataTransport
 {
     public partial class TemplateAssignmentItemData : IDataPipeObject
     {

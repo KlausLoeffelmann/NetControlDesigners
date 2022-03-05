@@ -2,7 +2,7 @@
 using System;
 using WinForms.Tiles;
 
-namespace TileRepeater.Designer.Server.TemplateAssignmentCollectionEditor
+namespace WinForms.Tiles.Designer.Server.TemplateAssignmentCollectionEditor
 {
     internal partial class TemplateAssignmentCollectionEditor : CollectionEditor
     {

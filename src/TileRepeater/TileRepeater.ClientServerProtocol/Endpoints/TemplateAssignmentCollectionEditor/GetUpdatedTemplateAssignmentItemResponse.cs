@@ -2,7 +2,7 @@
 using Microsoft.DotNet.DesignTools.Protocol.Endpoints;
 using System;
 using System.Diagnostics.CodeAnalysis;
-using TileRepeater.ClientServerProtocol.DataTransport;
+using WinForms.Tiles.ClientServerProtocol.DataTransport;
 
 namespace WinForms.Tiles.Designer.Protocol.Endpoints
 {

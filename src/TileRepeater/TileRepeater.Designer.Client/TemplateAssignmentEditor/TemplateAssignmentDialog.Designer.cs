@@ -1,4 +1,4 @@
-﻿namespace TileRepeater.Designer.Client
+﻿namespace WinForms.Tiles.Designer.Client
 {
     partial class TemplateAssignmentDialog
     {
@@ -67,7 +67,7 @@
             this._INotifyPropertyChangedFilterCheckBox.TabIndex = 4;
             this._INotifyPropertyChangedFilterCheckBox.Text = "Filter types implementing INotifyPropertyChanged";
             this._INotifyPropertyChangedFilterCheckBox.UseVisualStyleBackColor = true;
-            this._INotifyPropertyChangedFilterCheckBox.CheckedChanged += new System.EventHandler(this._filterTypesImplementingINotifyPropertyChangedCheckBox_CheckedChanged);
+            this._INotifyPropertyChangedFilterCheckBox.CheckedChanged += new System.EventHandler(this.FilterTypesImplementingINotifyPropertyChangedCheckBox_CheckedChanged);
             // 
             // _okButton
             // 

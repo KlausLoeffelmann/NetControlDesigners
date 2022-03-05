@@ -1,6 +1,5 @@
 ﻿using Microsoft.DotNet.DesignTools.Client.TypeRouting;
 using System.Collections.Generic;
-using TileRepeater.Designer.Client;
 using WinForms.Tiles.Designer.Protocol;
 
 namespace WinForms.Tiles.Designer.Client

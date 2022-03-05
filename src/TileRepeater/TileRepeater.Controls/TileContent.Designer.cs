@@ -1,4 +1,4 @@
-﻿namespace TileRepeater.Controls
+﻿namespace WinForms.Tiles
 {
     partial class TileContent
     {

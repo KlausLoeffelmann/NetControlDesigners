@@ -1,7 +1,7 @@
 ﻿using Microsoft.DotNet.DesignTools.Protocol.Endpoints;
 using WinForms.Tiles.Designer.Protocol.Endpoints;
 
-namespace TileRepeater.Designer.Server.Handlers
+namespace WinForms.Tiles.Designer.Server.Handlers
 {
     [ExportRequestHandler(EndpointNames.CreateTemplateAssignmentViewModel)]
     internal class CreateTemplateAssignmentViewModelHandler 
@@ -13,7 +13,7 @@ namespace TileRepeater.Designer.Server.Handlers
 
             var viewModel = CreateViewModel<TemplateAssignmentViewModel>(designerHost);
 
-            return viewModel.Initialize();
+            return viewModel.Initialize(request.TileRepeaterProxy);
         }
     }
 }
