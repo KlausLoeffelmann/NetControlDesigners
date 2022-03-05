@@ -8,7 +8,7 @@ namespace TileRepeater.Designer.Server.TemplateAssignmentCollectionEditor.Handle
     {
         public override TemplateAssignmentCollectionEditorOKClickResponse HandleRequest(TemplateAssignmentCollectionEditorOKClickRequest request)
         {
-            var viewModel = (TemplateAssignmentCollectionEditor.ViewModel)request.ViewModel;
+            var viewModel = (TemplateAssignmentCollectionEditor.ViewModel)request.ServerViewModel;
             viewModel.OKClick();
 
             return TemplateAssignmentCollectionEditorOKClickResponse.Empty;

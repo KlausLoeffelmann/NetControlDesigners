@@ -1,18 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
+using TileRepeater.ClientServerProtocol;
 
 namespace TileRepeater.Designer.Client
 {
     internal partial class TemplateAssignmentDialog : Form
     {
         private readonly Font _boldFont;
-
+        private bool _suspendListboxUpdates;
         public const string DialogFont = nameof(DialogFont);
 
         public TemplateAssignmentDialog(
@@ -27,26 +27,137 @@ namespace TileRepeater.Designer.Client
 
             IUIService uiService = ServiceProvider.GetRequiredService<IUIService>();
             Font = (Font)uiService.Styles[DialogFont];
-            _boldFont = new Font(this.Font, FontStyle.Bold);
+
+            _boldFont = new Font(Font, FontStyle.Bold);
         }
 
         private void PopulateContent()
         {
-            _selectTileTemplateControlComboBox.DataSource =
+            _suspendListboxUpdates = true;
+
+            RepopulateTemplateTypes();
+
+            _tileContentTypesControlComboBox.BeginUpdate();
+            _tileContentTypesControlComboBox.Items.AddRange(
                 ViewModelClient.TileServerTypes
                     .Select((tileTypeItem) => new ListBoxTypeItem(tileTypeItem))
-                    .ToList();
+                    .Cast<object>()
+                    .ToArray());
 
-            _selectBindingSourceTemplateTypeListBox.DataSource =
-                ViewModelClient.TemplateServerTypes
-                    .Select((tileTypeItem) => new ListBoxTypeItem(tileTypeItem))
-                    .ToList();
+            _tileContentTypesControlComboBox.SelectedIndex = -1;
+            _tileContentTypesControlComboBox.EndUpdate();
+
+            _suspendListboxUpdates = false;
+        }
+
+        private void RepopulateTemplateTypes()
+        {
+            _templateTypesListBox.BeginUpdate();
+            _templateTypesListBox.Items.Clear();
+
+            var templateTypes = ViewModelClient.TemplateServerTypes
+                    .Select((templateTypeItem) => new ListBoxTypeItem(templateTypeItem));
+
+            if (_INotifyPropertyChangedFilterCheckBox.Checked)
+                templateTypes = templateTypes.Where(
+                    item => item.TypeInfo.ImplementsINotifyPropertyChanged);
+
+            _templateTypesListBox.Items.AddRange(
+                templateTypes
+                .Cast<object>()
+                .ToArray());
+
+            _templateTypesListBox.SelectedIndex = -1;
+            _templateTypesListBox.EndUpdate();
+        }
+
+        // There is no OKButton_Click handler. Don't be confused!
+        // This is a modal dialog. Setting the DialogResult closes it.
+        // And even that can be automated: By setting the DialogResult value
+        // for the respective buttons. We then simply check here,
+        // what caused the closing of the Dialog.
+        protected override void OnFormClosed(FormClosedEventArgs e)
+        {
+            base.OnFormClosed(e);
+            if (DialogResult == DialogResult.OK)
+            {
+                ViewModelClient.ExecuteOkCommand();
+            }
+        }
+
+        private void TemplateTypeListBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (_suspendListboxUpdates)
+                return;
+            else
+                UpdateUI();
+        }
+
+        private void TileTemplateControlComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (_suspendListboxUpdates)
+                return;
+            else
+                UpdateUI();
+        }
+
+        private void ClearSelectionsButton_Click(object sender, EventArgs e)
+            => _templateTypesListBox.SelectedIndex = _tileContentTypesControlComboBox.SelectedIndex = -1;
+
+        private void _filterTypesImplementingINotifyPropertyChangedCheckBox_CheckedChanged(object sender, EventArgs e)
+            => RepopulateTemplateTypes();
+
+        private void UpdateUI()
+        {
+            // Get the selected template type.
+            TypeInfoData? templateType = _templateTypesListBox.SelectedIndex == -1
+                ? null
+                : ((ListBoxTypeItem)_templateTypesListBox.SelectedItem)
+                    .TypeInfo;
+            
+            // Get the selected tile content type
+            TypeInfoData? tileContentType = _tileContentTypesControlComboBox.SelectedIndex == -1
+                ? null
+                : ((ListBoxTypeItem)_tileContentTypesControlComboBox.SelectedItem)
+                    .TypeInfo;
+
+            // Assign the AssemblyQualifiedName, so we can look up the type server-side for both.
+            ViewModelClient.TemplateQualifiedTypename = templateType?.AssemblyQualifiedName;
+            ViewModelClient.TileContentQualifiedTypename = tileContentType?.AssemblyQualifiedName;
+
+            // Controlling the UI...
+            if (templateType is null && tileContentType is null)
+            {
+                // ... Nothing selected, nothing to clear or to OK.
+                _clearSelectionsButton.Enabled = false;
+                _okButton.Enabled = false;
+            }
+            else if (templateType is null || tileContentType is null)
+            {
+                // ... Only one selected, still not enough to OK.
+                _okButton.Enabled = false;
+            }
+            else
+            {
+                // ... both selected, we can OK and clear.
+                _okButton.Enabled = true;
+                _clearSelectionsButton.Enabled = true;
+            }
+
+            // Update the label in the status strip.
+            _resultStatusLabel.Text =
+                $"{NullString(templateType?.Name)}/{NullString(tileContentType?.Name)}";
+
+            // Our NullString-Function.
+            string NullString(object? thingToPrint)
+                => thingToPrint is null
+                    ? "- - -"
+                    : thingToPrint.ToString();
         }
 
         public IServiceProvider ServiceProvider { get; }
         public TemplateAssignmentViewModelClient ViewModelClient { get; set; }
         public ITypeDescriptorContext? Context { get; set; }
         public IDesignerHost? Host { get; set; }
-        public bool IsDirty { get; private set; }
     }
 }

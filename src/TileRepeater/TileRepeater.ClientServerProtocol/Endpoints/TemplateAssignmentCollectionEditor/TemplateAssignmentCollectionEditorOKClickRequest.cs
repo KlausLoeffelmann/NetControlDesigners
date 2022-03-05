@@ -8,11 +8,11 @@ namespace WinForms.Tiles.Designer.Protocol.Endpoints
     public class TemplateAssignmentCollectionEditorOKClickRequest : Request
     {
         [AllowNull]
-        public object ViewModel { get; private set; }
+        public object ServerViewModel { get; private set; }
 
-        public TemplateAssignmentCollectionEditorOKClickRequest(object? viewModel)
+        public TemplateAssignmentCollectionEditorOKClickRequest(object? serverViewModel)
         {
-            ViewModel = viewModel ?? throw new ArgumentNullException(nameof(viewModel));
+            ServerViewModel = serverViewModel ?? throw new ArgumentNullException(nameof(serverViewModel));
         }
 
         public TemplateAssignmentCollectionEditorOKClickRequest(IDataPipeReader reader)
@@ -22,12 +22,12 @@ namespace WinForms.Tiles.Designer.Protocol.Endpoints
 
         protected override void ReadProperties(IDataPipeReader reader)
         {
-            ViewModel = reader.ReadObject(nameof(ViewModel));
+            ServerViewModel = reader.ReadObject(nameof(ServerViewModel));
         }
 
         protected override void WriteProperties(IDataPipeWriter writer)
         {
-            writer.WriteObject(nameof(ViewModel), ViewModel);
+            writer.WriteObject(nameof(ServerViewModel), ServerViewModel);
         }
     }
 }

@@ -30,28 +30,10 @@ namespace TileRepeater.Designer.Client
             _templateAssignmentDialog.Host = designerHost;
             _templateAssignmentDialog.ViewModelClient = viewModelClient;
 
-            // When the User sets up a series of Bindings for DataSources for which BindingSource components 
-            // have not been created yet, then every first usage of a project datasource _causes_ a BindingSource 
-            // component to be created. Should the user then cancel the Dialog, those creations have to be rolled back.
-            using DesignerTransaction transaction = designerHost.CreateTransaction();
-
-            editorService.ShowDialog(_templateAssignmentDialog);
-
-            if (_templateAssignmentDialog.IsDirty)
+            var result = editorService.ShowDialog(_templateAssignmentDialog);
+            if (result == DialogResult.OK)
             {
-                Debug.Assert(context.Instance is ObjectProxy objectProxy
-                    && objectProxy.TypeIdentity.FullName == "System.Windows.Forms.ControlBindingsCollection");
 
-                // Since the bindings may have changed, the properties listed in the 
-                // properties window need to be refreshed.
-                //TypeDescriptor.Refresh(((ObjectProxy)context.Instance).
-                //    GetPropertyValue<IComponent>(nameof(ControlBindingsCollection.BindableComponent)));
-
-                transaction.Commit();
-            }
-            else
-            {
-                transaction.Cancel();
             }
 
             return value;

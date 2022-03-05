@@ -3,7 +3,6 @@ using System;
 using System.ComponentModel;
 using System.ComponentModel.Design;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using TileRepeater.ClientServerProtocol;
 using TileRepeater.Controls;
@@ -38,8 +37,8 @@ namespace TileRepeater.Designer.Server
             TemplateTypeList = GetTemplateTypelist();
 
             // ...and then every type which is derived from 'Tile'.
-            TitleTypeList = GetTileTypeList();
-            return new CreateTemplateAssignmentViewModelResponse(this, TemplateTypeList, TitleTypeList);
+            TileContentTypeList = GetTileTypeList();
+            return new CreateTemplateAssignmentViewModelResponse(this, TemplateTypeList, TileContentTypeList);
         }
 
         private TypeInfoData[] GetTemplateTypelist()
@@ -95,10 +94,11 @@ namespace TileRepeater.Designer.Server
             return types.ToArray();
         }
 
-        [AllowNull]
-        public TypeInfoData[] TemplateTypeList { get; private set; }
+        public TypeInfoData[]? TemplateTypeList { get; private set; }
 
-        [AllowNull]
-        public TypeInfoData[] TitleTypeList { get; private set; }
+        public TypeInfoData[]? TileContentTypeList { get; private set; }
+
+        public string? TemplateQualifiedTypename { get; set; }
+        public string? TileContentQualifiedTypename { get; set; }
     }
 }

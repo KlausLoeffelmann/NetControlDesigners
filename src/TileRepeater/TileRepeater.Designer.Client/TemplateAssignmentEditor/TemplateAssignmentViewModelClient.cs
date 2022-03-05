@@ -2,7 +2,6 @@
 using Microsoft.DotNet.DesignTools.Client.Proxies;
 using Microsoft.DotNet.DesignTools.Client.Views;
 using System;
-using System.Collections.Generic;
 using TileRepeater.ClientServerProtocol;
 using WinForms.Tiles.Designer.Protocol;
 using WinForms.Tiles.Designer.Protocol.Endpoints;
@@ -44,9 +43,9 @@ namespace TileRepeater.Designer.Client
             var session = provider.GetRequiredService<DesignerSession>();
             var client = provider.GetRequiredService<IDesignToolsClient>();
 
-            var createViewModelEndpoint = client.Protocol.GetEndpoint<CreateTemplateAssignmentViewModelEndpoint>().GetSender(client);
+            var createViewModelEndpointSender = client.Protocol.GetEndpoint<CreateTemplateAssignmentViewModelEndpoint>().GetSender(client);
 
-            var response = createViewModelEndpoint.SendRequest(new CreateTemplateAssignmentViewModelRequest(session.Id, tileRepeaterTemplateAssignmentProxy));
+            var response = createViewModelEndpointSender.SendRequest(new CreateTemplateAssignmentViewModelRequest(session.Id, tileRepeaterTemplateAssignmentProxy));
             var viewModel = (ObjectProxy)response.ViewModel!;
 
             var clientViewModel = provider.CreateViewModelClient<TemplateAssignmentViewModelClient>(viewModel);
@@ -71,11 +70,22 @@ namespace TileRepeater.Designer.Client
         /// </summary>
         public TypeInfoData[] TileServerTypes { get; private set; } = null!;
 
-
-        internal void ExecuteOkCommand(
-            List<TypeInfoData> newTypes,
-            List<TypeInfoData> typesToDelete)
+        public string? TemplateQualifiedTypename
         {
+            get => ViewModelProxy?.GetPropertyValue<string>(nameof(TemplateQualifiedTypename));
+            set => ViewModelProxy?.SetPropertyValue(nameof(TemplateQualifiedTypename), value);
+        }
+
+        public string? TileContentQualifiedTypename
+        {
+            get => ViewModelProxy?.GetPropertyValue<string>(nameof(TileContentQualifiedTypename));
+            set => ViewModelProxy?.SetPropertyValue(nameof(TileContentQualifiedTypename), value);
+        }
+
+        internal void ExecuteOkCommand()
+        {
+            var okClickEndpointSender = Client!.Protocol.GetEndpoint<TemplateAssignmentCollectionEditorOKClickEndpoint>().GetSender(Client);
+            okClickEndpointSender.SendRequest(new TemplateAssignmentCollectionEditorOKClickRequest(ViewModelProxy));
         }
     }
 }

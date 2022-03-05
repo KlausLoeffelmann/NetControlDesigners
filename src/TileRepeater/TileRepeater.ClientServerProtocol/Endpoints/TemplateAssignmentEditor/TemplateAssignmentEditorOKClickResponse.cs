@@ -4,15 +4,15 @@ using Microsoft.DotNet.DesignTools.Protocol.Endpoints;
 
 namespace WinForms.Tiles.Designer.Protocol.Endpoints
 {
-    public class OKClickResponse : Response.Empty
+    public class TemplateAssignmentEditorOKClickResponse : Response.Empty
     {
-        public static new OKClickResponse Empty { get; } = new OKClickResponse();
+        public static new TemplateAssignmentEditorOKClickResponse Empty { get; } = new TemplateAssignmentEditorOKClickResponse();
 
-        private OKClickResponse()
+        private TemplateAssignmentEditorOKClickResponse()
         {
         }
 
-        public OKClickResponse(IDataPipeReader reader)
+        public TemplateAssignmentEditorOKClickResponse(IDataPipeReader reader)
             : base(reader)
         {
         }
