@@ -1,9 +1,12 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.Design.Serialization;
 using System.Drawing.Design;
 
 namespace WinForms.Tiles
 {
-    [Editor("TemplateAssignmentEditor", typeof(UITypeEditor))]
+    [Editor("TemplateAssignmentEditor", typeof(UITypeEditor)),
+     DesignerSerializer("WinForms.Tiles.Serialization.TemplateAssignmentCodeDomSerializer",
+                        "Microsoft.DotNet.DesignTools.Serialization.CodeDomSerializer")]
     public class TemplateAssignment
     {
         private Type? _templateType;

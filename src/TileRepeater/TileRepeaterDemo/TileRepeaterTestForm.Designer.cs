@@ -55,29 +55,32 @@
             // tileRepeater1
             // 
             this.tileRepeater1.DataSource = null;
-            this.tileRepeater1.Location = new System.Drawing.Point(18, 31);
+            this.tileRepeater1.HeaderTemplateType.TemplateType = typeof(WinForms.Tiles.Tile);
+            this.tileRepeater1.HeaderTemplateType.TileContentControlType = typeof(TileRepeaterDemo.TileTemplates.LandscapeImageContent);
+            this.tileRepeater1.Location = new System.Drawing.Point(27, 46);
+            this.tileRepeater1.Margin = new System.Windows.Forms.Padding(4);
             this.tileRepeater1.Name = "tileRepeater1";
-            this.tileRepeater1.Size = new System.Drawing.Size(790, 409);
+            this.tileRepeater1.Size = new System.Drawing.Size(1131, 574);
             this.tileRepeater1.TabIndex = 0;
             this.tileRepeater1.TemplateControl = null;
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(218, 468);
+            this.button3.Location = new System.Drawing.Point(327, 702);
+            this.button3.Margin = new System.Windows.Forms.Padding(4);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(145, 33);
+            this.button3.Size = new System.Drawing.Size(218, 50);
             this.button3.TabIndex = 1;
             this.button3.Text = "button3";
             this.button3.UseVisualStyleBackColor = true;
             // 
             // TileRepeaterTestForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 30F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(833, 513);
+            this.ClientSize = new System.Drawing.Size(1250, 770);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.tileRepeater1);
-            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "TileRepeaterTestForm";
             this.Text = "Form1";
             this.ResumeLayout(false);

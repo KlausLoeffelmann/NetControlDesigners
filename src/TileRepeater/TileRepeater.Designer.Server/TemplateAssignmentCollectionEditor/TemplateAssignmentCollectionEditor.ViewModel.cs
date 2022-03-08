@@ -55,18 +55,11 @@ namespace WinForms.Tiles.Designer.Server.TemplateAssignmentCollectionEditor
 
             public void OKClick()
             {
-                try
-                {
-                    var items = _items
-                       .Select(i => i.TemplateAssignmentItem)
-                       .ToArray();
+                var items = _items
+                   .Select(i => i.TemplateAssignmentItem)
+                   .ToArray();
 
-                    Items = items;
-                }
-                catch (System.Exception)
-                {
-                    throw;
-                }
+                Items = items;
             }
         }
     }

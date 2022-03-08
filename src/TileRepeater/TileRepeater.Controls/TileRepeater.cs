@@ -6,9 +6,7 @@ using System.Drawing.Design;
 
 namespace WinForms.Tiles
 {
-    [System.ComponentModel.ComplexBindingProperties("DataSource"),
-     DesignerSerializer("WinForms.TileRepeater.Serialization.CodeDomSerializer",
-                        "Microsoft.DotNet.DesignTools.Serialization.CodeDomSerializer")]
+    [System.ComponentModel.ComplexBindingProperties("DataSource")]
     public partial class TileRepeater : Panel
     {
         private const int DefaultMaxColumn = 3;
@@ -28,7 +26,7 @@ namespace WinForms.Tiles
             _templateAssignments = new List<TemplateAssignmentItem>();
         }
 
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
         public TemplateAssignment? HeaderTemplateType
         {
             get => _headerTemplateType;

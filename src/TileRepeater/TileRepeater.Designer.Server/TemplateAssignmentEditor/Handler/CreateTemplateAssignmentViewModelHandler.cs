@@ -13,7 +13,7 @@ namespace WinForms.Tiles.Designer.Server.Handlers
 
             var viewModel = CreateViewModel<TemplateAssignmentViewModel>(designerHost);
 
-            return viewModel.Initialize(request.TileRepeaterProxy);
+            return viewModel.Initialize(request.TileRepeaterProxy!);
         }
     }
 }

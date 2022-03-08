@@ -74,8 +74,6 @@ namespace WinForms.Tiles.Designer.Server
         {
             _typeResolutionService ??= GetRequiredService<ITypeDiscoveryService>();
 
-            if (Debugger.IsAttached) Debugger.Break();
-
             var types = _typeResolutionService.GetTypes(typeof(object), true)
                 .Cast<Type>()
                 .Where(typeItem => !typeItem.IsAbstract && !typeItem.IsInterface &&

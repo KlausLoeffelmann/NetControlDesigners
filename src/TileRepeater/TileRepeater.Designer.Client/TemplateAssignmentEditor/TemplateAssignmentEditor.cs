@@ -23,9 +23,6 @@ namespace WinForms.Tiles.Designer.Client
                 return value;
             }
 
-            if (Debugger.IsAttached)
-                Debugger.Break();
-
             var editorService = provider.GetRequiredService<IWindowsFormsEditorService>();
             var designerHost = provider.GetRequiredService<IDesignerHost>();
 
