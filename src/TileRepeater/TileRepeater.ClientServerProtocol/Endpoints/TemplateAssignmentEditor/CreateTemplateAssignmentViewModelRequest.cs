@@ -12,7 +12,7 @@ namespace WinForms.Tiles.Designer.Protocol.Endpoints
 
         public CreateTemplateAssignmentViewModelRequest() { }
 
-        public CreateTemplateAssignmentViewModelRequest(SessionId sessionId, object templateAssignmentProxy)
+        public CreateTemplateAssignmentViewModelRequest(SessionId sessionId, object? templateAssignmentProxy)
         {
             SessionId = sessionId.IsNull ? throw new ArgumentNullException(nameof(sessionId)) : sessionId;
             TileRepeaterProxy = templateAssignmentProxy;

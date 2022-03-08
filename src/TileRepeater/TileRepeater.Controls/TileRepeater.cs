@@ -9,7 +9,7 @@ namespace WinForms.Tiles
     public partial class TileRepeater : Panel
     {
         private const int DefaultMaxColumn = 3;
-        private readonly List<Type> _templateTypes;
+        private readonly List<TemplateAssignmentItem> _templateAssignments;
 
         private object? _dataSource;
         private int _maxColumn = DefaultMaxColumn;
@@ -22,20 +22,22 @@ namespace WinForms.Tiles
 
         public TileRepeater()
         {
-            _templateTypes = new List<Type>();
+            _templateAssignments = new List<TemplateAssignmentItem>();
         }
 
-        [DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
         public TemplateAssignment? HeaderTemplateType
         {
             get => _headerTemplateType;
             set => _headerTemplateType = value;
         }
 
-        [Editor("TemplateAssignmentCollectionEditor", typeof(UITypeEditor))]
-        public List<Type> TemplateTypes
+        [Editor("TemplateAssignmentCollectionEditor", typeof(UITypeEditor)),
+         DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
+
+        public List<TemplateAssignmentItem> TemplateTypes
         { 
-            get => _templateTypes;
+            get => _templateAssignments;
         }
 
         [AttributeProvider(typeof(IListSource))]

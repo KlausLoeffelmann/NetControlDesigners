@@ -1,4 +1,4 @@
-﻿using TileRepeater.Controls;
+﻿using WinForms.Tiles;
 
 namespace TileRepeaterDemo.TileTemplates
 {

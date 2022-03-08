@@ -38,7 +38,7 @@ namespace WinForms.Tiles.Designer.Client
         /// </returns>
         public static TemplateAssignmentViewModelClient Create(
             IServiceProvider provider,
-            object templateAssignmentProxy)
+            object? templateAssignmentProxy)
         {
             var session = provider.GetRequiredService<DesignerSession>();
             var client = provider.GetRequiredService<IDesignToolsClient>();
@@ -84,8 +84,8 @@ namespace WinForms.Tiles.Designer.Client
 
         internal void ExecuteOkCommand()
         {
-            var okClickEndpointSender = Client!.Protocol.GetEndpoint<TemplateAssignmentCollectionEditorOKClickEndpoint>().GetSender(Client);
-            okClickEndpointSender.SendRequest(new TemplateAssignmentCollectionEditorOKClickRequest(ViewModelProxy));
+            var okClickEndpointSender = Client!.Protocol.GetEndpoint<TemplateAssignmentEditorOKClickEndpoint>().GetSender(Client);
+            okClickEndpointSender.SendRequest(new TemplateAssignmentEditorOKClickRequest(ViewModelProxy!));
         }
 
         public object? TemplateAssignment

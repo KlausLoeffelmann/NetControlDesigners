@@ -54,9 +54,20 @@ namespace WinForms.Tiles.Designer.Server.TemplateAssignmentCollectionEditor
                 => _items.RemoveAt(index);
 
             public void OKClick()
-                => Items = _items
-                    .Select(i => i.TemplateAssignmentItem)
-                    .ToArray();
+            {
+                try
+                {
+                    var items = _items
+                       .Select(i => i.TemplateAssignmentItem)
+                       .ToArray();
+
+                    Items = items;
+                }
+                catch (System.Exception)
+                {
+                    throw;
+                }
+            }
         }
     }
 }
