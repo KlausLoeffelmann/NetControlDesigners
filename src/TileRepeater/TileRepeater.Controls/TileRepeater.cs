@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.ComponentModel.Design.Serialization;
 using System.Drawing.Design;
 
 namespace WinForms.Tiles
 {
-    [System.ComponentModel.ComplexBindingProperties("DataSource")]
+    [System.ComponentModel.ComplexBindingProperties("DataSource"),
+     DesignerSerializer("WinForms.TileRepeater.Serialization.CodeDomSerializer",
+                        "Microsoft.DotNet.DesignTools.Serialization.CodeDomSerializer")]
     public partial class TileRepeater : Panel
     {
         private const int DefaultMaxColumn = 3;
