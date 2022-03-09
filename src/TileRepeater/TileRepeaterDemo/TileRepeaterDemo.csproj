@@ -13,6 +13,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\TileRepeater.Data\TileRepeater.Data.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Compile Update="TileTemplates\PortraitImageContent.cs" />
 	</ItemGroup>
 </Project>

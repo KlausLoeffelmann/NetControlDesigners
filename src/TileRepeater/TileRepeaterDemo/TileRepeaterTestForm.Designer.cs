@@ -30,14 +30,10 @@ namespace TileRepeaterDemo
         /// </summary>
         private void InitializeComponent()
         {
-            Type templateType1;
-            Type tileContentType1;
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.tileRepeater1 = new WinForms.Tiles.TileRepeater();
             this.button3 = new System.Windows.Forms.Button();
-            templateType1 = Type.GetType("WinForms.Tiles.Tile");
-            tileContentType1 = Type.GetType("WinForms.Tiles.TileContent");
             this.SuspendLayout();
             // 
             // button2
@@ -61,7 +57,6 @@ namespace TileRepeaterDemo
             // tileRepeater1
             // 
             this.tileRepeater1.DataSource = null;
-            this.tileRepeater1.HeaderTemplateType = new TemplateAssignment(templateType1, tileContentType1);
             this.tileRepeater1.Location = new System.Drawing.Point(18, 31);
             this.tileRepeater1.Name = "tileRepeater1";
             this.tileRepeater1.Size = new System.Drawing.Size(671, 333);
@@ -70,12 +65,13 @@ namespace TileRepeaterDemo
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(218, 468);
+            this.button3.Location = new System.Drawing.Point(441, 411);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(145, 33);
             this.button3.TabIndex = 1;
             this.button3.Text = "button3";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // TileRepeaterTestForm
             // 
