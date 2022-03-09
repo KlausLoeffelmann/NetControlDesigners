@@ -37,15 +37,15 @@ namespace WinForms.Tiles.Designer.Client
 
             RepopulateTemplateTypes();
 
-            _tileContentTypesControlComboBox.BeginUpdate();
-            _tileContentTypesControlComboBox.Items.AddRange(
+            _tileContentTilesListbox.BeginUpdate();
+            _tileContentTilesListbox.Items.AddRange(
                 ViewModelClient.TileServerTypes
                     .Select((tileTypeItem) => new ListBoxTypeItem(tileTypeItem))
                     .Cast<object>()
                     .ToArray());
 
-            _tileContentTypesControlComboBox.SelectedIndex = -1;
-            _tileContentTypesControlComboBox.EndUpdate();
+            _tileContentTilesListbox.SelectedIndex = -1;
+            _tileContentTilesListbox.EndUpdate();
 
             _suspendListboxUpdates = false;
         }
@@ -93,7 +93,7 @@ namespace WinForms.Tiles.Designer.Client
                 UpdateUI();
         }
 
-        private void TileTemplateControlComboBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void TileContentTilesListbox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (_suspendListboxUpdates)
                 return;
@@ -102,7 +102,7 @@ namespace WinForms.Tiles.Designer.Client
         }
 
         private void ClearSelectionsButton_Click(object sender, EventArgs e)
-            => _templateTypesListBox.SelectedIndex = _tileContentTypesControlComboBox.SelectedIndex = -1;
+            => _templateTypesListBox.SelectedIndex = _tileContentTilesListbox.SelectedIndex = -1;
 
         private void FilterTypesImplementingINotifyPropertyChangedCheckBox_CheckedChanged(object sender, EventArgs e)
             => RepopulateTemplateTypes();
@@ -116,9 +116,9 @@ namespace WinForms.Tiles.Designer.Client
                     .TypeInfo;
             
             // Get the selected tile content type
-            TypeInfoData? tileContentType = _tileContentTypesControlComboBox.SelectedIndex == -1
+            TypeInfoData? tileContentType = _tileContentTilesListbox.SelectedIndex == -1
                 ? null
-                : ((ListBoxTypeItem)_tileContentTypesControlComboBox.SelectedItem)
+                : ((ListBoxTypeItem)_tileContentTilesListbox.SelectedItem)
                     .TypeInfo;
 
             // Assign the AssemblyQualifiedName, so we can look up the type server-side for both.
