@@ -10,6 +10,7 @@ namespace WinForms.Tiles.Serialization
     internal class TemplateAssignmentCodeDomSerializer : CodeDomSerializer
     {
         private int s_variableOccuranceCounter = 1;
+        private const string TemplateAssignmentNamespace = "WinForms.Tiles";
 
         public override CodeStatementCollection SerializeMember(IDesignerSerializationManager manager, object owningObject, MemberDescriptor member)
         {
@@ -20,7 +21,7 @@ namespace WinForms.Tiles.Serialization
         }
 
         public override object Serialize(
-            IDesignerSerializationManager manager, 
+            IDesignerSerializationManager manager,
             object value)
         {
             if (Debugger.IsAttached)
@@ -32,22 +33,77 @@ namespace WinForms.Tiles.Serialization
                 // And it describes the current context, for which we need the
                 // object generation. Like:
                 // this.tileRepeater1.TemplateAssignmentProperty
-                var codeExpression = expressionContext.Expression;
+                var contextExpression = expressionContext.Expression;
 
                 CodeStatementCollection statements = new CodeStatementCollection();
                 // Let's get the actual typed instance first.
                 TemplateAssignment templateAssignment = (TemplateAssignment)value;
 
                 // Now, we want to generate:
-                //    var templateType1 = Type.GetType("templateType");
-                //    var tileContentType1 = Type.GetType("tileContentTime");
-                //    TemplateAssignment templateAssignment1 = new TemplateAssignment(templateType1, tileContentType1);
-                //    {codeExpression} = templateAssignment1;
+                //    Type templateType1 = Type.GetType("templateType");
+                //    Type tileContentType1 = Type.GetType("tileContentTime");
+                //    {codeExpression} = new TemplateAssignment(templateType1, tileContentType1);
 
 
+                // We define the locale variables upfront.
+                string templateTypeVariableName = $"templateType{s_variableOccuranceCounter}";
+                string tileContentVariableName = $"tileContentType{s_variableOccuranceCounter++}";
 
+                // Type templateType1;
+                CodeVariableDeclarationStatement templateTypeVarDeclStatement = new(
+                    new CodeTypeReference(nameof(Type)),
+                    templateTypeVariableName);
+
+                // Type tileContentType1;
+                CodeVariableDeclarationStatement tileContentTypeVarDeclStatement = new(
+                    new CodeTypeReference(nameof(Type)),
+                    tileContentVariableName);
+
+                //  Type.GetType("templateType");
+                CodeMethodInvokeExpression getTypeInvokeTemplateTypeExpression = new(
+                    new CodeTypeReferenceExpression(nameof(Type)),
+                    nameof(Type.GetType),
+                    new[] { new CodePrimitiveExpression(templateAssignment.TemplateType!.ToString()) });
+
+                // Type.GetType("tileContentTime");
+                CodeMethodInvokeExpression getTypeInvokeTileContentTypeExpression = new(
+                    new CodeTypeReferenceExpression(nameof(Type)),
+                    nameof(Type.GetType),
+                    new CodePrimitiveExpression(templateAssignment.TileContentControlType!.ToString()));
+
+                // You could also consolidate these into VariableDeclarationStatements. We didn't.
+
+                // templateType1 = Type.GetType("templateType");
+                CodeAssignStatement templateTypeVariableAssignment = new(
+                    new CodeVariableReferenceExpression(templateTypeVariableName),
+                    getTypeInvokeTemplateTypeExpression);
+
+                // tileContentType1 = Type.GetType("tileContentTime");
+                CodeAssignStatement tileContentTypeVariableAssignment = new(
+                    new CodeVariableReferenceExpression(tileContentVariableName),
+                    getTypeInvokeTileContentTypeExpression);
+
+                // new TemplateAssignment(templateType1, tileContentType1);
+                CodeObjectCreateExpression templateAssignmentCreateExpression = new(
+                    new CodeTypeReference($"{TemplateAssignmentNamespace}.{nameof(TemplateAssignment)}"),
+                    new CodeVariableReferenceExpression(templateTypeVariableName),
+                    new CodeVariableReferenceExpression(tileContentVariableName));
+
+                // {codeExpression} = new TemplateAssignment(templateType1, tileContentType1);
+                CodeAssignStatement contextAssignmentStatement = new(
+                    contextExpression, templateAssignmentCreateExpression);
+
+                statements.AddRange(new CodeStatementCollection
+                {
+                    templateTypeVarDeclStatement,
+                    tileContentTypeVarDeclStatement,
+                    templateTypeVariableAssignment,
+                    tileContentTypeVariableAssignment,
+                    contextAssignmentStatement
+                });
+
+                return statements;
             };
-
 
             var baseResult = base.Serialize(manager, value);
             return baseResult;
