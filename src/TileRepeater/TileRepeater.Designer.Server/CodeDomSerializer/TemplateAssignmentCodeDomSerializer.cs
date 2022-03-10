@@ -1,7 +1,6 @@
 ﻿using Microsoft.DotNet.DesignTools.Serialization;
 using System;
 using System.CodeDom;
-using System.ComponentModel;
 using System.ComponentModel.Design.Serialization;
 using System.Diagnostics;
 
@@ -11,14 +10,6 @@ namespace WinForms.Tiles.Serialization
     {
         private int s_variableOccuranceCounter = 1;
         private const string TemplateAssignmentNamespace = "WinForms.Tiles";
-
-        public override CodeStatementCollection SerializeMember(IDesignerSerializationManager manager, object owningObject, MemberDescriptor member)
-        {
-            if (Debugger.IsAttached)
-                Debugger.Break();
-
-            return base.SerializeMember(manager, owningObject, member);
-        }
 
         public override object Serialize(
             IDesignerSerializationManager manager,
@@ -63,13 +54,13 @@ namespace WinForms.Tiles.Serialization
                 CodeMethodInvokeExpression getTypeInvokeTemplateTypeExpression = new(
                     new CodeTypeReferenceExpression(nameof(Type)),
                     nameof(Type.GetType),
-                    new[] { new CodePrimitiveExpression(templateAssignment.TemplateType!.ToString()) });
+                    new[] { new CodePrimitiveExpression(templateAssignment.TemplateType!.AssemblyQualifiedName) });
 
                 // Type.GetType("tileContentTime");
                 CodeMethodInvokeExpression getTypeInvokeTileContentTypeExpression = new(
                     new CodeTypeReferenceExpression(nameof(Type)),
                     nameof(Type.GetType),
-                    new CodePrimitiveExpression(templateAssignment.TileContentControlType!.ToString()));
+                    new CodePrimitiveExpression(templateAssignment.TileContentControlType!.AssemblyQualifiedName));
 
                 // You could also consolidate these into VariableDeclarationStatements. We didn't.
 

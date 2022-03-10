@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Drawing.Design;
 
 namespace WinForms.Tiles
@@ -29,7 +30,13 @@ namespace WinForms.Tiles
         public TemplateAssignment? HeaderTemplateType
         {
             get => _headerTemplateType;
-            set => _headerTemplateType = value;
+            set
+            {
+                if (Debugger.IsAttached)
+                    Debugger.Break();
+
+                _headerTemplateType = value;
+            }
         }
 
         [Editor("TemplateAssignmentCollectionEditor", typeof(UITypeEditor)),

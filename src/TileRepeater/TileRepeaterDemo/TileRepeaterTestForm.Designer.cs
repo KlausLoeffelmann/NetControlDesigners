@@ -36,8 +36,10 @@ namespace TileRepeaterDemo
             this.button1 = new System.Windows.Forms.Button();
             this.tileRepeater1 = new WinForms.Tiles.TileRepeater();
             this.button3 = new System.Windows.Forms.Button();
-            templateType1 = Type.GetType("TileRepeater.Data.ListController.LandscapePictureItem");
-            tileContentType1 = Type.GetType("TileRepeaterDemo.TileTemplates.LandscapeImageContent");
+            templateType1 = Type.GetType("TileRepeater.Data.ListController.LandscapePictureItem, TileRepeater.Data, Version" +
+        "=1.0.0.0, Culture=neutral, PublicKeyToken=null");
+            tileContentType1 = Type.GetType("TileRepeaterDemo.TileTemplates.LandscapeImageContent, TileRepeaterDemo, Version=1" +
+        ".0.0.0, Culture=neutral, PublicKeyToken=null");
             this.SuspendLayout();
             // 
             // button2
@@ -62,9 +64,9 @@ namespace TileRepeaterDemo
             // 
             this.tileRepeater1.DataSource = null;
             this.tileRepeater1.HeaderTemplateType = new WinForms.Tiles.TemplateAssignment(templateType1, tileContentType1);
-            this.tileRepeater1.Location = new System.Drawing.Point(18, 31);
+            this.tileRepeater1.Location = new System.Drawing.Point(12, 12);
             this.tileRepeater1.Name = "tileRepeater1";
-            this.tileRepeater1.Size = new System.Drawing.Size(671, 333);
+            this.tileRepeater1.Size = new System.Drawing.Size(809, 393);
             this.tileRepeater1.TabIndex = 0;
             this.tileRepeater1.TemplateControl = null;
             // 
