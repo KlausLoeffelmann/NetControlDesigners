@@ -9,7 +9,8 @@ namespace WinForms.Tiles.Serialization
     internal class TemplateAssignmentCodeDomSerializer : CodeDomSerializer
     {
         private int s_variableOccuranceCounter = 1;
-        private const string TemplateAssignmentNamespace = "WinForms.Tiles";
+
+        internal const string TemplateAssignmentNamespace = "WinForms.Tiles";
 
         public override object Serialize(
             IDesignerSerializationManager manager,

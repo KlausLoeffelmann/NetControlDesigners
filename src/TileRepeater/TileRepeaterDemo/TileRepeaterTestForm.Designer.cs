@@ -32,6 +32,7 @@ namespace TileRepeaterDemo
         {
             Type templateType1;
             Type tileContentType1;
+            TemplateAssignmentItems templateAssignmentItems1 = new TemplateAssignmentItems();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.tileRepeater1 = new WinForms.Tiles.TileRepeater();
@@ -66,15 +67,22 @@ namespace TileRepeaterDemo
             this.tileRepeater1.HeaderTemplateType = new WinForms.Tiles.TemplateAssignment(templateType1, tileContentType1);
             this.tileRepeater1.Location = new System.Drawing.Point(12, 12);
             this.tileRepeater1.Name = "tileRepeater1";
-            this.tileRepeater1.Size = new System.Drawing.Size(809, 393);
+            this.tileRepeater1.Size = new System.Drawing.Size(809, 353);
             this.tileRepeater1.TabIndex = 0;
             this.tileRepeater1.TemplateControl = null;
+            templateAssignmentItems1.Add(new WinForms.Tiles.TemplateAssignmentItem("Template: LandscapePictureItem/Content: LandscapeImageContent", new WinForms.Tiles.TemplateAssignment(Type.GetType("TileRepeater.Data.ListController.LandscapePictureItem, TileRepeater.Data, Version" +
+                    "=1.0.0.0, Culture=neutral, PublicKeyToken=null"), Type.GetType("TileRepeaterDemo.TileTemplates.LandscapeImageContent, TileRepeaterDemo, Version=1" +
+                    ".0.0.0, Culture=neutral, PublicKeyToken=null"))));
+            templateAssignmentItems1.Add(new WinForms.Tiles.TemplateAssignmentItem("Template: PortraitPictureItem/Content: PortraitImageContent", new WinForms.Tiles.TemplateAssignment(Type.GetType("TileRepeater.Data.ListController.PortraitPictureItem, TileRepeater.Data, Version=" +
+                    "1.0.0.0, Culture=neutral, PublicKeyToken=null"), Type.GetType("TileRepeaterDemo.TileTemplates.PortraitImageContent, TileRepeaterDemo, Version=1." +
+                    "0.0.0, Culture=neutral, PublicKeyToken=null"))));
+            this.tileRepeater1.TemplateTypes = templateAssignmentItems1;
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(441, 411);
+            this.button3.Location = new System.Drawing.Point(349, 464);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(145, 33);
+            this.button3.Size = new System.Drawing.Size(152, 37);
             this.button3.TabIndex = 1;
             this.button3.Text = "button3";
             this.button3.UseVisualStyleBackColor = true;

@@ -3,6 +3,7 @@
     public class TemplateAssignmentItem
     {
         private const string UndefinedDefaultName = "Unassigned template";
+
         private TemplateAssignment? _templateAssignment;
         private readonly int currentCollectionCountSnapshot;
 
@@ -10,6 +11,14 @@
         {
             currentCollectionCountSnapshot = collectionCount;
             TemplateAssignmentName = GetItemDefaultName();
+        }
+
+        public TemplateAssignmentItem(
+            string templateAssignmentName,
+            TemplateAssignment templateAssignment)
+        {
+            TemplateAssignmentName = templateAssignmentName;
+            TemplateAssignment = templateAssignment;
         }
 
         private string GetItemDefaultName()
