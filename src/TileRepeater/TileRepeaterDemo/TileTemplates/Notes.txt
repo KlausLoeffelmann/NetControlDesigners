@@ -9,3 +9,4 @@
   Note: We need to show any exception which might have occured in the CollectionEditor.cs in Microsoft.Dotnet.DesignTools.Client, so people would know 
         what lead to a unexpected closing of the dialog without showing any error message.
 
+Note: OnEditValueChanged in the Server ViewModel is responsible for assigning the Value that's being edited to the ViewModel.

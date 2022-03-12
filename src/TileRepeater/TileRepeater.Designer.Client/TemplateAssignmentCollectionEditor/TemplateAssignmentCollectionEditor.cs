@@ -18,6 +18,9 @@ namespace WinForms.Tiles.Designer.Client
 
         public override object? EditValue(ITypeDescriptorContext context, IServiceProvider provider, object value)
         {
+            if (Debugger.IsAttached)
+                Debugger.Break();
+
             var returnValue = base.EditValue(context, provider, value);
 
             if (Debugger.IsAttached)

@@ -22,12 +22,12 @@ namespace WinForms.Tiles.Designer.Server.TemplateAssignmentCollectionEditor
             {
                 _items.Clear();
 
-                if (EditValue is not Collection<TemplateAssignmentItem> collection)
+                if (EditValue is not TemplateAssignmentItems templateAssignmentItems)
                 {
                     return;
                 }
 
-                foreach (var templateAssignmentItem in collection)
+                foreach (var templateAssignmentItem in templateAssignmentItems)
                 {
                     _items.Add(new TemplateAssignmentCollectionItem(templateAssignmentItem));
                 }
