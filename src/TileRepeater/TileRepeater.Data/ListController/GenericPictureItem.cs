@@ -1,7 +1,7 @@
 ﻿using MetadataExtractor;
 using MetadataExtractor.Formats.Jpeg;
 using System;
-using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -16,7 +16,10 @@ namespace TileRepeater.Data.ListController
         private int _height;
         private DateTime? _dateTaken;
 
-        private const string DefaultFileSearchPattern = "*.bmp|*.png|*.jpg|*.jpeg|*.gif|*.ico|*.tif|*.tiff|*.raw|*.arw|*.heic|*.nef|*.cr2";
+        //private const string DefaultFileSearchPattern = "*.bmp|*.png|*.jpg|*.jpeg|*.gif|*.ico|*.tif|*.tiff|*.raw|*.arw|*.heic|*.nef|*.cr2";
+
+        // We limit the scenario for jpegs for now.
+        private const string DefaultFileSearchPattern = "*.jpg|*.jpeg";
         private static readonly string[] s_defaultFileSearchPattern;
 
         static GenericPictureItem()
@@ -58,17 +61,39 @@ namespace TileRepeater.Data.ListController
             set => SetProperty(ref _dateTaken, value);
         }
 
-        public static ObservableCollection<GenericTemplateItem>? GetPicsFromFolder(string filePath, SearchOption searchOption = SearchOption.TopDirectoryOnly)
+        public static List<GenericTemplateItem>? GetPictureTemplateItemsFromFolder(
+            string filePath, 
+            SearchOption searchOption = SearchOption.AllDirectories)
         {
             DirectoryInfo directoryInfo = new(filePath);
-            ObservableCollection<GenericTemplateItem>? pictureItems = new();
+            List<GenericTemplateItem>? pictureItems = new();
 
             var filesInPath = directoryInfo.GetFiles("*.*", searchOption)
                 .Where(file => s_defaultFileSearchPattern.Any(extension => extension == file.Extension))
+                .OrderByDescending(file => file.LastWriteTime)
                 .ToList();
+
+            if (filesInPath.Count==0)
+            {
+                return pictureItems;
+            }
+
+            DateTime currentDate = filesInPath[0].LastWriteTime;
 
             foreach (var file in filesInPath)
             {
+                var fileDate = file.LastWriteTime;
+
+                // Grouping by months is hardwired. Should be suffice for demo purposes.
+                if ($"{currentDate.Year}{currentDate.Month}" != $"{fileDate.Year}{fileDate.Month}")
+                {
+                    currentDate = fileDate;
+                    pictureItems.Add(new GenericTemplateItem()
+                    {
+                        Label = $"Pictures of {currentDate:MMMM}, {currentDate:yyyy}"
+                    });
+                }
+
                 var directories = ImageMetadataReader.ReadMetadata(file.FullName);
                 var jpegDir = directories.OfType<JpegDirectory>().FirstOrDefault();
 
@@ -77,7 +102,7 @@ namespace TileRepeater.Data.ListController
 
                 var height = jpegDir.GetImageHeight();
                 var width = jpegDir.GetImageWidth();
-                var dateTaken = file.CreationTime;
+                var dateTaken = file.LastWriteTime;
 
                 GenericTemplateItem itemToAdd;
 
@@ -94,7 +119,6 @@ namespace TileRepeater.Data.ListController
 
                 itemToAdd.Label = file.Name;
                 pictureItems.Add(itemToAdd);
-                Debug.Print($"{file.Name} - {height}");
             }
 
             return pictureItems;

@@ -11,8 +11,8 @@ namespace WinForms.Tiles.Designer.Client
 {
     internal partial class TemplateAssignmentDialog : Form
     {
-        private readonly Font _boldFont;
         private bool _suspendListboxUpdates;
+
         public const string DialogFont = nameof(DialogFont);
 
         public TemplateAssignmentDialog(
@@ -23,12 +23,14 @@ namespace WinForms.Tiles.Designer.Client
             ViewModelClient = viewModel ?? throw new ArgumentNullException(nameof(viewModel));
 
             InitializeComponent();
+
+            // Let's go with this as a default:
+            _INotifyPropertyChangedFilterCheckBox.Checked = true;
+
             PopulateContent();
 
             IUIService uiService = ServiceProvider.GetRequiredService<IUIService>();
             Font = (Font)uiService.Styles[DialogFont];
-
-            _boldFont = new Font(Font, FontStyle.Bold);
         }
 
         private void PopulateContent()

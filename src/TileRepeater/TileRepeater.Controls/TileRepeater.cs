@@ -2,7 +2,6 @@
 using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing.Design;
 
 namespace WinForms.Tiles
 {
@@ -17,7 +16,6 @@ namespace WinForms.Tiles
         private Action? _listUnbinder;
 
         private int _previousListCount;
-        private TemplateAssignment? _headerTemplateType;
         private Tile? _templateControlInstance;
         private UserControlTemplate? _templateControl;
 
@@ -26,20 +24,11 @@ namespace WinForms.Tiles
             _templateAssignments = new TemplateAssignmentItems();
         }
 
-        public TemplateAssignment? HeaderTemplateType
-        {
-            get => _headerTemplateType;
-            set => _headerTemplateType = value;
-        }
-
         public TemplateAssignmentItems? TemplateTypes
         { 
             get => _templateAssignments;
             set 
             {
-                if (Debugger.IsAttached)
-                    Debugger.Break();
-
                 _templateAssignments = value;
             }
         }
@@ -72,6 +61,7 @@ namespace WinForms.Tiles
         protected override void CreateHandle()
         {
             base.CreateHandle();
+
             if (IsAncestorSiteInDesignMode)
             {
                 PopulateDesignerContent();

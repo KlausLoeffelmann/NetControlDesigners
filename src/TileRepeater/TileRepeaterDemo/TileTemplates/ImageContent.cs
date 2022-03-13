@@ -2,9 +2,11 @@
 
 namespace TileRepeaterDemo.TileTemplates
 {
-    public partial class PortraitImageContent : ImageContent
+    public partial class ImageContent : TileContent
     {
-        public PortraitImageContent()
+        private string? _imageFilename;
+
+        public ImageContent()
         {
             InitializeComponent();
         }

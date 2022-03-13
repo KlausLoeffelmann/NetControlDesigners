@@ -30,12 +30,12 @@
         {
             this.SuspendLayout();
             // 
-            // GroupTile
+            // PortraitImageContent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Name = "GroupTile";
-            this.Size = new System.Drawing.Size(320, 302);
+            this.Name = "PortraitImageContent";
+            this.Size = new System.Drawing.Size(300, 400);
             this.ResumeLayout(false);
 
         }

@@ -1,7 +1,6 @@
 ﻿using System;
 using TileRepeater.Data.Base;
 
-
 namespace TileRepeater.Data.ListController
 {
     public class GenericTemplateItem : BindableBase
@@ -23,3 +22,4 @@ namespace TileRepeater.Data.ListController
         }
     }
 }
+

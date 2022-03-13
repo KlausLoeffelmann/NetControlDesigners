@@ -14,6 +14,10 @@
 	<Target Name="_GetFilesToPackage">
 		<ItemGroup>
 			<_File Include="$(SolutionDir)\TileRepeater.Controls\bin\$(Configuration)\net6.0-windows\TileRepeater.Controls.dll" />
+
+			<!--We need this during Control development, so we get proper Debug-Support at runtime. -->
+			<_File Include="$(SolutionDir)\TileRepeater.Controls\bin\$(Configuration)\net6.0-windows\TileRepeater.Controls.pdb" />
+
 			<_File Include="$(SolutionDir)\TileRepeater.Designer.Client\bin\$(Configuration)\net472\TileRepeater.Designer.Client.dll" TargetDir="Design/WinForms" />
 			<_File Include="$(SolutionDir)\TileRepeater.ClientServerProtocol\bin\$(Configuration)\net472\TileRepeater.ClientServerProtocol.dll" TargetDir="Design/WinForms" />
 			<_File Include="$(SolutionDir)\TileRepeater.Designer.Server\bin\$(Configuration)\net6.0-windows\TileRepeater.Designer.Server.dll" TargetDir="Design/WinForms/Server" />

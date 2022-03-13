@@ -17,6 +17,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Update="TileTemplates\ImageContent.cs">
+	    <SubType>UserControl</SubType>
+	  </Compile>
 	  <Compile Update="TileTemplates\PortraitImageContent.cs" />
 	</ItemGroup>
 </Project>

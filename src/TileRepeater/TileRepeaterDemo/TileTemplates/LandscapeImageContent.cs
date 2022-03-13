@@ -2,7 +2,7 @@
 
 namespace TileRepeaterDemo.TileTemplates
 {
-    public partial class LandscapeImageContent : TileContent
+    public partial class LandscapeImageContent : ImageContent
     {
         public LandscapeImageContent()
         {
