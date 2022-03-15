@@ -17,6 +17,15 @@ namespace TileRepeaterDemo.TileTemplates
         public BindableAsyncImageLoaderComponent()
         {
             InitializeComponent();
+            this.Disposed += BindableAsyncImageLoaderComponent_Disposed;
+        }
+
+        private void BindableAsyncImageLoaderComponent_Disposed(object? sender, EventArgs e)
+        {
+            if (Image is not null)
+            {
+                Image.Dispose();
+            }
         }
 
         public BindableAsyncImageLoaderComponent(IContainer container)
@@ -79,6 +88,7 @@ namespace TileRepeaterDemo.TileTemplates
             }
         }
 
+        [Bindable(true)]
         public string? ImageFilename
         {
             get => _imageFilename;

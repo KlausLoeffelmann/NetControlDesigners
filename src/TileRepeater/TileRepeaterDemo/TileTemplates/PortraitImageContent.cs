@@ -4,9 +4,6 @@ namespace TileRepeaterDemo.TileTemplates
 {
     public partial class PortraitImageContent : ImageContent
     {
-        public PortraitImageContent()
-        {
-            InitializeComponent();
-        }
+        public PortraitImageContent() : base() => InitializeComponent();
     }
 }

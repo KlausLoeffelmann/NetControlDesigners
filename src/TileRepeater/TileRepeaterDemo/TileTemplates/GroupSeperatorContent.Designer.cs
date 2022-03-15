@@ -28,18 +28,44 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            this._groupTextLabel = new System.Windows.Forms.Label();
+            this._genericTemplateItemBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this._genericTemplateItemBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
-            // GroupTile
+            // _groupTextLabel
+            // 
+            this._groupTextLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this._groupTextLabel.AutoSize = true;
+            this._groupTextLabel.DataBindings.Add(new System.Windows.Forms.Binding("Text", this._genericTemplateItemBindingSource, "Label", true));
+            this._groupTextLabel.Location = new System.Drawing.Point(3, 7);
+            this._groupTextLabel.Name = "_groupTextLabel";
+            this._groupTextLabel.Size = new System.Drawing.Size(146, 20);
+            this._groupTextLabel.TabIndex = 0;
+            this._groupTextLabel.Text = "Group seperator text";
+            // 
+            // _genericTemplateItemBindingSource
+            // 
+            this._genericTemplateItemBindingSource.DataSource = typeof(TileRepeater.Data.ListController.GenericTemplateItem);
+            // 
+            // GroupSeperatorContent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Name = "GroupTile";
-            this.Size = new System.Drawing.Size(320, 302);
+            this.Controls.Add(this._groupTextLabel);
+            this.MinimumSize = new System.Drawing.Size(0, 0);
+            this.Name = "GroupSeperatorContent";
+            this.Size = new System.Drawing.Size(495, 34);
+            ((System.ComponentModel.ISupportInitialize)(this._genericTemplateItemBindingSource)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
+
+        private Label _groupTextLabel;
+        private BindingSource _genericTemplateItemBindingSource;
     }
 }

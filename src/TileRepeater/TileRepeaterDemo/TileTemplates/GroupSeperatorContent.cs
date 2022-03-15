@@ -7,6 +7,9 @@ namespace TileRepeaterDemo.TileTemplates
         public GroupSeperatorContent()
         {
             InitializeComponent();
+            BindingSourceComponent = _genericTemplateItemBindingSource;
         }
+
+        public override bool IsSeparator => true;
     }
 }

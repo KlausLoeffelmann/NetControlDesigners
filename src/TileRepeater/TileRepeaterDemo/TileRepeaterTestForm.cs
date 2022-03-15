@@ -4,12 +4,13 @@ namespace TileRepeaterDemo
 {
     public partial class TileRepeaterTestForm : Form
     {
-        private List<GenericTemplateItem>? pictureDataSource;
         private string? _pathToPictures;
+        private UIController _uiController;
 
         public TileRepeaterTestForm()
         {
             InitializeComponent();
+            _uiController = new UIController();
         }
 
         private void SetPathToImageFilesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -26,8 +27,8 @@ namespace TileRepeaterDemo
             {
                 _pathToPictures = folderBrowserDialog.SelectedPath;
                 _imagePathStatusLabel.Text = _pathToPictures;
-                pictureDataSource = GenericPictureItem.GetPictureTemplateItemsFromFolder(_pathToPictures);
-                _pictureTileRepeater.DataSource = pictureDataSource;
+                _uiController.PictureFileList = UIController.GetPictureTemplateItemsFromFolder(_pathToPictures);
+                _uiControllerBindingSource.DataSource = _uiController;
             }
         }
     }

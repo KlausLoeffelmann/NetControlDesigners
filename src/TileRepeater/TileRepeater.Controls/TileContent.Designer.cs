@@ -34,7 +34,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.MinimumSize = new System.Drawing.Size(100, 100);
+            this.MinimumSize = new System.Drawing.Size(20, 10);
             this.Name = "TileContent";
             this.Size = new System.Drawing.Size(100, 100);
             this.ResumeLayout(false);

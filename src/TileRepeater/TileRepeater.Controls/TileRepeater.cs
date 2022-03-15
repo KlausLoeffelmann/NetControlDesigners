@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Diagnostics;
 
 namespace WinForms.Tiles
 {
@@ -17,23 +16,24 @@ namespace WinForms.Tiles
 
         private int _previousListCount;
         private Tile? _templateControlInstance;
-        private UserControlTemplate? _templateControl;
 
         public TileRepeater()
         {
             _templateAssignments = new TemplateAssignmentItems();
+            AutoScroll = true;
         }
 
         public TemplateAssignmentItems? TemplateTypes
-        { 
+        {
             get => _templateAssignments;
-            set 
+            set
             {
                 _templateAssignments = value;
             }
         }
 
-        [AttributeProvider(typeof(IListSource))]
+        [AttributeProvider(typeof(IListSource)),
+         Bindable(true)]
         public object? DataSource
         {
             get { return _dataSource; }
@@ -53,7 +53,6 @@ namespace WinForms.Tiles
                     };
                 }
 
-                _templateControlInstance = GetTemplateControlInstance();
                 GenerateContent();
             }
         }
@@ -71,12 +70,12 @@ namespace WinForms.Tiles
         private void PopulateDesignerContent()
         {
             Controls.Clear();
-            if (_templateControl is not null)
+            if (_templateAssignments is not null)
             {
                 for (int count = 0; count < MaxColumn + 1; count++)
                 {
-                    var control = GetTemplateControlInstance();
-                    Controls.Add(control);
+                    //var control = GetTemplateControlInstance();
+                    //Controls.Add(control);
                 }
             }
 
@@ -90,9 +89,9 @@ namespace WinForms.Tiles
                 var bgPen = new Pen(ForeColor, 2);
                 var bgBrush = new SolidBrush(BackColor);
                 e.Graphics.DrawRectangle(bgPen, ClientRectangle);
-                var tmpControlString = TemplateControl is null
+                var tmpControlString = TemplateTypes is null
                     ? "(none defined)"
-                    : TemplateControl.Name;
+                    : "Multiple Types Defines.";
 
                 e.Graphics.DrawString($"TemplateControl:{tmpControlString}", Font, bgBrush, 10, 10);
             }
@@ -122,17 +121,28 @@ namespace WinForms.Tiles
             SuspendLayout();
             Controls.Clear();
 
-            if (_dataSource is not ICollection dataSourceAsCollection || _templateControlInstance is null)
+            object? actualBindingSource;
+
+            if (_dataSource is BindingSource bindingSource)
+            {
+                actualBindingSource = bindingSource.List;
+            }
+            else
+            {
+                actualBindingSource = _dataSource;
+            }
+
+            if (actualBindingSource is not IBindingList dataSourceAsBindingList || TemplateTypes is null)
             {
                 ResumeLayout();
                 return;
             }
 
-            foreach (var item in dataSourceAsCollection)
+            foreach (var item in dataSourceAsBindingList)
             {
-                var control = GetTemplateControlInstance();
-                //control!.BindingSourceComponent!.DataSource = item;
-                Controls.Add(control);
+                var tileControl = GetTemplateControlInstance(item.GetType());
+                tileControl!.TileContent.BindingSourceComponent!.DataSource = item;
+                Controls.Add(tileControl);
             }
 
             LayoutInternal();
@@ -178,7 +188,7 @@ namespace WinForms.Tiles
                 control.Top = currentY;
                 currentX += xIncrease;
 
-                if (controlCounter++ == (MaxColumn-1) || currentX + _templateControlInstance.Width > ClientSize.Width)
+                if (controlCounter++ == (MaxColumn - 1) || currentX + _templateControlInstance.Width > ClientSize.Width)
                 {
                     controlCounter = 0;
                     currentY += yIncrease;
@@ -187,45 +197,45 @@ namespace WinForms.Tiles
             }
         }
 
-        public UserControlTemplate? TemplateControl
-        {
-            get { return _templateControl; }
-            set
-            {
-                if (!object.Equals(value, _templateControl))
-                {
-                    _templateControl = value;
-                    if (_templateControl is null)
-                    {
-                        Controls.Clear();
-                        _templateControlInstance = null;
-                        return;
-                    }
+        //public UserControlTemplate? TemplateControl
+        //{
+        //    get { return _templateControl; }
+        //    set
+        //    {
+        //        if (!object.Equals(value, _templateControl))
+        //        {
+        //            _templateControl = value;
+        //            if (_templateControl is null)
+        //            {
+        //                Controls.Clear();
+        //                _templateControlInstance = null;
+        //                return;
+        //            }
 
-                    _templateControlInstance = GetTemplateControlInstance();
-                    //if (_templateControlInstance?.BindingSourceComponent is null)
-                    //{
-                    //    throw new ArgumentException("Please make sure that the TemplateControl's " +
-                    //        "BindingSourceComponent property is set up for populating " +
-                    //        "the template control via data binding.");
-                    //}
+        //            _templateControlInstance = GetTemplateControlInstance();
+        //            //if (_templateControlInstance?.BindingSourceComponent is null)
+        //            //{
+        //            //    throw new ArgumentException("Please make sure that the TemplateControl's " +
+        //            //        "BindingSourceComponent property is set up for populating " +
+        //            //        "the template control via data binding.");
+        //            //}
 
-                    if (IsHandleCreated && IsAncestorSiteInDesignMode)
-                    {
-                        PopulateDesignerContent();
-                    }
-                    else
-                    {
-                        GenerateContent();
-                    }
-                }
-            }
-        }
+        //            if (IsHandleCreated && IsAncestorSiteInDesignMode)
+        //            {
+        //                PopulateDesignerContent();
+        //            }
+        //            else
+        //            {
+        //                GenerateContent();
+        //            }
+        //        }
+        //    }
+        //}
 
-        private void ResetTemplateControl()
-        {
-            TemplateControl = null;
-        }
+        //private void ResetTemplateControl()
+        //{
+        //    TemplateControl = null;
+        //}
 
         [DefaultValue(DefaultMaxColumn)]
         public int MaxColumn
@@ -243,21 +253,29 @@ namespace WinForms.Tiles
             }
         }
 
-        private Tile? GetTemplateControlInstance()
+        private Tile? GetTemplateControlInstance(Type templateType)
         {
-            if (_templateControl is null)
-            {
-                return null;
-            }
+            // Get TileContentControl based on type:
+            var tileContentType = TemplateTypes?
+                .Where(item => item.TemplateAssignment!.TemplateType == templateType)?
+                .FirstOrDefault()?.TemplateAssignment?.TileContentControlType;
+
+            Tile tileControl = new Tile();
+
+            TileContent tileContentInstance;
 
             try
             {
-                return (Tile?)Activator.CreateInstance(_templateControl.UserControlType!);
+                tileContentInstance = (TileContent)Activator.CreateInstance(tileContentType!)!;
             }
             catch (Exception)
             {
-                return null;
+                // TODO: If the Activater threw, we need to have an error control here.
+                tileContentInstance = new TileContent() { BackColor = Color.Red };
             }
+
+            tileControl.TileContent = tileContentInstance;
+            return tileControl;
         }
     }
 }

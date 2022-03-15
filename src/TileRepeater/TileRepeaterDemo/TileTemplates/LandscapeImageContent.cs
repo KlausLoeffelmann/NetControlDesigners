@@ -4,9 +4,6 @@ namespace TileRepeaterDemo.TileTemplates
 {
     public partial class LandscapeImageContent : ImageContent
     {
-        public LandscapeImageContent()
-        {
-            InitializeComponent();
-        }
+        public LandscapeImageContent() : base() => InitializeComponent();
     }
 }
