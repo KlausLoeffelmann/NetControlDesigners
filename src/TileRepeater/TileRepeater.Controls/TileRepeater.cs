@@ -1,21 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using System.Diagnostics;
 
 namespace WinForms.Tiles
 {
     [System.ComponentModel.ComplexBindingProperties("DataSource")]
     public partial class TileRepeater : Panel
     {
-        private const int DefaultMaxColumn = 3;
         private TemplateAssignmentItems? _templateAssignments;
 
         private object? _dataSource;
-        private int _maxColumn = DefaultMaxColumn;
         private Action? _listUnbinder;
 
         private int _previousListCount;
         private Tile? _templateControlInstance;
+        private bool _layoutCached;
 
         public TileRepeater()
         {
@@ -70,16 +70,13 @@ namespace WinForms.Tiles
         private void PopulateDesignerContent()
         {
             Controls.Clear();
-            if (_templateAssignments is not null)
-            {
-                for (int count = 0; count < MaxColumn + 1; count++)
-                {
-                    //var control = GetTemplateControlInstance();
-                    //Controls.Add(control);
-                }
-            }
+        }
 
-            LayoutInternal();
+        protected override void OnResize(EventArgs eventargs)
+        {
+            base.OnResize(eventargs);
+            _layoutCached = false;
+            PerformLayout();
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -94,6 +91,15 @@ namespace WinForms.Tiles
                     : "Multiple Types Defines.";
 
                 e.Graphics.DrawString($"TemplateControl:{tmpControlString}", Font, bgBrush, 10, 10);
+            }
+        }
+
+        protected override void OnLayout(LayoutEventArgs levent)
+        {
+            if (!_layoutCached)
+            {
+                LayoutInternal();
+                _layoutCached = true;
             }
         }
 
@@ -119,6 +125,7 @@ namespace WinForms.Tiles
         private void GenerateContent()
         {
             SuspendLayout();
+            _layoutCached = false;
             Controls.Clear();
 
             object? actualBindingSource;
@@ -145,7 +152,6 @@ namespace WinForms.Tiles
                 Controls.Add(tileControl);
             }
 
-            LayoutInternal();
             ResumeLayout();
         }
 
@@ -159,42 +165,38 @@ namespace WinForms.Tiles
             base.Dispose(disposing);
         }
 
-        protected override void OnResize(EventArgs eventargs)
-        {
-            base.OnResize(eventargs);
-
-            SuspendLayout();
-            LayoutInternal();
-            ResumeLayout(false);
-        }
-
         private void LayoutInternal()
         {
-            // Layout the controls
-            if (_templateControlInstance is null)
+            if (Controls.Count == 0)
             {
                 return;
             }
 
-            int currentX = _templateControlInstance.Margin.Left;
-            int currentY = _templateControlInstance.Margin.Top;
-            int xIncrease = _templateControlInstance.Margin.Left + _templateControlInstance.Margin.Right + _templateControlInstance.Width;
-            int yIncrease = _templateControlInstance.Margin.Top + _templateControlInstance.Margin.Bottom + _templateControlInstance.Height;
-            int controlCounter = 0;
+            Control lastControl = Controls[0];
+
+            int currentX = lastControl.Margin.Left;
+            int currentY = lastControl.Margin.Top;
+            int yIncrease = lastControl.Margin.Top + lastControl.Margin.Bottom + lastControl.Height;
 
             foreach (Control control in Controls)
             {
                 control.Left = currentX;
                 control.Top = currentY;
-                currentX += xIncrease;
+                currentX += lastControl.Margin.Left + lastControl.Width + lastControl.Margin.Right;
 
-                if (controlCounter++ == (MaxColumn - 1) || currentX + _templateControlInstance.Width > ClientSize.Width)
+                if (currentX > ClientSize.Width)
                 {
-                    controlCounter = 0;
                     currentY += yIncrease;
-                    currentX = _templateControlInstance.Margin.Left;
+                    currentX = lastControl.Margin.Left;
                 }
+
+                lastControl = control;
             }
+
+            AutoScrollMargin = new Size(
+                lastControl.Left + lastControl.Width, 
+                lastControl.Top + lastControl.Height);
+            this.VScroll = true;
         }
 
         //public UserControlTemplate? TemplateControl
@@ -237,22 +239,6 @@ namespace WinForms.Tiles
         //    TemplateControl = null;
         //}
 
-        [DefaultValue(DefaultMaxColumn)]
-        public int MaxColumn
-        {
-            get => _maxColumn;
-
-            set
-            {
-                if (value is < 0 or > 10)
-                {
-                    throw new ArgumentException("Value must be between 0 and 10.");
-                }
-
-                _maxColumn = value;
-            }
-        }
-
         private Tile? GetTemplateControlInstance(Type templateType)
         {
             // Get TileContentControl based on type:
@@ -267,6 +253,7 @@ namespace WinForms.Tiles
             try
             {
                 tileContentInstance = (TileContent)Activator.CreateInstance(tileContentType!)!;
+                tileContentInstance.Size = tileContentInstance.PreferredSize;
             }
             catch (Exception)
             {

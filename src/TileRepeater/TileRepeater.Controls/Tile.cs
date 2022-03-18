@@ -11,6 +11,13 @@ namespace WinForms.Tiles
             InitializeComponent();
         }
 
+        public override Size GetPreferredSize(Size proposedSize)
+        {
+            var size=TileContent.GetPreferredSize(proposedSize);
+            size += new Size(Padding.Left, Padding.Top) + new Size(Padding.Right, Padding.Bottom);
+            return size;
+        }
+
         public TileContent TileContent
         {
             get
