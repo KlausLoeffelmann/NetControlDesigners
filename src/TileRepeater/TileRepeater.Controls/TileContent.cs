@@ -18,14 +18,14 @@ namespace WinForms.Tiles
 
         public BindingSource? BindingSourceComponent { get; set; }
 
-        public virtual async Task LoadAsync()
-        {
-            await Task.Delay(0);
-            IsLoaded = true;
-        }
+        public async Task LoadContentAsync() 
+            => IsContentLoaded = await LoadContentCoreAsync();
+
+        protected virtual async Task<bool> LoadContentCoreAsync() 
+            => await Task.FromResult(false);
 
         [Browsable(false)]
-        public bool IsLoaded { get; private set; }
+        public bool IsContentLoaded { get; private set; }
 
         public virtual void DisposeContent()
         { }

@@ -5,34 +5,34 @@ namespace WinForms.Tiles
     public partial class TileRepeater
     {
         [TypeConverter(typeof(TileContentConverter))]
-        public class UserControlTemplate
+        public class TileContentTemplate
         {
-            public UserControlTemplate()
+            public TileContentTemplate()
             {
             }
 
-            public UserControlTemplate(Type userControlType)
+            public TileContentTemplate(Type userControlType)
             {
                 if (userControlType is null)
                 {
                     throw new ArgumentNullException(nameof(userControlType));
                 }
 
-                if (!typeof(UserControl).IsAssignableFrom(userControlType))
+                if (!typeof(TileContent).IsAssignableFrom(userControlType))
                 {
                     throw new ArgumentException(nameof(userControlType));
                 }
 
-                UserControlType = userControlType;
+                TileContentType = userControlType;
             }
 
             public string? Name
-                => UserControlType?.Name;
+                => TileContentType?.Name;
 
-            public Type? UserControlType { get; set; }
+            public Type? TileContentType { get; set; }
 
             public override string ToString()
-                => UserControlType?.Name ?? "(none)";
+                => TileContentType?.Name ?? "(none)";
         }
     }
 }

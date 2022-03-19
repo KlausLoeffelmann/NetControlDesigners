@@ -95,7 +95,12 @@ namespace WinForms.Tiles.Serialization
                 }
             }
 
-            return base.SerializeCollection(manager, targetExpression, targetType, originalCollection, valuesToSerialize);
+            return base.SerializeCollection(
+                manager, 
+                targetExpression, 
+                targetType, 
+                originalCollection, 
+                valuesToSerialize!);
         }
     }
 }

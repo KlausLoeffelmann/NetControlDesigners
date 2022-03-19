@@ -130,7 +130,7 @@ namespace TileRepeaterDemo.TileTemplates
             }
         }
 
-        public async virtual Task LoadImageAsync()
+        public async virtual Task LoadImageAsync(Size rescaleTo = default)
         {
             if (string.IsNullOrWhiteSpace(_imageFilename))
             {
@@ -150,7 +150,8 @@ namespace TileRepeaterDemo.TileTemplates
                     Image.Dispose();
                 }
 
-                Image = await LoadImageAsync(_imageFilename);
+                Image = await LoadImageAsync(_imageFilename, rescaleTo);
+
             }
             catch (Exception)
             {
@@ -169,15 +170,42 @@ namespace TileRepeaterDemo.TileTemplates
         protected virtual void OnImageChanged(EventArgs e)
             => ImageChanged?.Invoke(this, e);
 
-        private static async Task<Image> LoadImageAsync(string fileName)
+        private static async Task<Image> LoadImageAsync(string fileName, Size rescaleTo = default)
         {
             await s_semaphore.WaitAsync();
 
-            return await Task.Run<Image>(() =>
+            var imageResult = await Task.Run<Image>(() =>
             {
                 var image = Image.FromFile(fileName);
+                Size rescaleToAligned;
+
+                if (rescaleTo != default)
+                {
+                    float originalRatio = (float)image.Width / (float)image.Height;
+                    float targetRatio = (float)rescaleTo.Width / (float)rescaleTo.Height;
+
+                    if (originalRatio < targetRatio)
+                    {
+                        var ratioH = (float)rescaleTo.Height / (float)image.Height;
+                        rescaleToAligned = new((int)(image.Width * ratioH), rescaleTo.Height);
+                    }
+                    else
+                    {
+                        var ratioW = (float)rescaleTo.Width / (float)image.Width;
+                        rescaleToAligned = new(rescaleTo.Width, (int)(image.Height * ratioW));
+                    }
+
+                    var imageAligned = new Bitmap(image, rescaleToAligned);
+                    image.Dispose();
+                    return imageAligned;
+                }
+
                 return image;
             });
+
+            s_semaphore.Release();
+
+            return imageResult;
         }
     }
 }

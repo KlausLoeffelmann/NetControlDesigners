@@ -35,21 +35,50 @@ namespace TileRepeaterDemo.TileTemplates
             // TODO: Take DPI into account.
             => BaseDefaultSize * (int)TileSize;
 
-        public override async Task LoadAsync()
+        protected async override Task<bool> LoadContentCoreAsync()
         {
-            await _imageLoaderComponent.LoadImageAsync();
-            Invalidate();
-        }
+            // We ask to load the picture, but rescale it so it comes
+            // closest to the PreferredSize of the deriviative of this
+            // TileContent/ImageContent (it actually gets centered in it).
+            await _imageLoaderComponent.LoadImageAsync(PreferredSize);
 
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            base.OnPaint(e);
-            // TODO: Paint.
+            if (_imageLoaderComponent.Image is not null)
+            {
+                _pictureBox.Invalidate();
+                return true;
+            }
+
+            return false;
         }
 
         public override void DisposeContent()
         {
             _imageLoaderComponent.DisposeImage();
+        }
+
+        private void _pictureBox_Paint(object sender, PaintEventArgs e)
+        {
+            if (_imageLoaderComponent.Image is { } image)
+            {
+                var preferredSize = PreferredSize;
+                var contentRatio = (float)preferredSize.Width / (float)preferredSize.Height;
+                var imageRatio = (float)image.Size.Width / (float)image.Size.Height;
+
+                if (contentRatio < imageRatio)
+                {
+                    e.Graphics.DrawImage(
+                        image,
+                        x: preferredSize.Width / 2 - image.Size.Width / 2,
+                        y: 0);
+                }
+                else
+                {
+                    e.Graphics.DrawImage(
+                        image,
+                        x: 0,
+                        y: preferredSize.Height / 2 - image.Size.Height / 2);
+                }
+            }
         }
     }
 }

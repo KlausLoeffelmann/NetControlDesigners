@@ -9,7 +9,7 @@ namespace WinForms.Tiles
     {
         public class TileContentConverter : TypeConverter
         {
-            private Dictionary<string, UserControlTemplate>? userControlTypes;
+            private Dictionary<string, TileContentTemplate>? userControlTypes;
 
             public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destinationType)
                 => destinationType == typeof(string);
@@ -46,8 +46,8 @@ namespace WinForms.Tiles
             {
                 userControlTypes = Assembly.GetExecutingAssembly()
                     .GetTypes()
-                    .Where(typeItem => typeof(UserControl).IsAssignableFrom(typeItem))
-                    .Select(item => new UserControlTemplate(item))
+                    .Where(typeItem => typeof(TileContent).IsAssignableFrom(typeItem))
+                    .Select(item => new TileContentTemplate(item))
                     .ToDictionary(item => item.ToString());
 
                 if (Debugger.IsAttached)

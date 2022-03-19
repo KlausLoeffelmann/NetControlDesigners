@@ -5,7 +5,8 @@ using System.Diagnostics;
 
 namespace WinForms.Tiles
 {
-    [System.ComponentModel.ComplexBindingProperties("DataSource")]
+    [Designer("TileRepeaterDesigner"),
+     System.ComponentModel.ComplexBindingProperties("DataSource")]
     public partial class TileRepeater : Panel
     {
         private TemplateAssignmentItems? _templateAssignments;
@@ -15,7 +16,6 @@ namespace WinForms.Tiles
 
         private int _previousListCount;
         //private Tile? _templateControlInstance;
-        private bool _layoutCached;
 
         public TileRepeater()
         {
@@ -73,7 +73,6 @@ namespace WinForms.Tiles
 
             if (AutoLayoutOnResize)
             {
-                _layoutCached = false;
                 PerformLayout();
             }
         }
@@ -96,11 +95,7 @@ namespace WinForms.Tiles
 
         protected override void OnLayout(LayoutEventArgs levent)
         {
-            if (!_layoutCached)
-            {
-                LayoutInternal();
-                _layoutCached = true;
-            }
+            LayoutInternal();
 
             base.OnLayout(levent);
         }
@@ -128,7 +123,6 @@ namespace WinForms.Tiles
         {
             SuspendLayout();
 
-            _layoutCached = false;
             Controls.Clear();
 
             object? actualBindingSource;
@@ -176,6 +170,9 @@ namespace WinForms.Tiles
             }
 
             Control lastControl = Controls[0];
+
+            lastControl.Visible = true;
+            lastControl.Tag = true;
 
             int currentX = Padding.Left;
             int currentY = Padding.Top;
@@ -226,6 +223,9 @@ namespace WinForms.Tiles
                     }
                 }
             }
+
+            lastControl.Visible = true;
+            lastControl.Tag = true;
         }
 
         [DefaultValue(false)]

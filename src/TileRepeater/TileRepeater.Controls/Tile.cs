@@ -49,7 +49,7 @@ namespace WinForms.Tiles
 
         protected virtual async void OnIsInParentClientAreaChanged()
         {
-            if (TileContent is not null && IsInParentClientArea && !TileContent.IsLoaded)
+            if (TileContent is not null && IsInParentClientArea && !TileContent.IsContentLoaded)
             {
                 try
                 {
@@ -57,7 +57,7 @@ namespace WinForms.Tiles
                     // so we need to catch a potential
                     // exception of the async content load
                     // and just swallow it.
-                    await TileContent.LoadAsync();
+                    await TileContent.LoadContentAsync();
                 }
                 catch (Exception)
                 {

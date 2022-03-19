@@ -65,11 +65,11 @@
             this._pictureBox.Size = new System.Drawing.Size(866, 592);
             this._pictureBox.TabIndex = 2;
             this._pictureBox.TabStop = false;
+            this._pictureBox.Paint += new System.Windows.Forms.PaintEventHandler(this._pictureBox_Paint);
             // 
             // _imageLoaderComponent
             // 
             this._imageLoaderComponent.DataBindings.Add(new System.Windows.Forms.Binding("ImageFilename", this._genericPictureItemBindingSource, "Filename", true));
-            this._imageLoaderComponent.ImageFilename = null;
             // 
             // ImageContent
             // 
