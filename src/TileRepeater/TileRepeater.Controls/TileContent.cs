@@ -1,4 +1,6 @@
-﻿namespace WinForms.Tiles
+﻿using System.ComponentModel;
+
+namespace WinForms.Tiles
 {
     public partial class TileContent : UserControl
     {
@@ -15,5 +17,17 @@
             => new(DefaultSelectionFramePadding);
 
         public BindingSource? BindingSourceComponent { get; set; }
+
+        public virtual async Task LoadAsync()
+        {
+            await Task.Delay(0);
+            IsLoaded = true;
+        }
+
+        [Browsable(false)]
+        public bool IsLoaded { get; private set; }
+
+        public virtual void DisposeContent()
+        { }
     }
 }

@@ -14,29 +14,26 @@ namespace WinForms.Tiles
         private Action? _listUnbinder;
 
         private int _previousListCount;
-        private Tile? _templateControlInstance;
+        //private Tile? _templateControlInstance;
         private bool _layoutCached;
 
         public TileRepeater()
         {
             _templateAssignments = new TemplateAssignmentItems();
-            AutoScroll = true;
         }
 
         public TemplateAssignmentItems? TemplateTypes
         {
             get => _templateAssignments;
-            set
-            {
-                _templateAssignments = value;
-            }
+            set => _templateAssignments = value;
         }
 
         [AttributeProvider(typeof(IListSource)),
          Bindable(true)]
         public object? DataSource
         {
-            get { return _dataSource; }
+            get => _dataSource;
+
             set
             {
                 if (!object.Equals(value, _dataSource))
@@ -67,16 +64,18 @@ namespace WinForms.Tiles
             }
         }
 
-        private void PopulateDesignerContent()
-        {
-            Controls.Clear();
-        }
+        private void PopulateDesignerContent() 
+            => Controls.Clear();
 
         protected override void OnResize(EventArgs eventargs)
         {
             base.OnResize(eventargs);
-            _layoutCached = false;
-            PerformLayout();
+
+            if (AutoLayoutOnResize)
+            {
+                _layoutCached = false;
+                PerformLayout();
+            }
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -86,6 +85,7 @@ namespace WinForms.Tiles
                 var bgPen = new Pen(ForeColor, 2);
                 var bgBrush = new SolidBrush(BackColor);
                 e.Graphics.DrawRectangle(bgPen, ClientRectangle);
+
                 var tmpControlString = TemplateTypes is null
                     ? "(none defined)"
                     : "Multiple Types Defines.";
@@ -101,6 +101,8 @@ namespace WinForms.Tiles
                 LayoutInternal();
                 _layoutCached = true;
             }
+
+            base.OnLayout(levent);
         }
 
         private IBindingList WireBindingList(IBindingList bindingList)
@@ -125,6 +127,7 @@ namespace WinForms.Tiles
         private void GenerateContent()
         {
             SuspendLayout();
+
             _layoutCached = false;
             Controls.Clear();
 
@@ -174,30 +177,59 @@ namespace WinForms.Tiles
 
             Control lastControl = Controls[0];
 
-            int currentX = lastControl.Margin.Left;
-            int currentY = lastControl.Margin.Top;
-            int yIncrease = lastControl.Margin.Top + lastControl.Margin.Bottom + lastControl.Height;
+            int currentX = Padding.Left;
+            int currentY = Padding.Top;
+            int maxRowHeight = 0;
+            int tilesInRow = 1;
 
             foreach (Control control in Controls)
             {
-                control.Left = currentX;
-                control.Top = currentY;
-                currentX += lastControl.Margin.Left + lastControl.Width + lastControl.Margin.Right;
-
-                if (currentX > ClientSize.Width)
+                // We only touching Tile controls.
+                if (control is Tile tileControl)
                 {
-                    currentY += yIncrease;
-                    currentX = lastControl.Margin.Left;
+                    tileControl.Size = control.PreferredSize;
+
+                    if (tileControl.TileContent.IsSeparator)
+                    {
+                        currentY += maxRowHeight;
+                        currentX = Padding.Left;
+                        maxRowHeight = 0;
+
+                        tileControl.Left = currentX;
+                        tileControl.Top = currentY;
+
+                        currentY += tileControl.Margin.Top+tileControl.Height+tileControl.Margin.Bottom;
+                    }
+                    else
+                    {
+                        if (currentX + tileControl.Margin.Left + tileControl.Width + tileControl.Margin.Right > ClientSize.Width &&
+                            tilesInRow > 1)
+                        {
+                            currentY += maxRowHeight;
+                            currentX = Padding.Left;
+                            maxRowHeight = 0;
+                            tilesInRow = 1;
+                        }
+
+                        tileControl.Left = currentX;
+                        tileControl.Top = currentY;
+
+                        currentX += tileControl.Margin.Left + tileControl.Width + tileControl.Margin.Right;
+                        
+                        maxRowHeight = Math.Max(
+                            maxRowHeight,
+                            tileControl.Margin.Top + tileControl.Height + tileControl.Margin.Bottom);
+
+
+                        lastControl = tileControl;
+                        tilesInRow++;
+                    }
                 }
-
-                lastControl = control;
             }
-
-            AutoScrollMargin = new Size(
-                lastControl.Left + lastControl.Width, 
-                lastControl.Top + lastControl.Height);
-            this.VScroll = true;
         }
+
+        [DefaultValue(false)]
+        public bool AutoLayoutOnResize { get; set; }
 
         //public UserControlTemplate? TemplateControl
         //{
@@ -246,7 +278,7 @@ namespace WinForms.Tiles
                 .Where(item => item.TemplateAssignment!.TemplateType == templateType)?
                 .FirstOrDefault()?.TemplateAssignment?.TileContentControlType;
 
-            Tile tileControl = new Tile();
+            Tile tileControl = new();
 
             TileContent tileContentInstance;
 

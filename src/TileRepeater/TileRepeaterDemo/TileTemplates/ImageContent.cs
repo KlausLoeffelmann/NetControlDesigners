@@ -34,5 +34,22 @@ namespace TileRepeaterDemo.TileTemplates
 
             // TODO: Take DPI into account.
             => BaseDefaultSize * (int)TileSize;
+
+        public override async Task LoadAsync()
+        {
+            await _imageLoaderComponent.LoadImageAsync();
+            Invalidate();
+        }
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            // TODO: Paint.
+        }
+
+        public override void DisposeContent()
+        {
+            _imageLoaderComponent.DisposeImage();
+        }
     }
 }

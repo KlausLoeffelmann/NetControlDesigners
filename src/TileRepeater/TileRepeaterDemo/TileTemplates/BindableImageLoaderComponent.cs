@@ -5,6 +5,7 @@ namespace TileRepeaterDemo.TileTemplates
     public partial class BindableAsyncImageLoaderComponent : Component, IBindableComponent
     {
         public event EventHandler? ImageChanged;
+        public event EventHandler? ImageFilenameChanged;
 
         private BindingContext? _bindingContext;
         private ControlBindingsCollection? _dataBindings;
@@ -88,7 +89,7 @@ namespace TileRepeaterDemo.TileTemplates
             }
         }
 
-        [Bindable(true)]
+        [Bindable(true), DefaultValue(null)]
         public string? ImageFilename
         {
             get => _imageFilename;
@@ -102,6 +103,20 @@ namespace TileRepeaterDemo.TileTemplates
             }
         }
 
+        [DefaultValue(false)]
+        public bool AutoLoad { get; set; }
+
+        protected async virtual void OnImageFilenameChanged(EventArgs e)
+        {
+            ImageFilenameChanged?.Invoke(this, e);
+
+            if (AutoLoad)
+            {
+                await LoadImageAsync();
+            }
+        }
+
+        [Browsable(false)]
         public Image? Image
         {
             get => _image;
@@ -115,14 +130,14 @@ namespace TileRepeaterDemo.TileTemplates
             }
         }
 
-        protected async virtual void OnImageFilenameChanged(EventArgs e)
+        public async virtual Task LoadImageAsync()
         {
             if (string.IsNullOrWhiteSpace(_imageFilename))
             {
-                if (_image is not null)
+                if (Image is not null)
                 {
-                    _image.Dispose();
-                    _image = null;
+                    Image.Dispose();
+                    Image = null;
                 }
 
                 return;
@@ -130,10 +145,24 @@ namespace TileRepeaterDemo.TileTemplates
 
             try
             {
+                if (Image is not null)
+                {
+                    Image.Dispose();
+                }
+
                 Image = await LoadImageAsync(_imageFilename);
             }
             catch (Exception)
             {
+            }
+        }
+
+        public virtual void DisposeImage()
+        {
+            if (Image is not null)
+            {
+                Image.Dispose();
+                Image = null;
             }
         }
 

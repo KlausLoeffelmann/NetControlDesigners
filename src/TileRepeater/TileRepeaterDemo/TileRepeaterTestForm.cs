@@ -31,5 +31,11 @@ namespace TileRepeaterDemo
                 _uiControllerBindingSource.DataSource = _uiController;
             }
         }
+
+        protected override void OnResizeEnd(EventArgs e)
+        {
+            base.OnResizeEnd(e);
+            _pictureTileRepeater.PerformLayout();
+        }
     }
 }
