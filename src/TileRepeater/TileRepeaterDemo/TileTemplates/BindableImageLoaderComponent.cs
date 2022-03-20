@@ -184,7 +184,10 @@ namespace TileRepeaterDemo.TileTemplates
                     float originalRatio = (float)image.Width / (float)image.Height;
                     float targetRatio = (float)rescaleTo.Width / (float)rescaleTo.Height;
 
-                    if (originalRatio < targetRatio)
+                    // We must do the scaling the other way around, if it is Portrait format.
+                    bool flipFlag = originalRatio < 1;
+
+                    if ((originalRatio < targetRatio) ^ flipFlag)
                     {
                         var ratioH = (float)rescaleTo.Height / (float)image.Height;
                         rescaleToAligned = new((int)(image.Width * ratioH), rescaleTo.Height);

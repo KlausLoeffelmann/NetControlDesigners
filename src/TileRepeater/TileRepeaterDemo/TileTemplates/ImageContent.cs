@@ -33,7 +33,7 @@ namespace TileRepeaterDemo.TileTemplates
         public override Size GetPreferredSize(Size proposedSize)
 
             // TODO: Take DPI into account.
-            => BaseDefaultSize * (int)TileSize;
+            => BaseDefaultSize * (int)TileSize + new Size(0, _infoLabel.Height);
 
         protected async override Task<bool> LoadContentCoreAsync()
         {
