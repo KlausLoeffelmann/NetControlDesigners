@@ -64,7 +64,7 @@ namespace WinForms.Tiles
             }
         }
 
-        private void PopulateDesignerContent() 
+        private void PopulateDesignerContent()
             => Controls.Clear();
 
         protected override void OnResize(EventArgs eventargs)
@@ -95,7 +95,13 @@ namespace WinForms.Tiles
 
         protected override void OnLayout(LayoutEventArgs levent)
         {
-            LayoutInternal();
+            if ((levent.AffectedControl is Tile && levent.AffectedProperty == nameof(Parent)) ||
+                (!AutoLayoutOnResize &&
+                 levent.AffectedControl is TileRepeater &&
+                 levent.AffectedProperty == nameof(DisplayRectangle)) || AutoLayoutOnResize)
+            {
+                LayoutInternal();
+            }
 
             base.OnLayout(levent);
         }

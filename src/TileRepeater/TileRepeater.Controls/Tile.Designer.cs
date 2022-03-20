@@ -35,21 +35,22 @@
             // 
             this._contentPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this._contentPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._contentPanel.Location = new System.Drawing.Point(20, 20);
+            this._contentPanel.Location = new System.Drawing.Point(32, 32);
+            this._contentPanel.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this._contentPanel.Name = "_contentPanel";
-            this._contentPanel.Size = new System.Drawing.Size(100, 100);
+            this._contentPanel.Size = new System.Drawing.Size(136, 136);
             this._contentPanel.TabIndex = 0;
             // 
             // Tile
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this._contentPanel);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "Tile";
-            this.Padding = new System.Windows.Forms.Padding(20);
+            this.Padding = new System.Windows.Forms.Padding(32, 32, 32, 32);
+            this.Size = new System.Drawing.Size(200, 200);
             this.ResumeLayout(false);
 
         }
