@@ -78,13 +78,13 @@ namespace TileRepeaterDemo
             this._pictureTileRepeater.Name = "_pictureTileRepeater";
             this._pictureTileRepeater.Size = new System.Drawing.Size(1591, 996);
             this._pictureTileRepeater.TabIndex = 0;
-            templateAssignmentItems1.Add(new WinForms.Tiles.TemplateAssignmentItem("Template: GenericTemplateItem/Content: GroupSeperatorContent", new WinForms.Tiles.TemplateAssignment(Type.GetType("TileRepeater.Data.ListController.GenericTemplateItem, TileRepeater.Data, Version=" +
+            templateAssignmentItems1.Add(new WinForms.Tiles.TemplateAssignmentItem("GenericTemplateItem/GroupSeperatorContent", new WinForms.Tiles.TemplateAssignment(Type.GetType("TileRepeater.Data.ListController.GenericTemplateItem, TileRepeater.Data, Version=" +
                     "1.0.0.0, Culture=neutral, PublicKeyToken=null"), Type.GetType("TileRepeaterDemo.TileTemplates.GroupSeperatorContent, TileRepeaterDemo, Version=1" +
                     ".0.0.0, Culture=neutral, PublicKeyToken=null"))));
-            templateAssignmentItems1.Add(new WinForms.Tiles.TemplateAssignmentItem("Template: LandscapePictureItem/Content: LandscapeImageContent", new WinForms.Tiles.TemplateAssignment(Type.GetType("TileRepeater.Data.ListController.LandscapePictureItem, TileRepeater.Data, Version" +
+            templateAssignmentItems1.Add(new WinForms.Tiles.TemplateAssignmentItem("LandscapePictureItem/LandscapeImageContent", new WinForms.Tiles.TemplateAssignment(Type.GetType("TileRepeater.Data.ListController.LandscapePictureItem, TileRepeater.Data, Version" +
                     "=1.0.0.0, Culture=neutral, PublicKeyToken=null"), Type.GetType("TileRepeaterDemo.TileTemplates.LandscapeImageContent, TileRepeaterDemo, Version=1" +
                     ".0.0.0, Culture=neutral, PublicKeyToken=null"))));
-            templateAssignmentItems1.Add(new WinForms.Tiles.TemplateAssignmentItem("Template: PortraitPictureItem/Content: PortraitImageContent", new WinForms.Tiles.TemplateAssignment(Type.GetType("TileRepeater.Data.ListController.PortraitPictureItem, TileRepeater.Data, Version=" +
+            templateAssignmentItems1.Add(new WinForms.Tiles.TemplateAssignmentItem("PortraitPictureItem/PortraitImageContent", new WinForms.Tiles.TemplateAssignment(Type.GetType("TileRepeater.Data.ListController.PortraitPictureItem, TileRepeater.Data, Version=" +
                     "1.0.0.0, Culture=neutral, PublicKeyToken=null"), Type.GetType("TileRepeaterDemo.TileTemplates.PortraitImageContent, TileRepeaterDemo, Version=1." +
                     "0.0.0, Culture=neutral, PublicKeyToken=null"))));
             this._pictureTileRepeater.TemplateTypes = templateAssignmentItems1;

@@ -34,7 +34,7 @@ namespace WinForms.Tiles
 
         public override string ToString()
         {
-            return $"Template: {NullableTypename(TemplateType)}/Content: {NullableTypename(TileContentControlType)}";
+            return $"{NullableTypename(TemplateType)}/{NullableTypename(TileContentControlType)}";
 
             static string NullableTypename(Type? type)
                 => $"{(type is null ? TypeNullString : type.Name)}";

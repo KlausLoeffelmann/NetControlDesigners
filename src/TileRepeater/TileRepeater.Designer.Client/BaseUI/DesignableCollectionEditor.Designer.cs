@@ -50,17 +50,17 @@
             // _tableLayoutPanel
             // 
             this._tableLayoutPanel.ColumnCount = 1;
-            this._tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this._tableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this._tableLayoutPanel.Controls.Add(this._bottomPanel, 0, 1);
             this._tableLayoutPanel.Controls.Add(this._splitContainer, 0, 0);
             this._tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this._tableLayoutPanel.Location = new System.Drawing.Point(0, 0);
-            this._tableLayoutPanel.Margin = new System.Windows.Forms.Padding(4);
+            this._tableLayoutPanel.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this._tableLayoutPanel.Name = "_tableLayoutPanel";
             this._tableLayoutPanel.RowCount = 2;
             this._tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this._tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this._tableLayoutPanel.Size = new System.Drawing.Size(1061, 672);
+            this._tableLayoutPanel.Size = new System.Drawing.Size(1483, 985);
             this._tableLayoutPanel.TabIndex = 0;
             // 
             // _bottomPanel
@@ -69,19 +69,19 @@
             this._bottomPanel.Controls.Add(this._btnOk);
             this._bottomPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this._bottomPanel.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this._bottomPanel.Location = new System.Drawing.Point(4, 631);
-            this._bottomPanel.Margin = new System.Windows.Forms.Padding(4);
+            this._bottomPanel.Location = new System.Drawing.Point(6, 921);
+            this._bottomPanel.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this._bottomPanel.Name = "_bottomPanel";
-            this._bottomPanel.Size = new System.Drawing.Size(1053, 37);
+            this._bottomPanel.Size = new System.Drawing.Size(1471, 58);
             this._bottomPanel.TabIndex = 0;
             // 
             // _btnCancel
             // 
             this._btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this._btnCancel.Location = new System.Drawing.Point(949, 4);
-            this._btnCancel.Margin = new System.Windows.Forms.Padding(4);
+            this._btnCancel.Location = new System.Drawing.Point(1315, 6);
+            this._btnCancel.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this._btnCancel.Name = "_btnCancel";
-            this._btnCancel.Size = new System.Drawing.Size(100, 28);
+            this._btnCancel.Size = new System.Drawing.Size(150, 44);
             this._btnCancel.TabIndex = 1;
             this._btnCancel.Text = "&Cancel";
             this._btnCancel.UseVisualStyleBackColor = true;
@@ -89,10 +89,10 @@
             // _btnOk
             // 
             this._btnOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this._btnOk.Location = new System.Drawing.Point(841, 4);
-            this._btnOk.Margin = new System.Windows.Forms.Padding(4);
+            this._btnOk.Location = new System.Drawing.Point(1153, 6);
+            this._btnOk.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this._btnOk.Name = "_btnOk";
-            this._btnOk.Size = new System.Drawing.Size(100, 28);
+            this._btnOk.Size = new System.Drawing.Size(150, 44);
             this._btnOk.TabIndex = 0;
             this._btnOk.Text = "&OK";
             this._btnOk.UseVisualStyleBackColor = true;
@@ -100,8 +100,8 @@
             // _splitContainer
             // 
             this._splitContainer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._splitContainer.Location = new System.Drawing.Point(4, 4);
-            this._splitContainer.Margin = new System.Windows.Forms.Padding(4);
+            this._splitContainer.Location = new System.Drawing.Point(6, 6);
+            this._splitContainer.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this._splitContainer.Name = "_splitContainer";
             // 
             // _splitContainer.Panel1
@@ -112,20 +112,21 @@
             // _splitContainer.Panel2
             // 
             this._splitContainer.Panel2.Controls.Add(this._propertyGrid);
-            this._splitContainer.Size = new System.Drawing.Size(1053, 619);
-            this._splitContainer.SplitterDistance = 614;
-            this._splitContainer.SplitterWidth = 5;
+            this._splitContainer.Size = new System.Drawing.Size(1471, 903);
+            this._splitContainer.SplitterDistance = 738;
+            this._splitContainer.SplitterWidth = 8;
             this._splitContainer.TabIndex = 0;
             // 
-            // _lbxPeople
+            // _lbxTemplateAssignments
             // 
             this._lbxTemplateAssignments.Dock = System.Windows.Forms.DockStyle.Fill;
             this._lbxTemplateAssignments.FormattingEnabled = true;
-            this._lbxTemplateAssignments.ItemHeight = 16;
-            this._lbxTemplateAssignments.Location = new System.Drawing.Point(0, 31);
-            this._lbxTemplateAssignments.Margin = new System.Windows.Forms.Padding(4);
-            this._lbxTemplateAssignments.Name = "_lbxPeople";
-            this._lbxTemplateAssignments.Size = new System.Drawing.Size(614, 588);
+            this._lbxTemplateAssignments.IntegralHeight = false;
+            this._lbxTemplateAssignments.ItemHeight = 25;
+            this._lbxTemplateAssignments.Location = new System.Drawing.Point(0, 50);
+            this._lbxTemplateAssignments.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this._lbxTemplateAssignments.Name = "_lbxTemplateAssignments";
+            this._lbxTemplateAssignments.Size = new System.Drawing.Size(738, 853);
             this._lbxTemplateAssignments.TabIndex = 1;
             // 
             // _toolStrip
@@ -137,7 +138,8 @@
             this._btnRemove});
             this._toolStrip.Location = new System.Drawing.Point(0, 0);
             this._toolStrip.Name = "_toolStrip";
-            this._toolStrip.Size = new System.Drawing.Size(614, 31);
+            this._toolStrip.Padding = new System.Windows.Forms.Padding(0, 0, 3, 0);
+            this._toolStrip.Size = new System.Drawing.Size(738, 50);
             this._toolStrip.TabIndex = 0;
             // 
             // _btnAdd
@@ -145,7 +147,7 @@
             this._btnAdd.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this._btnAdd.ImageTransparentColor = System.Drawing.Color.Magenta;
             this._btnAdd.Name = "_btnAdd";
-            this._btnAdd.Size = new System.Drawing.Size(41, 28);
+            this._btnAdd.Size = new System.Drawing.Size(61, 36);
             this._btnAdd.Text = "Add";
             // 
             // _btnRemove
@@ -153,26 +155,26 @@
             this._btnRemove.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this._btnRemove.ImageTransparentColor = System.Drawing.Color.Magenta;
             this._btnRemove.Name = "_btnRemove";
-            this._btnRemove.Size = new System.Drawing.Size(67, 28);
+            this._btnRemove.Size = new System.Drawing.Size(104, 36);
             this._btnRemove.Text = "Remove";
             // 
             // _propertyGrid
             // 
             this._propertyGrid.Dock = System.Windows.Forms.DockStyle.Fill;
             this._propertyGrid.Location = new System.Drawing.Point(0, 0);
-            this._propertyGrid.Margin = new System.Windows.Forms.Padding(4);
+            this._propertyGrid.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this._propertyGrid.Name = "_propertyGrid";
-            this._propertyGrid.Size = new System.Drawing.Size(434, 619);
+            this._propertyGrid.Size = new System.Drawing.Size(725, 903);
             this._propertyGrid.TabIndex = 0;
             // 
             // DesignableCollectionEditor
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this._tableLayoutPanel);
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.Name = "DesignableCollectionEditor";
-            this.Size = new System.Drawing.Size(1061, 672);
+            this.Size = new System.Drawing.Size(1483, 985);
             this._tableLayoutPanel.ResumeLayout(false);
             this._bottomPanel.ResumeLayout(false);
             this._splitContainer.Panel1.ResumeLayout(false);
