@@ -8,11 +8,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
-	<ItemGroup>
+	<!--<ItemGroup>
 		<PackageReference Include="TileRepeater.Package" Version="1.0.0" />
-	</ItemGroup>
+	</ItemGroup>-->
 
 	<ItemGroup>
+	  <ProjectReference Include="..\TileRepeater.Controls\TileRepeater.Controls.csproj" />
 	  <ProjectReference Include="..\TileRepeater.Data\TileRepeater.Data.csproj" />
 	</ItemGroup>
 

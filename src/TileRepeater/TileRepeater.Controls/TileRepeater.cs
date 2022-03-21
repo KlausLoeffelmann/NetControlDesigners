@@ -10,11 +10,15 @@ namespace WinForms.Tiles
     public partial class TileRepeater : Panel
     {
         private TemplateAssignmentItems? _templateAssignments;
+        private bool _suspendLayoutInternal;
+        private Queue<string> _suspendTileCausedLayoutQueue = new();
 
         private object? _dataSource;
         private Action? _listUnbinder;
+        private List<Tile> _virtualizedTiles = new();
 
         private int _previousListCount;
+
         //private Tile? _templateControlInstance;
 
         public TileRepeater()
@@ -93,8 +97,38 @@ namespace WinForms.Tiles
             }
         }
 
+        protected override void OnScroll(ScrollEventArgs se)
+        {
+            int delta = se.NewValue - se.OldValue;
+
+            if (se.ScrollOrientation == ScrollOrientation.VerticalScroll)
+            {
+                for (int i=0; i<_virtualizedTiles.Count;i++)
+                {
+                    if (_virtualizedTiles[i].Parent is null)
+                    {
+                        _virtualizedTiles[i].Top = _virtualizedTiles[i].Top - delta;
+                    }
+                }
+            }
+
+            base.OnScroll(se);
+        }
+
         protected override void OnLayout(LayoutEventArgs levent)
         {
+            if (levent.AffectedControl is Tile)
+            {
+                if (_suspendTileCausedLayoutQueue.TryPeek(out var propertyName))
+                {
+                    if (propertyName == levent.AffectedProperty)
+                    {
+                        _suspendTileCausedLayoutQueue.Dequeue();
+                        return;
+                    }
+                }
+            }
+
             if ((levent.AffectedControl is Tile && levent.AffectedProperty == nameof(Parent)) ||
                 (!AutoLayoutOnResize &&
                  levent.AffectedControl is TileRepeater &&
@@ -142,19 +176,40 @@ namespace WinForms.Tiles
                 actualBindingSource = _dataSource;
             }
 
-            if (actualBindingSource is not IBindingList dataSourceAsBindingList || TemplateTypes is null)
+            if (actualBindingSource is not IBindingList dataSourceAsBindingList ||
+                TemplateTypes is null ||
+                dataSourceAsBindingList.Count == 0)
             {
                 ResumeLayout();
                 return;
             }
 
+            int count = 1;
+            bool first = true;
+
+            Control lastControl = null!;
+
             foreach (var item in dataSourceAsBindingList)
             {
                 var tileControl = GetTemplateControlInstance(item.GetType());
+                tileControl!.Tag = $"{count++}";
+
+                if (first)
+                {
+                    first = false;
+                    tileControl!.Tag = true;
+                    Controls.Add(tileControl);
+                }
+
+                tileControl!.ParentForVirtualization = this;
                 tileControl!.TileContent.BindingSourceComponent!.DataSource = item;
-                Controls.Add(tileControl);
+                _virtualizedTiles.Add(tileControl);
+                //Controls.Add(tileControl);
+                lastControl = tileControl;
             }
 
+            lastControl.Tag = true;
+            Controls.Add(lastControl);
             ResumeLayout();
         }
 
@@ -170,14 +225,30 @@ namespace WinForms.Tiles
 
         private void LayoutInternal()
         {
-            if (Controls.Count == 0)
+            if (_suspendLayoutInternal)
+                return;
+
+            if (_virtualizedTiles.Count == 0)
             {
                 return;
             }
 
-            Control lastControl = Controls[0];
+            SuspendLayoutInternal();
 
-            lastControl.Visible = true;
+            int controlCount = 0;
+            while (controlCount < Controls.Count)
+            {
+                if (!(Controls[controlCount].Tag is bool))
+                {
+                    Controls.RemoveAt(controlCount);
+                }
+                else
+                {
+                    controlCount++;
+                }
+            }
+
+            Control lastControl = _virtualizedTiles[0];
             lastControl.Tag = true;
 
             int currentX = Padding.Left;
@@ -185,7 +256,7 @@ namespace WinForms.Tiles
             int maxRowHeight = 0;
             int tilesInRow = 1;
 
-            foreach (Control control in Controls)
+            foreach (Control control in _virtualizedTiles)
             {
                 // We only touching Tile controls.
                 if (control is Tile tileControl)
@@ -214,8 +285,7 @@ namespace WinForms.Tiles
                             tilesInRow = 1;
                         }
 
-                        tileControl.Left = currentX;
-                        tileControl.Top = currentY;
+                        tileControl.SetBounds(currentX, currentY, tileControl.Width, tileControl.Height);
 
                         currentX += tileControl.Margin.Left + tileControl.Width + tileControl.Margin.Right;
                         
@@ -230,9 +300,17 @@ namespace WinForms.Tiles
                 }
             }
 
-            lastControl.Visible = true;
-            lastControl.Tag = true;
+            ResumeLayoutInternal();
         }
+
+        internal void SuspendLayoutInternal()
+            => _suspendLayoutInternal = true;
+
+        internal void ResumeLayoutInternal()
+            => _suspendLayoutInternal = false;
+
+        internal void SuspendNextTileLayout(string Propertyname)
+            => _suspendTileCausedLayoutQueue.Enqueue(Propertyname);
 
         [DefaultValue(false)]
         public bool AutoLayoutOnResize { get; set; }

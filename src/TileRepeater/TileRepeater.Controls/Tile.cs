@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Diagnostics;
 
 namespace WinForms.Tiles
 {
@@ -24,14 +25,12 @@ namespace WinForms.Tiles
         protected override void OnLocationChanged(EventArgs e)
         {
             base.OnLocationChanged(e);
-            if (Parent is not null)
-            {
-                IsInParentClientArea =
-                    !(Bottom < 0 ||
-                    Top > Parent.ClientSize.Height ||
-                    Right < 0 ||
-                    Left > Parent.ClientSize.Width);
-            }
+
+            IsInParentClientArea =
+                !(Bottom < 0 ||
+                Top > ParentForVirtualization!.ClientSize.Height ||
+                Right < 0 ||
+                Left > ParentForVirtualization.ClientSize.Width);
         }
 
         public virtual bool IsInParentClientArea
@@ -49,6 +48,26 @@ namespace WinForms.Tiles
 
         protected virtual async void OnIsInParentClientAreaChanged()
         {
+            Debug.Print($"{Tag}'s visibility changed:{IsInParentClientArea} - {Location} - {((TileRepeater)Parent)?.VerticalScroll.Value}");
+
+            if (IsInParentClientArea)
+            {
+                if (Parent is null)
+                {
+                    ParentForVirtualization!.SuspendNextTileLayout(nameof(Parent));
+                    ParentForVirtualization!.SuspendNextTileLayout(nameof(Bounds));
+                    ParentForVirtualization!.Controls.Add(this);
+                }
+            }
+            else
+            {
+                if (Parent is not null && !(Tag is bool))
+                {
+                    ParentForVirtualization!.SuspendNextTileLayout(nameof(Parent));
+                    ParentForVirtualization!.Controls.Remove(this);
+                }
+            }
+
             if (TileContent is not null && IsInParentClientArea && !TileContent.IsContentLoaded)
             {
                 try
@@ -64,6 +83,8 @@ namespace WinForms.Tiles
                 }
             }
         }
+
+        internal TileRepeater ParentForVirtualization { get; set; }
 
         public TileContent TileContent
         {
