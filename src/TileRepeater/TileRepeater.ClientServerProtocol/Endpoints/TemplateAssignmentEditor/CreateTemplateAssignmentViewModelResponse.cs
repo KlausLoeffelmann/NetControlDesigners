@@ -6,7 +6,7 @@ using WinForms.Tiles.ClientServerProtocol;
 
 namespace WinForms.Tiles.Designer.Protocol.Endpoints
 {
-    public class CreateTemplateAssignmentViewModelResponse : Response
+    public class CreateTemplateAssignmentViewModelResponse : Response, ICreateTemplateAssignmentViewModelEndpoint.Response
     {
         [AllowNull]
         public object ViewModel { get; private set; }

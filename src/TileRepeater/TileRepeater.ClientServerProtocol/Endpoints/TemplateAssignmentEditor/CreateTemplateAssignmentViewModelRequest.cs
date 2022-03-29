@@ -5,7 +5,7 @@ using Microsoft.DotNet.DesignTools.Protocol.Endpoints;
 
 namespace WinForms.Tiles.Designer.Protocol.Endpoints
 {
-    public class CreateTemplateAssignmentViewModelRequest : Request
+    public class CreateTemplateAssignmentViewModelRequest : Request, ICreateTemplateAssignmentViewModelEndpoint.Request
     {
         public SessionId SessionId { get; private set; }
         public object? TileRepeaterProxy { get; private set; }

@@ -43,6 +43,8 @@ namespace WinForms.Tiles.Designer.Client
             var session = provider.GetRequiredService<DesignerSession>();
             var client = provider.GetRequiredService<IDesignToolsClient>();
 
+            var createViewModelEndpoint = client.Protocol.GetEndpoint<CreateTemplateAssignmentViewModelEndpoint>();
+            
             var createViewModelEndpointSender = client.Protocol.GetEndpoint<CreateTemplateAssignmentViewModelEndpoint>().GetSender(client);
 
             var response = createViewModelEndpointSender.SendRequest(new CreateTemplateAssignmentViewModelRequest(session.Id, templateAssignmentProxy));
