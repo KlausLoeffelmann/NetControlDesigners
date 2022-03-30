@@ -9,6 +9,8 @@
 		<RepositoryType>git</RepositoryType>
 		<TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);_GetFilesToPackage</TargetsForTfmSpecificContentInPackage>
 		<RunPostBuildEvent>Always</RunPostBuildEvent>
+		<PackageVersion>$([System.DateTime]::Now.ToString("yyyyMM.dd.HHmm"))</PackageVersion>
+		<AssemblyVersion>$([System.DateTime]::Now.ToString("yyyy.MM.dd.HHmm"))</AssemblyVersion>
 	</PropertyGroup>
 
 	<Target Name="_GetFilesToPackage">
