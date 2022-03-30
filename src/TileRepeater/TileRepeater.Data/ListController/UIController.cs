@@ -60,7 +60,7 @@ namespace TileRepeater.Data.ListController
             {
                 var fileDate = file.LastWriteTime;
 
-                // Grouping by months is hardwired. Should be suffice for demo purposes.
+                // Grouping by months is hardwired. Should be enough for demo purposes.
                 if ($"{currentDate.Year}{currentDate.Month}" != $"{fileDate.Year}{fileDate.Month}")
                 {
                     currentDate = fileDate;
