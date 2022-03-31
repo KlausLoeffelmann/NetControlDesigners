@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using Microsoft.DotNet.DesignTools.TypeRouting;
+﻿using Microsoft.DotNet.DesignTools.TypeRouting;
+using System.Collections.Generic;
 
 namespace WinForms.Tiles.Designer.Server
 {

@@ -5,7 +5,7 @@ namespace TileRepeaterDemo
     public partial class TileRepeaterTestForm : Form
     {
         private string? _pathToPictures;
-        private UIController _uiController;
+        private readonly UIController _uiController;
 
         public TileRepeaterTestForm()
         {

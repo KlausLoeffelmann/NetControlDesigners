@@ -1,7 +1,6 @@
 ﻿using Microsoft.DotNet.DesignTools.Designers;
 using Microsoft.DotNet.DesignTools.Designers.Actions;
 using System.ComponentModel;
-using System.Windows.Forms.Design;
 
 namespace WinForms.Tiles.Designer.Server
 {
@@ -12,7 +11,7 @@ namespace WinForms.Tiles.Designer.Server
             private const string Behavior = nameof(Behavior);
             private const string Data = nameof(Data);
 
-            private ComponentDesigner _designer;
+            private readonly ComponentDesigner _designer;
 
             public ActionList(TileRepeaterDesigner designer)
                 : base(designer.Component)

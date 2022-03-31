@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Diagnostics;
 
 namespace WinForms.Tiles
 {
@@ -9,25 +8,53 @@ namespace WinForms.Tiles
      System.ComponentModel.ComplexBindingProperties("DataSource")]
     public partial class TileRepeater : Panel
     {
+        private const string AutoLayoutResizeDescription =
+            "Gets or sets a value which determines, if the " +
+            "Layout should be recalculated on resizing automatically.";
+
+        private const string TemplateTypesDescription =
+            "Gets or sets the collection of type assignments, which determines based on the item type " +
+            "in the data source what TileContent based type UserControl should be used for rendering " +
+            "the data on binding.";
+
+        private const string DataSourceDescription = 
+            "Gets or sets the data source for the TileRepeater control.";
+
         private TemplateAssignmentItems? _templateAssignments;
 
         private object? _dataSource;
         private Action? _listUnbinder;
 
         private int _previousListCount;
-        //private Tile? _templateControlInstance;
 
         public TileRepeater()
         {
             _templateAssignments = new TemplateAssignmentItems();
         }
 
+        /// <summary>
+        /// Gets or sets a value which determines, if the Layout should be recalculated on resizing automatically.
+        /// </summary>
+        [DefaultValue(false),
+         Description(AutoLayoutResizeDescription)]
+        public bool AutoLayoutOnResize { get; set; }
+
+        /// <summary>
+        /// Gets or sets the collection of type assignments, which determines based on the item type 
+        /// in the data source what TileContent based type UserControl should be used for rendering 
+        /// the data on binding.
+        /// </summary>
+        [Description(TemplateTypesDescription)]
         public TemplateAssignmentItems? TemplateTypes
         {
             get => _templateAssignments;
             set => _templateAssignments = value;
         }
 
+        /// <summary>
+        /// Gets or sets the data source for the TileRepeater control.
+        /// </summary>
+        [Description(DataSourceDescription)]
         [AttributeProvider(typeof(IListSource)),
          Bindable(true)]
         public object? DataSource
@@ -77,22 +104,6 @@ namespace WinForms.Tiles
             }
         }
 
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            if (IsHandleCreated && IsAncestorSiteInDesignMode)
-            {
-                var bgPen = new Pen(ForeColor, 2);
-                var bgBrush = new SolidBrush(BackColor);
-                e.Graphics.DrawRectangle(bgPen, ClientRectangle);
-
-                var tmpControlString = TemplateTypes is null
-                    ? "(none defined)"
-                    : "Multiple Types Defines.";
-
-                e.Graphics.DrawString($"TemplateControl:{tmpControlString}", Font, bgBrush, 10, 10);
-            }
-        }
-
         protected override void OnLayout(LayoutEventArgs levent)
         {
             if ((levent.AffectedControl is Tile && levent.AffectedProperty == nameof(Parent)) ||
@@ -128,7 +139,6 @@ namespace WinForms.Tiles
         private void GenerateContent()
         {
             SuspendLayout();
-
             Controls.Clear();
 
             object? actualBindingSource;
@@ -142,7 +152,8 @@ namespace WinForms.Tiles
                 actualBindingSource = _dataSource;
             }
 
-            if (actualBindingSource is not IBindingList dataSourceAsBindingList || TemplateTypes is null)
+            if (actualBindingSource is not IBindingList dataSourceAsBindingList || 
+                TemplateTypes is null)
             {
                 ResumeLayout();
                 return;
@@ -234,49 +245,6 @@ namespace WinForms.Tiles
             lastControl.Tag = true;
         }
 
-        [DefaultValue(false)]
-        public bool AutoLayoutOnResize { get; set; }
-
-        //public UserControlTemplate? TemplateControl
-        //{
-        //    get { return _templateControl; }
-        //    set
-        //    {
-        //        if (!object.Equals(value, _templateControl))
-        //        {
-        //            _templateControl = value;
-        //            if (_templateControl is null)
-        //            {
-        //                Controls.Clear();
-        //                _templateControlInstance = null;
-        //                return;
-        //            }
-
-        //            _templateControlInstance = GetTemplateControlInstance();
-        //            //if (_templateControlInstance?.BindingSourceComponent is null)
-        //            //{
-        //            //    throw new ArgumentException("Please make sure that the TemplateControl's " +
-        //            //        "BindingSourceComponent property is set up for populating " +
-        //            //        "the template control via data binding.");
-        //            //}
-
-        //            if (IsHandleCreated && IsAncestorSiteInDesignMode)
-        //            {
-        //                PopulateDesignerContent();
-        //            }
-        //            else
-        //            {
-        //                GenerateContent();
-        //            }
-        //        }
-        //    }
-        //}
-
-        //private void ResetTemplateControl()
-        //{
-        //    TemplateControl = null;
-        //}
-
         private Tile? GetTemplateControlInstance(Type templateType)
         {
             // Get TileContentControl based on type:
@@ -295,7 +263,7 @@ namespace WinForms.Tiles
             }
             catch (Exception)
             {
-                // TODO: If the Activater threw, we need to have an error control here.
+                // TODO: If the Activator threw, we need to have an error control here.
                 tileContentInstance = new TileContent() { BackColor = Color.Red };
             }
 

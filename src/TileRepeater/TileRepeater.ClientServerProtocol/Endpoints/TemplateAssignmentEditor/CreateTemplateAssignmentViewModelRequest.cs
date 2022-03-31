@@ -1,7 +1,7 @@
-﻿using System;
-using Microsoft.DotNet.DesignTools.Protocol;
+﻿using Microsoft.DotNet.DesignTools.Protocol;
 using Microsoft.DotNet.DesignTools.Protocol.DataPipe;
 using Microsoft.DotNet.DesignTools.Protocol.Endpoints;
+using System;
 
 namespace WinForms.Tiles.Designer.Protocol.Endpoints
 {

@@ -15,6 +15,7 @@ namespace TileRepeaterDemo.TileTemplates
         public TileSize TileSize
         {
             get => _tileSize;
+
             set
             {
                 if (!Equals(_tileSize, value))

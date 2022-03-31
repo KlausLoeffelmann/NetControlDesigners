@@ -10,11 +10,15 @@ namespace WinForms.Tiles.Designer.Server
 {
     internal partial class TileRepeaterDesigner : ControlDesigner
     {
-        private const string NotDefinedText = $"No assignments.\nPlease set the {nameof(TileRepeater.TemplateTypes)} property\nfor Data Template selection assignments.";
+        private const string NotDefinedText = 
+            $"No assignments.\n" +
+            $"Please set the {nameof(TileRepeater.TemplateTypes)} property\n" +
+            $"for Data Template selection assignments.";
+
         private const int DescriptionOffset = 5;
 
         public override DesignerActionListCollection ActionLists
-            => new DesignerActionListCollection
+            => new()
             {
                 new ActionList(this)
             };
@@ -51,9 +55,10 @@ namespace WinForms.Tiles.Designer.Server
                     new SolidBrush(Control.ForeColor),
                     new PointF(DescriptionOffset, DescriptionOffset));
 
-                // Draw Arrow:
-                var linePen = new Pen(Control.ForeColor, 4);
-                linePen.EndCap = LineCap.ArrowAnchor;
+                var linePen = new Pen(Control.ForeColor, 4)
+                {
+                    EndCap = LineCap.ArrowAnchor
+                };
 
                 PointF lineStartingPoint = new(
                     leftSideSize.Width + DescriptionOffset * 2,
@@ -66,7 +71,8 @@ namespace WinForms.Tiles.Designer.Server
                     lineStartingPoint,
                     lineEndingPoint);
 
-                PointF rightTextStartingPoint = lineEndingPoint + new SizeF(DescriptionOffset * 2, 0);
+                PointF rightTextStartingPoint =
+                    new(lineEndingPoint.X + DescriptionOffset * 2, DescriptionOffset);
 
                 pe.Graphics.DrawString(
                     rightSideString,
@@ -77,9 +83,11 @@ namespace WinForms.Tiles.Designer.Server
                 return;
             }
 
-            var textSize = pe.Graphics.MeasureString(NotDefinedText, Control.Font);
-
-
+            pe.Graphics.DrawString(
+                NotDefinedText,
+                Control.Font,
+                new SolidBrush(Control.ForeColor),
+                new PointF(DescriptionOffset, DescriptionOffset));
         }
 
         private List<(string templateTypeStrings, string tileContentTypeStrings)>? GetAssignmentTypesStrings()
