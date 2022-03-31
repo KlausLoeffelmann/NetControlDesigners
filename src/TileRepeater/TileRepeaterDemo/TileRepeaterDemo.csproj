@@ -13,13 +13,12 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\TileRepeater.Controls.Simplyfied\TileRepeater.Controls.Simplified.csproj" />
 	  <ProjectReference Include="..\TileRepeater.Data\TileRepeater.Data.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="TileTemplates\ImageContent.cs">
-	    <SubType>UserControl</SubType>
-	  </Compile>
+	  <Compile Update="TileTemplates\ImageContent.cs" />
 	  <Compile Update="TileTemplates\PortraitImageContent.cs" />
 	</ItemGroup>
 </Project>

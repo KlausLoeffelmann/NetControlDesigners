@@ -3,9 +3,9 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
 
-namespace WinForms.Tiles
+namespace WinForms.Tiles.Simplified
 {
-    public partial class TileRepeater
+    public partial class SimpleTileRepeater
     {
         public class TileContentConverter : TypeConverter
         {

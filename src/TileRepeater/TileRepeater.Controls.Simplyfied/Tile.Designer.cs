@@ -1,4 +1,4 @@
-﻿namespace WinForms.Tiles
+﻿namespace WinForms.Tiles.Simplified
 {
     partial class Tile
     {

@@ -7,4 +7,13 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Update="Tile.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="TileContent.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+  </ItemGroup>
+
 </Project>

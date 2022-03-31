@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
 
-namespace WinForms.Tiles
+namespace WinForms.Tiles.Simplified
 {
-    public partial class TileRepeater
+    public partial class SimpleTileRepeater
     {
         [TypeConverter(typeof(TileContentConverter))]
         public class TileContentTemplate

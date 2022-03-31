@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace WinForms.Tiles
+namespace WinForms.Tiles.Simplified
 {
     public partial class TileContent : UserControl
     {

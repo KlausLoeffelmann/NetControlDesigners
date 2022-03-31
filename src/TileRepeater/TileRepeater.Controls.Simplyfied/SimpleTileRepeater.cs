@@ -2,11 +2,11 @@
 using System.Collections.Specialized;
 using System.ComponentModel;
 
-namespace WinForms.Tiles
+namespace WinForms.Tiles.Simplified
 {
-    [Designer("TileRepeaterDesigner"),
+    [Designer("SimpleTileRepeaterDesigner"),
      System.ComponentModel.ComplexBindingProperties("DataSource")]
-    public partial class TileRepeater : Panel
+    public partial class SimpleTileRepeater : Panel
     {
         private const string AutoLayoutResizeDescription =
             "Gets or sets a value which determines, if the " +
@@ -24,7 +24,7 @@ namespace WinForms.Tiles
 
         private int _previousListCount;
 
-        public TileRepeater()
+        public SimpleTileRepeater()
         {
         }
 
@@ -95,7 +95,7 @@ namespace WinForms.Tiles
         {
             if ((levent.AffectedControl is Tile && levent.AffectedProperty == nameof(Parent)) ||
                 (!AutoLayoutOnResize &&
-                 levent.AffectedControl is TileRepeater &&
+                 levent.AffectedControl is SimpleTileRepeater &&
                  levent.AffectedProperty == nameof(DisplayRectangle)) || AutoLayoutOnResize)
             {
                 LayoutInternal();
