@@ -28,7 +28,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TileRepeater.Package", "Tit
 		{804E07B0-1D20-43FA-8191-D73982063F66} = {804E07B0-1D20-43FA-8191-D73982063F66}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TileRepeater.Data", "TileRepeater.Data\TileRepeater.Data.csproj", "{B5F27F16-E2DA-4C66-A112-2C18E8BAE16C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TileRepeater.Data", "TileRepeater.Data\TileRepeater.Data.csproj", "{B5F27F16-E2DA-4C66-A112-2C18E8BAE16C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TileRepeater.Controls.Simplified", "TileRepeater.Controls.Simplyfied\TileRepeater.Controls.Simplified.csproj", "{A0442272-0B77-4548-B7F2-63520A6BC06B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -64,6 +66,10 @@ Global
 		{B5F27F16-E2DA-4C66-A112-2C18E8BAE16C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B5F27F16-E2DA-4C66-A112-2C18E8BAE16C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B5F27F16-E2DA-4C66-A112-2C18E8BAE16C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0442272-0B77-4548-B7F2-63520A6BC06B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0442272-0B77-4548-B7F2-63520A6BC06B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0442272-0B77-4548-B7F2-63520A6BC06B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0442272-0B77-4548-B7F2-63520A6BC06B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
