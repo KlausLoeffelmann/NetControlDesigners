@@ -30,7 +30,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TileRepeater.Package", "Tit
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TileRepeater.Data", "TileRepeater.Data\TileRepeater.Data.csproj", "{B5F27F16-E2DA-4C66-A112-2C18E8BAE16C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TileRepeater.Controls.Simplified", "TileRepeater.Controls.Simplyfied\TileRepeater.Controls.Simplified.csproj", "{A0442272-0B77-4548-B7F2-63520A6BC06B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TileRepeater.Controls.Simplified", "TileRepeater.Controls.Simplyfied\TileRepeater.Controls.Simplified.csproj", "{A0442272-0B77-4548-B7F2-63520A6BC06B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

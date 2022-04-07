@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Specialized;
 using System.ComponentModel;
+using WinForms.Tiles.Simplified.Designer;
 
 namespace WinForms.Tiles.Simplified
 {
-    [Designer("SimpleTileRepeaterDesigner"),
+    [Designer(typeof(SimpleTileRepeaterDesigner)),
      System.ComponentModel.ComplexBindingProperties("DataSource")]
     public partial class SimpleTileRepeater : Panel
     {
