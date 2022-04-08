@@ -1,5 +1,6 @@
 ﻿using MetadataExtractor;
 using System;
+using TileRepeater.Data.Image;
 
 namespace TileRepeater.Data.ListController
 {
@@ -13,6 +14,14 @@ namespace TileRepeater.Data.ListController
 
         public GenericPictureItem() : base(null)
         {
+        }
+
+        public GenericPictureItem(ImageMetaData imageMetaData)
+        {
+            Width = imageMetaData.Width;
+            Height = imageMetaData.Height;
+            DateTaken = imageMetaData.DateTaken;
+            Filename = imageMetaData.Filename;
         }
 
         public string? Filename

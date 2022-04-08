@@ -27,7 +27,7 @@ namespace TileRepeaterDemo
             {
                 _pathToPictures = folderBrowserDialog.SelectedPath;
                 _imagePathStatusLabel.Text = _pathToPictures;
-                _uiController.PictureFileList = UIController.GetPictureTemplateItemsFromFolder(_pathToPictures);
+                _uiController.PictureItems = UIController.GetSimplePictureTemplateItemsFromFolder(_pathToPictures);
                 _uiControllerBindingSource.DataSource = _uiController;
             }
         }

@@ -1,10 +1,9 @@
-﻿using MetadataExtractor;
-using MetadataExtractor.Formats.Jpeg;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using TileRepeater.Data.Base;
+using TileRepeater.Data.Image;
 
 namespace TileRepeater.Data.ListController
 {
@@ -29,17 +28,53 @@ namespace TileRepeater.Data.ListController
         {
         }
 
-        private BindingList<GenericTemplateItem>? _pictureFileList;
+        private BindingList<GenericTemplateItem>? _templateItems;
+        private BindingList<GenericPictureItem>? _pictureItems;
 
-        public BindingList<GenericTemplateItem>? PictureFileList
+        public BindingList<GenericTemplateItem>? TemplateItems
         {
-            get => _pictureFileList;
-            set => SetProperty(ref _pictureFileList, value);
+            get => _templateItems;
+            set => SetProperty(ref _templateItems, value);
+        }
+
+        public BindingList<GenericPictureItem>? PictureItems
+        {
+            get => _pictureItems;
+            set => SetProperty(ref _pictureItems, value);
+        }
+
+        public static BindingList<GenericPictureItem>? GetSimplePictureTemplateItemsFromFolder(
+            string filePath,
+            SearchOption searchOption = SearchOption.AllDirectories)
+        {
+            DirectoryInfo directoryInfo = new(filePath);
+            BindingList<GenericPictureItem>? pictureItems = new();
+
+            var filesInPath = directoryInfo.GetFiles("*.*", searchOption)
+                .Where(file => s_defaultFileSearchPattern.Any(extension => extension == file.Extension))
+                .OrderByDescending(file => file.LastWriteTime)
+                .ToList();
+
+            if (filesInPath.Count == 0)
+            {
+                return pictureItems;
+            }
+
+            foreach (var file in filesInPath)
+            {
+                var imageMetaData = file.GetImageMetaData();
+                if (imageMetaData is not null)
+                {
+                    pictureItems.Add(new GenericPictureItem(imageMetaData.Value));
+                }
+            }
+
+            return pictureItems;
         }
 
         public static BindingList<GenericTemplateItem>? GetPictureTemplateItemsFromFolder(
-            string filePath,
-            SearchOption searchOption = SearchOption.AllDirectories)
+        string filePath,
+        SearchOption searchOption = SearchOption.AllDirectories)
         {
             DirectoryInfo directoryInfo = new(filePath);
             BindingList<GenericTemplateItem>? pictureItems = new();
@@ -70,28 +105,19 @@ namespace TileRepeater.Data.ListController
                     });
                 }
 
-                var directories = ImageMetadataReader.ReadMetadata(file.FullName);
-                var jpegDir = directories.OfType<JpegDirectory>().FirstOrDefault();
-
-                // For simplicity, we concentrate of JPEGs for now.
-                if (jpegDir is null) continue;
-
-                var height = jpegDir.GetImageHeight();
-                var width = jpegDir.GetImageWidth();
-                var dateTaken = file.LastWriteTime;
-
                 GenericTemplateItem itemToAdd;
+                var imageMetaData = file.GetImageMetaData();
 
-                if (height > width)
+                if (imageMetaData is null)
+                    continue;
+
+                itemToAdd = imageMetaData?.ImageOrientation switch
                 {
-                    itemToAdd = new PortraitPictureItem(width, height, file.FullName)
-                    { DateTaken = dateTaken };
-                }
-                else
-                {
-                    itemToAdd = new LandscapePictureItem(width, height, file.FullName)
-                    { DateTaken = dateTaken };
-                }
+                    ImageOrientation.Square => new GenericPictureItem(imageMetaData.Value),
+                    ImageOrientation.Portrait => new PortraitPictureItem(imageMetaData.Value),
+                    ImageOrientation.Landscape => new LandscapePictureItem(imageMetaData!.Value),
+                    _ => throw new ArgumentNullException("Unlikely we throw this.")
+                };
 
                 itemToAdd.Label = file.Name;
                 pictureItems.Add(itemToAdd);

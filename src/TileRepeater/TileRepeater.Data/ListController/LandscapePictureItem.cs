@@ -1,12 +1,11 @@
-﻿namespace TileRepeater.Data.ListController
+﻿using TileRepeater.Data.Image;
+
+namespace TileRepeater.Data.ListController
 {
     public class LandscapePictureItem : GenericPictureItem
     {
-        public LandscapePictureItem(int width, int height, string filename) : base()
+        public LandscapePictureItem(ImageMetaData imageMetaData) : base(imageMetaData)
         {
-            Width = width;
-            Height = height;
-            Filename = filename;
         }
     }
 }

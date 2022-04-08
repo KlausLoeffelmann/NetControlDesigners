@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
@@ -9,7 +10,7 @@ namespace WinForms.Tiles.Simplified
     {
         public class TileContentConverter : TypeConverter
         {
-            private Dictionary<string, TileContentTemplate>? userControlTypes;
+            private Dictionary<string, TileContentTemplate>? _userControlTypes;
 
             public override bool CanConvertTo(ITypeDescriptorContext? context, Type? destinationType)
                 => destinationType == typeof(string);
@@ -34,7 +35,7 @@ namespace WinForms.Tiles.Simplified
 
             public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
             {
-                if (userControlTypes?.TryGetValue((string)value, out var userControlTemplate) ?? false)
+                if (_userControlTypes?.TryGetValue((string)value, out var userControlTemplate) ?? false)
                 {
                     return userControlTemplate;
                 }
@@ -44,16 +45,26 @@ namespace WinForms.Tiles.Simplified
 
             public override StandardValuesCollection? GetStandardValues(ITypeDescriptorContext? context)
             {
-                userControlTypes = Assembly.GetExecutingAssembly()
-                    .GetTypes()
-                    .Where(typeItem => typeof(TileContent).IsAssignableFrom(typeItem))
-                    .Select(item => new TileContentTemplate(item))
-                    .ToDictionary(item => item.ToString());
+                if (context?.TryGetService<ITypeDiscoveryService>(out var discoveryService) ?? false)
+                {
+                    _userControlTypes = discoveryService.GetTypes(
+                        typeof(TileContent),
+                        excludeGlobalTypes: false)
+                            .Cast<Type>()
+                            .Select(item => new TileContentTemplate(item))
+                            .ToDictionary(item => item.ToString());
+                }
+                else
+                {
+                    // No type discovery service, fall back to this assembly.
+                    _userControlTypes = Assembly.GetExecutingAssembly()
+                        .GetTypes()
+                        .Where(typeItem => typeof(TileContent).IsAssignableFrom(typeItem))
+                        .Select(item => new TileContentTemplate(item))
+                        .ToDictionary(item => item.ToString());
+                }
 
-                if (Debugger.IsAttached)
-                    Debugger.Break();
-
-                return new StandardValuesCollection(userControlTypes.Values);
+                return new StandardValuesCollection(_userControlTypes.Values);
             }
 
             public override bool GetStandardValuesSupported(ITypeDescriptorContext? context)

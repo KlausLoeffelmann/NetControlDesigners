@@ -33,7 +33,6 @@ namespace TileRepeaterDemo
             this.components = new System.ComponentModel.Container();
             TemplateAssignmentItems templateAssignmentItems1 = new TemplateAssignmentItems();
             this._pictureTileRepeater = new WinForms.Tiles.TileRepeater();
-            this.pictureFileListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this._uiControllerBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this._mainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,16 +41,17 @@ namespace TileRepeaterDemo
             this._quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._statusStrip = new System.Windows.Forms.StatusStrip();
             this._imagePathStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureFileListBindingSource)).BeginInit();
+            this._templateItemsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this._uiControllerBindingSource)).BeginInit();
             this._mainMenuStrip.SuspendLayout();
             this._statusStrip.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._templateItemsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // _pictureTileRepeater
             // 
             this._pictureTileRepeater.AutoScroll = true;
-            this._pictureTileRepeater.DataSource = this.pictureFileListBindingSource;
+            this._pictureTileRepeater.DataSource = this._templateItemsBindingSource;
             this._pictureTileRepeater.Dock = System.Windows.Forms.DockStyle.Fill;
             this._pictureTileRepeater.Location = new System.Drawing.Point(0, 28);
             this._pictureTileRepeater.Name = "_pictureTileRepeater";
@@ -67,11 +67,6 @@ namespace TileRepeaterDemo
                     "1.0.0.0, Culture=neutral, PublicKeyToken=null"), Type.GetType("TileRepeaterDemo.TileTemplates.PortraitImageContent, TileRepeaterDemo, Version=1." +
                     "0.0.0, Culture=neutral, PublicKeyToken=null"))));
             this._pictureTileRepeater.TemplateTypes = templateAssignmentItems1;
-            // 
-            // pictureFileListBindingSource
-            // 
-            this.pictureFileListBindingSource.DataMember = "PictureFileList";
-            this.pictureFileListBindingSource.DataSource = this._uiControllerBindingSource;
             // 
             // _uiControllerBindingSource
             // 
@@ -134,6 +129,11 @@ namespace TileRepeaterDemo
             this._imagePathStatusLabel.Spring = true;
             this._imagePathStatusLabel.Text = "ImagePath";
             // 
+            // _templateItemsBindingSource
+            // 
+            this._templateItemsBindingSource.DataMember = "TemplateItems";
+            this._templateItemsBindingSource.DataSource = this._uiControllerBindingSource;
+            // 
             // TileRepeaterTestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -146,12 +146,12 @@ namespace TileRepeaterDemo
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "TileRepeaterTestForm";
             this.Text = "WinForms PictureViewer";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureFileListBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._uiControllerBindingSource)).EndInit();
             this._mainMenuStrip.ResumeLayout(false);
             this._mainMenuStrip.PerformLayout();
             this._statusStrip.ResumeLayout(false);
             this._statusStrip.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._templateItemsBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -168,6 +168,6 @@ namespace TileRepeaterDemo
         private StatusStrip _statusStrip;
         private ToolStripStatusLabel _imagePathStatusLabel;
         private BindingSource _uiControllerBindingSource;
-        private BindingSource pictureFileListBindingSource;
+        private BindingSource _templateItemsBindingSource;
     }
 }

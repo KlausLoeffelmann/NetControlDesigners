@@ -1,12 +1,11 @@
-﻿namespace TileRepeater.Data.ListController
+﻿using TileRepeater.Data.Image;
+
+namespace TileRepeater.Data.ListController
 {
     public class PortraitPictureItem : GenericPictureItem
     {
-        public PortraitPictureItem(int width, int height, string filename) : base()
+        public PortraitPictureItem(ImageMetaData imageMetaData) : base(imageMetaData)
         {
-            Width = width;
-            Height = height;
-            Filename = filename;
         }
     }
 }
