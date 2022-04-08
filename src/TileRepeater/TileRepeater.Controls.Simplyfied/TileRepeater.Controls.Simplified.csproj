@@ -12,10 +12,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-    <Compile Update="Tile.cs">
+    <Compile Update="SimpleTileRepeater\Tile.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Update="TileContent.cs">
+    <Compile Update="SimpleTileRepeater\TileContent.cs">
       <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>

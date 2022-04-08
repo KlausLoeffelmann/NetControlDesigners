@@ -32,8 +32,6 @@ namespace TileRepeaterDemo
         {
             this.components = new System.ComponentModel.Container();
             TemplateAssignmentItems templateAssignmentItems1 = new TemplateAssignmentItems();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this._pictureTileRepeater = new WinForms.Tiles.TileRepeater();
             this.pictureFileListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this._uiControllerBindingSource = new System.Windows.Forms.BindingSource(this.components);
@@ -49,24 +47,6 @@ namespace TileRepeaterDemo
             this._mainMenuStrip.SuspendLayout();
             this._statusStrip.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(360, 109);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(203, 91);
-            this.button2.TabIndex = 1;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(80, 85);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(173, 67);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
             // 
             // _pictureTileRepeater
             // 
@@ -179,8 +159,6 @@ namespace TileRepeaterDemo
 
         #endregion
 
-        private Button button2;
-        private Button button1;
         private WinForms.Tiles.TileRepeater _pictureTileRepeater;
         private MenuStrip _mainMenuStrip;
         private ToolStripMenuItem fileToolStripMenuItem;

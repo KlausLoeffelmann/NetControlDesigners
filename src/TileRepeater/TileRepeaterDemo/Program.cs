@@ -11,7 +11,10 @@ namespace TileRepeaterDemo
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new TileRepeaterTestForm());
+
+            // Comment this line in and the next line out for running the Client/Server Demo.
+            // Application.Run(new TileRepeaterTestForm());
+            Application.Run(new SimplifiedTileRepeaterTestForm());
         }
     }
 }
