@@ -32,17 +32,17 @@ namespace TileRepeaterDemo.SimplifiedTileTemplates
         {
             this.components = new System.ComponentModel.Container();
             this._infoLabel = new System.Windows.Forms.Label();
+            this._genericPictureItemBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this._pictureBox = new System.Windows.Forms.PictureBox();
             this._imageLoaderComponent = new TileRepeaterDemo.TileTemplates.BindableAsyncImageLoaderComponent(this.components);
-            this._genericPictureItemBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            ((System.ComponentModel.ISupportInitialize)(this._pictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._genericPictureItemBindingSource)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // _infoLabel
             // 
             this._infoLabel.AutoEllipsis = true;
-            this._infoLabel.DataBindings.Add(new System.Windows.Forms.Binding("Text", this._genericPictureItemBindingSource, "Label", true));
+            this._infoLabel.DataBindings.Add(new System.Windows.Forms.Binding("Text", this._genericPictureItemBindingSource, "Filename", true));
             this._infoLabel.Dock = System.Windows.Forms.DockStyle.Bottom;
             this._infoLabel.Font = new System.Drawing.Font("Segoe UI", 7.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this._infoLabel.Location = new System.Drawing.Point(0, 370);
@@ -51,6 +51,10 @@ namespace TileRepeaterDemo.SimplifiedTileTemplates
             this._infoLabel.TabIndex = 3;
             this._infoLabel.Text = "label1";
             this._infoLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // _genericPictureItemBindingSource
+            // 
+            this._genericPictureItemBindingSource.DataSource = typeof(TileRepeater.Data.ListController.GenericPictureItem);
             // 
             // _pictureBox
             // 
@@ -67,22 +71,18 @@ namespace TileRepeaterDemo.SimplifiedTileTemplates
             // 
             this._imageLoaderComponent.DataBindings.Add(new System.Windows.Forms.Binding("ImageFilename", this._genericPictureItemBindingSource, "Filename", true));
             // 
-            // _genericPictureItemBindingSource
-            // 
-            this._genericPictureItemBindingSource.DataSource = typeof(TileRepeater.Data.ListController.GenericPictureItem);
-            // 
             // ImageContent
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this._pictureBox);
             this.Controls.Add(this._infoLabel);
-            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
+            this.Margin = new System.Windows.Forms.Padding(5);
             this.MinimumSize = new System.Drawing.Size(32, 16);
             this.Name = "ImageContent";
             this.Size = new System.Drawing.Size(533, 400);
-            ((System.ComponentModel.ISupportInitialize)(this._pictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._genericPictureItemBindingSource)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._pictureBox)).EndInit();
             this.ResumeLayout(false);
 
         }

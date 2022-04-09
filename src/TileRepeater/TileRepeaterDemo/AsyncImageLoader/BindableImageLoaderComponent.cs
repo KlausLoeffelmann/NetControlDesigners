@@ -13,6 +13,7 @@ namespace TileRepeaterDemo.TileTemplates
         private Image? _image;
         private string? _imageFilename;
 
+        // We're running no more than 2 worker tasks for the image resizing at a time.
         static SemaphoreSlim s_semaphore = new SemaphoreSlim(2);
 
         public BindableAsyncImageLoaderComponent()
@@ -65,6 +66,7 @@ namespace TileRepeaterDemo.TileTemplates
                 {
                     _dataBindings = new ControlBindingsCollection(this);
                 }
+
                 return _dataBindings;
             }
         }
@@ -77,6 +79,7 @@ namespace TileRepeaterDemo.TileTemplates
             get
             {
                 _bindingContext ??= new BindingContext();
+
                 return _bindingContext;
             }
             set
@@ -93,6 +96,7 @@ namespace TileRepeaterDemo.TileTemplates
         public string? ImageFilename
         {
             get => _imageFilename;
+
             set
             {
                 if (!Equals(_imageFilename, value))
@@ -200,6 +204,7 @@ namespace TileRepeaterDemo.TileTemplates
 
                     var imageAligned = new Bitmap(image, rescaleToAligned);
                     image.Dispose();
+
                     return imageAligned;
                 }
 

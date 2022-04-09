@@ -204,6 +204,16 @@ namespace WinForms.Tiles
                         tileControl.Left = currentX;
                         tileControl.Top = currentY;
 
+                        if (tileControl.TileContent.RequestFarSideAnchoring)
+                        {
+                            tileControl.Width = Right -
+                                (Padding.Right + Padding.Left +
+                                 tileControl.Margin.Left + tileControl.Margin.Right +
+                                 SystemInformation.VerticalScrollBarWidth);
+
+                            tileControl.Anchor = AnchorStyles.Left | AnchorStyles.Right | AnchorStyles.Top;
+                        }
+
                         currentY += tileControl.Margin.Top+tileControl.Height+tileControl.Margin.Bottom;
                     }
                     else

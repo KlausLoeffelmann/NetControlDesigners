@@ -13,8 +13,8 @@ namespace TileRepeaterDemo
             ApplicationConfiguration.Initialize();
 
             // Comment this line in and the next line out for running the Client/Server Demo.
-            // Application.Run(new TileRepeaterTestForm());
-            Application.Run(new SimplifiedTileRepeaterTestForm());
+            Application.Run(new TileRepeaterTestForm());
+            // Application.Run(new SimplifiedTileRepeaterTestForm());
         }
     }
 }

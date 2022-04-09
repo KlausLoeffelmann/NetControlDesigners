@@ -11,5 +11,18 @@ namespace TileRepeaterDemo.TileTemplates
         }
 
         public override bool IsSeparator => true;
+
+        public override bool RequestFarSideAnchoring => true;
+
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+
+            // Note: Both Pen and Brush get automatically reused.
+            e.Graphics.DrawLine(
+                new Pen(new SolidBrush(ForeColor), 3),
+                new(0, Height / 2),
+                new(Width, Height / 2));
+        }
     }
 }

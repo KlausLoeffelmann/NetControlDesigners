@@ -39,11 +39,13 @@
             this._groupTextLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this._groupTextLabel.AutoSize = true;
             this._groupTextLabel.DataBindings.Add(new System.Windows.Forms.Binding("Text", this._genericTemplateItemBindingSource, "Label", true));
-            this._groupTextLabel.Location = new System.Drawing.Point(3, 7);
+            this._groupTextLabel.Font = new System.Drawing.Font("Segoe UI", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this._groupTextLabel.Location = new System.Drawing.Point(26, 7);
             this._groupTextLabel.Name = "_groupTextLabel";
-            this._groupTextLabel.Size = new System.Drawing.Size(146, 20);
+            this._groupTextLabel.Size = new System.Drawing.Size(237, 31);
             this._groupTextLabel.TabIndex = 0;
             this._groupTextLabel.Text = "Group seperator text";
+            this._groupTextLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // _genericTemplateItemBindingSource
             // 
@@ -56,7 +58,7 @@
             this.Controls.Add(this._groupTextLabel);
             this.MinimumSize = new System.Drawing.Size(0, 0);
             this.Name = "GroupSeperatorContent";
-            this.Size = new System.Drawing.Size(495, 34);
+            this.Size = new System.Drawing.Size(328, 46);
             ((System.ComponentModel.ISupportInitialize)(this._genericTemplateItemBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

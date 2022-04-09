@@ -157,7 +157,6 @@
         private StatusStrip _statusStrip;
         private ToolStripStatusLabel _imagePathStatusLabel;
         private BindingSource _uiControllerBindingSource;
-        private BindingSource pictureFileListBindingSource;
         private BindingSource _pictureItemsBindingSource;
     }
 }
