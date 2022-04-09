@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Specialized;
 using System.ComponentModel;
 
 namespace WinForms.Tiles
@@ -22,7 +21,7 @@ namespace WinForms.Tiles
 
         private TemplateAssignmentItems? _templateAssignments;
 
-        private object? _dataSource;
+        private IBindingList? _dataSource;
         private Action? _listUnbinder;
 
         private int _previousListCount;
@@ -30,7 +29,12 @@ namespace WinForms.Tiles
         public TileRepeater()
         {
             _templateAssignments = new TemplateAssignmentItems();
+            base.AutoScroll = true;
         }
+
+        [Browsable(false), DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden),
+         EditorBrowsable(EditorBrowsableState.Never)]
+        public override bool AutoScroll { get => true; set => base.AutoScroll = true; }
 
         /// <summary>
         /// Gets or sets a value which determines, if the Layout should be recalculated on resizing automatically.
@@ -68,12 +72,11 @@ namespace WinForms.Tiles
                     _listUnbinder?.Invoke();
                     _dataSource = value switch
                     {
-                        var x when x is null => null,
-                        INotifyCollectionChanged collectionChange => collectionChange,
+                        null => null,
                         IBindingList bindingList => WireBindingList(bindingList),
                         _ => throw new ArgumentException(
                             nameof(DataSource),
-                            "DataSource must be of type IListSource or INotifyCollectionChanged"),
+                            "DataSource must be of type IBindingList"),
                     };
                 }
 
@@ -141,25 +144,14 @@ namespace WinForms.Tiles
             SuspendLayout();
             Controls.Clear();
 
-            object? actualBindingSource;
-
-            if (_dataSource is BindingSource bindingSource)
-            {
-                actualBindingSource = bindingSource.List;
-            }
-            else
-            {
-                actualBindingSource = _dataSource;
-            }
-
-            if (actualBindingSource is not IBindingList dataSourceAsBindingList || 
+            if (_dataSource is null ||
                 TemplateTypes is null)
             {
                 ResumeLayout();
                 return;
             }
 
-            foreach (var item in dataSourceAsBindingList)
+            foreach (var item in _dataSource)
             {
                 var tileControl = GetTemplateControlInstance(item.GetType());
                 tileControl!.TileContent.BindingSourceComponent!.DataSource = item;

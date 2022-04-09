@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            WinForms.Tiles.Simplified.SimpleTileRepeater.TileContentTemplate tileContentTemplate2 = new WinForms.Tiles.Simplified.SimpleTileRepeater.TileContentTemplate();
+            WinForms.Tiles.Simplified.SimpleTileRepeater.TileContentTemplate tileContentTemplate1 = new WinForms.Tiles.Simplified.SimpleTileRepeater.TileContentTemplate();
             this._simpleTileRepeater = new WinForms.Tiles.Simplified.SimpleTileRepeater();
+            this._pictureItemsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this._uiControllerBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.pictureFileListBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this._mainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._setPathToImageFilesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,18 +40,16 @@
             this._quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._statusStrip = new System.Windows.Forms.StatusStrip();
             this._imagePathStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this._pictureItemsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this._pictureItemsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._uiControllerBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureFileListBindingSource)).BeginInit();
             this._mainMenuStrip.SuspendLayout();
             this._statusStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this._pictureItemsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // _simpleTileRepeater
             // 
-            tileContentTemplate2.TileContentType = typeof(TileRepeaterDemo.SimplifiedTileTemplates.ImageContent);
-            this._simpleTileRepeater.ContentTemplate = tileContentTemplate2;
+            tileContentTemplate1.TileContentType = typeof(TileRepeaterDemo.SimplifiedTileTemplates.ImageContent);
+            this._simpleTileRepeater.ContentTemplate = tileContentTemplate1;
             this._simpleTileRepeater.DataSource = this._pictureItemsBindingSource;
             this._simpleTileRepeater.Dock = System.Windows.Forms.DockStyle.Fill;
             this._simpleTileRepeater.Location = new System.Drawing.Point(0, 28);
@@ -59,14 +57,14 @@
             this._simpleTileRepeater.Size = new System.Drawing.Size(1050, 802);
             this._simpleTileRepeater.TabIndex = 0;
             // 
+            // _pictureItemsBindingSource
+            // 
+            this._pictureItemsBindingSource.DataMember = "PictureItems";
+            this._pictureItemsBindingSource.DataSource = this._uiControllerBindingSource;
+            // 
             // _uiControllerBindingSource
             // 
             this._uiControllerBindingSource.DataSource = typeof(TileRepeater.Data.ListController.UIController);
-            // 
-            // pictureFileListBindingSource
-            // 
-            this.pictureFileListBindingSource.DataMember = "PictureFileList";
-            this.pictureFileListBindingSource.DataSource = this._uiControllerBindingSource;
             // 
             // _mainMenuStrip
             // 
@@ -125,11 +123,6 @@
             this._imagePathStatusLabel.Spring = true;
             this._imagePathStatusLabel.Text = "ImagePath";
             // 
-            // _pictureItemsBindingSource
-            // 
-            this._pictureItemsBindingSource.DataMember = "PictureItems";
-            this._pictureItemsBindingSource.DataSource = this._uiControllerBindingSource;
-            // 
             // SimplifiedTileRepeaterTestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -142,13 +135,12 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "SimplifiedTileRepeaterTestForm";
             this.Text = "SimplifiedTileRepeaterTestForm";
+            ((System.ComponentModel.ISupportInitialize)(this._pictureItemsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._uiControllerBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureFileListBindingSource)).EndInit();
             this._mainMenuStrip.ResumeLayout(false);
             this._mainMenuStrip.PerformLayout();
             this._statusStrip.ResumeLayout(false);
             this._statusStrip.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this._pictureItemsBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
