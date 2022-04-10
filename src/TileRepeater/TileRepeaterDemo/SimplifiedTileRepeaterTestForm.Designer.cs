@@ -54,7 +54,7 @@
             this._simpleTileRepeater.Dock = System.Windows.Forms.DockStyle.Fill;
             this._simpleTileRepeater.Location = new System.Drawing.Point(0, 28);
             this._simpleTileRepeater.Name = "_simpleTileRepeater";
-            this._simpleTileRepeater.Size = new System.Drawing.Size(1050, 802);
+            this._simpleTileRepeater.Size = new System.Drawing.Size(607, 405);
             this._simpleTileRepeater.TabIndex = 0;
             // 
             // _pictureItemsBindingSource
@@ -73,7 +73,7 @@
             this.fileToolStripMenuItem});
             this._mainMenuStrip.Location = new System.Drawing.Point(0, 0);
             this._mainMenuStrip.Name = "_mainMenuStrip";
-            this._mainMenuStrip.Size = new System.Drawing.Size(1050, 28);
+            this._mainMenuStrip.Size = new System.Drawing.Size(607, 28);
             this._mainMenuStrip.TabIndex = 1;
             this._mainMenuStrip.Text = "menuStrip1";
             // 
@@ -110,16 +110,16 @@
             this._statusStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this._statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this._imagePathStatusLabel});
-            this._statusStrip.Location = new System.Drawing.Point(0, 830);
+            this._statusStrip.Location = new System.Drawing.Point(0, 433);
             this._statusStrip.Name = "_statusStrip";
-            this._statusStrip.Size = new System.Drawing.Size(1050, 26);
+            this._statusStrip.Size = new System.Drawing.Size(607, 26);
             this._statusStrip.TabIndex = 2;
             this._statusStrip.Text = "statusStrip1";
             // 
             // _imagePathStatusLabel
             // 
             this._imagePathStatusLabel.Name = "_imagePathStatusLabel";
-            this._imagePathStatusLabel.Size = new System.Drawing.Size(1035, 20);
+            this._imagePathStatusLabel.Size = new System.Drawing.Size(592, 20);
             this._imagePathStatusLabel.Spring = true;
             this._imagePathStatusLabel.Text = "ImagePath";
             // 
@@ -127,7 +127,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1050, 856);
+            this.ClientSize = new System.Drawing.Size(607, 459);
             this.Controls.Add(this._simpleTileRepeater);
             this.Controls.Add(this._statusStrip);
             this.Controls.Add(this._mainMenuStrip);
