@@ -96,7 +96,7 @@ And then, the UI for doing one of the assignments of that list of course is
 again a dedicated Type Editor, which needs to be implemented in the way just
 described.
 
-![TileRepeater](https://github.com/KlausLoeffelmann/NetControlDesigners/blob/main/src/Resources/TileRepeaterDemo.gif)
+![TileRepeater](https://github.com/KlausLoeffelmann/NetControlDesigners/blob/main/src/Resources/TileRepeaterActionList.gif)
 
 
 ## To make the sample compile
