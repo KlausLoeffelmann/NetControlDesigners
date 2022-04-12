@@ -89,7 +89,8 @@ namespace TileRepeater.Data.ListController
                 return pictureItems;
             }
 
-            DateTime currentDate = filesInPath[0].LastWriteTime;
+            // We set DateTime MinValue, so we start with the group separator unconditionally.
+            DateTime currentDate = DateTime.MinValue;
 
             foreach (var file in filesInPath)
             {
