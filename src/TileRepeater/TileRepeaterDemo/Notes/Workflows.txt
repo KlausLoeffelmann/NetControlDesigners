@@ -1,0 +1,35 @@
+Basic Idea:
+TileRepeater Control is a ListControl, which uses UserControls for Displaying Items.
+And the UserControls which are used to Display the data of one items of the list are
+depended of the Type of the control.
+
+So, in this sample (which doesn't completely work yet), the plan is to have three TemplateTypes
+and three ContentUserControls:
+
+* GroupSeperatorItem/GroupSeperatorContent is like an InfoType to Display ListGroupInformation, pretty much like Groups in a ListView
+* PortraitPictureItem/PortraitImageContent are for Displaying JPEG Images in Portrait Format
+* LandscapePictureItem/LandscapeImageContent are the same, for Landscape mode.
+
+This whole process is controlled by DataBinding.
+
+Now, the actual use case is not so important here. What's important is, what we need to make this work in the Designer.
+
+* We need to have an Editor to make an Assignment which template type needs to be handles and data boud by which tileControlType. And since we need the actual available types from the Server Process, this cannot be happening on the client.
+* In addition, we need an Editor, which assembles a whole collection of those types. Which means, in that editor for each element we add, that TemplateAssignmentEditor needs to be called.
+
+
+Workflow, normal Editor:
+
+* Editor is called by PropertyBrowser (TemplateAssignmentEditor)
+* value of the Property is passed
+* Editor instantiates a the client ViewModel (TemplateAssignmentViewModelClient)
+
+* Client ViewModels calls CreateTemplateAssignmentViewModel to create the Serverside ViewModel (TemplateAssignmentViewModel)
+
+* Serverside ViewModel gets initialized, and the actual Assignment (which was created before, had it previously been serialized) gets stored in that ViewModel
+
+* Serverside ViewModel uses the TypeDiscoveryService to query the TemplateTypes and the TileContentTypes
+
+
+
+
