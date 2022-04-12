@@ -1,27 +1,27 @@
 # NetControlDesigners - Developing Custom Controls for the new WinForms Designer
 
-The new Windows Forms (WinForms) .NET Designer needs a dedicated SDK for
-authoring Custom Control Designers. The necessary migration of WinForms Control
-Designers from .NET Framework to .NET is straight forward. Only UI-intensive
-Designers which custom Dialogs need to be rewritten. This blog post shows, what
-work is necessary to migration WinForms Control Designers from .NET Framework to
-.NET.
+The new Windows Forms (WinForms) .NET Designer needs a new SDK for
+authoring Custom ControlDesigners. The necessary migration of Custom 
+ControlDesigners from .NET Framework to .NET is straight forward. Only UI-intensive
+design time experience, such as custom dialogs requires custm code. This blog post shows, what
+work is necessary to migrate WinForms ControlDesigners from .NET Framework designer model to
+.NET designer model.
 
 ## The Demo scenario – the WinForms TileRepeater Control
 
-If you ever developed in WPF, then you probably like and in WinForms miss a
+If you ever developed in WPF, then you probably like, and in WinForms, miss a
 feature, which is really useful in list binding scenarios: `DataTemplates` and
 `DataTemplateSelectors`. Imagine, you have a list of elements as a data
-source, each of which deriving from the same base type. For example, an
-`ImageItem`, which hold a path to an image on disk. And from those you derive
+source, each deriving from the same base type. For example, an
+`ImageItem`, which holds a path to an image on disk. And from those you derive
 an `PortraitImageItem` and a `LandscapeImageItem`. Now, you bind this list
-against a List control, which will pick as the renderer for each item a WinForms
+to a List control, which will pick as the renderer for each item a WinForms
 user control based on the type of the item you want to bind. In the sample, on
 binding this control will instantiate a respective user control for showing
 images in portrait format, and user controls for showing images in landscape
 format. By choosing the right inheritance hierarchy, even introducing a
-separator Item for grouping those user controls in a meaningful way, for example
-by months is easily possible.
+Separator item for grouping those user controls, for example
+by months, is easily possible.
 
 This is, what this sample is about. And using this control at runtime looks like
 this:
@@ -33,9 +33,9 @@ this:
 For making the `TileRepeater` control work at design time in a useful way, we
 need proper WinForms Designer support. Especially for this control: with the new
 .NET Designer which comes with separate processes for the Visual Studio .NET
-Framework client-based UI functionality on the one and the actual .NET Forms and
+Framework client-based UI functionality on the one side and the actual .NET Forms and
 Control instantiation, management and rendering in a dedicated Server process on
-the other side, authoring Control Designers has become a bit tricky. It is
+the other side, authoring ControlDesigners has become a bit tricky. It is
 compared to the Framework Designer a breaking change when you need to implement
 custom .NET type editors. And here is why:
 
@@ -44,30 +44,30 @@ types for the data template selection (so, which item type of the list to bind
 should result in what UserControl to render), we have to deal with two different
 processes: The Visual Studio Process runs in .NET Framework. But the actual
 control, which we are showing the custom UI for, runs in the dedicated .NET
-server process: If you target .NET Core 3.1, it runs .NET Core 3.1, if you
-target 6.0, it runs 6.0 and so on. That’s necessary, because you need the types
-only .NET knows about. The Visual Studio .NET Framework based client process is
-simply not able to deal with all the new .NET types. It simply doesn’t know
-them. So, from that fact arises the actual challenge: Since the Control
-Designer’s dialogs are therefore also running in the context of .NET Framework,
+server process: If you target .NET Core 3.1, it hosts .NET Core 3.1, if you
+target 6.0, it hosts 6.0, and so on. That’s necessary, because you need types
+only the specific version of .NET knows about. The Visual Studio .NET Framework
+based client process is simply not able to deal with all the new .NET types. 
+It doesn’t know them. So, from that fact arises the actual challenge: Since the Control
+Designer’s dialogs are also running in the context of .NET Framework,
 it cannot simply search for the types (in our example neither both the items to
 bind and the resulting UserControl types) it is supposed to offer the user in
 that dialog. Rather, the .NET Framework part of the type editor needs to ask the
-.NET Process for those types, and then it needs to use helper transport classes
+.NET Process for those types, and then it uses helper transport classes
 to get those types cross-process back to the Framework based Visual Studio
 process. It can now process the user’s input and send the results back to the
 server process. And yes, that’s a change from the previous .NET Framework-only
-Control Designers, and it involves indeed some rewriting of the Designer Code,
+Control Designers, and it involves indeed some refactoring of the design time code,
 but only if there *is* an actual UI which needs to be shown on top of the UI
 that is presented in the context of your actual control. Here is what that means
 exactly:
 
--   If you just have an UI, which is based on a type-converter and therefore
+-   If you just have a UI, which is based on a type-converter and therefore
     shown in the context of the Property grid (like Enums or dedicated items to
-    show in a property grid’s property grid cell ComboBox), you are good to go
-    as your current Control Designer are.
+    show in a property grid’s property grid cell ComboBox), your UI will be 
+    supported by the new designer model out of the box.
 
--   If you have an UI, which is part of the control (like custom painted
+-   If you have a UI, which is part of the control (like custom painted
     adorners or Action Lists), then you would need to write your control library
     against the WinForms Designer SDK, but you don’t need to roundtrip data to
     the Server process. Everything from the Developer’s perspective seems to
