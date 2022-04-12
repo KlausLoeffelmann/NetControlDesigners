@@ -26,6 +26,8 @@ by months is easily possible.
 This is, what this sample is about. And using this control at runtime looks like
 this:
 
+![TileRepeaterDemo](https://github.com/KlausLoeffelmann/NetControlDesigners/blob/main/src/Resources/TileRepeaterDemo.gif)
+
 ## The challenge
 
 For making the `TileRepeater` control work at design time in a useful way, we
@@ -85,12 +87,17 @@ for each item. This one is called `SimpleTileRepeater`. It just needs its
 Control Designer code next to the actual Control’s implementation in one
 assembly/project.
 
+![SimpleTileRepeater](https://github.com/KlausLoeffelmann/NetControlDesigners/blob/main/src/Resources/SimpleTileRepeaterActionList.gif)
+
 The second Control is the actual full blown `TileRepeater` control and has
 next to everything the `SimpleTileRepeater` has, also the UI for the
 Collection Editor, which allows the user to make a list of `TypeAssignments`.
 And then, the UI for doing one of the assignments of that list of course is
 again a dedicated Type Editor, which needs to be implemented in the way just
 described.
+
+![TileRepeater](https://github.com/KlausLoeffelmann/NetControlDesigners/blob/main/src/Resources/TileRepeaterActionList.gif)
+
 
 ## To make the sample compile
 
