@@ -28,6 +28,13 @@ this:
 
 ![TileRepeaterDemo](https://github.com/KlausLoeffelmann/NetControlDesigners/blob/main/src/Resources/TileRepeaterDemo.gif)
 
+**DISCLAIMER**: The control is a demo for the specific .NET WinForms Designer scenario. It is not
+something that we suggest to use in a real-live environment. For example, it lacks a
+virtual rendering mode, so, it uses up a Window Handle for every element it shows. It
+works fine for up to 500 elements. But by all means: It's a good start point for
+getting engaged, and this control has certainly the potential to be extended
+in all different directions!
+
 ## The challenge
 
 For making the `TileRepeater` control work at design time in a useful way, we
@@ -74,7 +81,7 @@ exactly:
     actually be done server-side, and you can reuse most of the existing Control
     Designer Code, but just need to target it against the Windows Designer SDK.
 
--   If you have custom type editors, however, which are displaying dedicated
+- If you have custom type editors, however, which are displaying dedicated
     modal dialogs, then there is some rewriting effort involved for
     roundtripping the required data between the two processes.
 
@@ -97,7 +104,6 @@ again a dedicated Type Editor, which needs to be implemented in the way just
 described.
 
 ![TileRepeater](https://github.com/KlausLoeffelmann/NetControlDesigners/blob/main/src/Resources/TileRepeaterActionList.gif)
-
 
 ## To make the sample compile
 
