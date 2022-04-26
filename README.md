@@ -26,12 +26,12 @@ by months, is easily possible.
 This is, what this sample is about. And using this control at runtime looks like
 this:
 
-![TileRepeaterDemo](https://github.com/KlausLoeffelmann/NetControlDesigners/blob/main/src/Resources/TileRepeaterDemo.gif)
+![TileRepeaterDemo](src/Resources/TileRepeaterDemo.gif)
 
 **DISCLAIMER**: The control is a demo for the specific .NET WinForms Designer
-scenario. It is not something that we suggest to use in a real-live environment.
+scenario. It is not something that we suggest to use in a real-live scenario.
 For example, it lacks a virtual rendering mode, so, it uses up a Window Handle
-for every element it shows. It works fine for up to 500 elements. But by all
+for every element it shows. It works fine for up to 500 elements, but more than that drains the available resources too much, and a virtual mode would be necessary to show a large number of items reliably. But by all
 means: It's a good start point for getting engaged, and this control has
 certainly the potential to be extended in all different directions!
 
@@ -114,6 +114,59 @@ the 64-bit Framework process (VS 2022).
 public string? Filename { get; set; }
 ```
 
+## What again is a Type Editor?
+
+Strictly speaking, a Type Editor is a mechanism which provides a UI for an end
+user to collect one or more data entries for a certain type via some data entry
+devices. The simplest one: A string editor for a control's property of type
+`string`, whose value is typed in through the keyboard.
+
+![Screenshot showing the use of the string type editor](src/Resources/StringTypeEditor.png)
+
+
+- The property grid allows you enter an arbitrary text for a property of type
+  string. You type in the text in the editable cell, and then that content gets
+  assigned to that string property at design time. The next time you hit the
+  save button in Visual Studio, the CodeDOM serializer re-generates the method
+  `InitializeComponent` for the document (Form, UserControl) you are editing,
+  and with it generate an assignment code line, which assigned the text you just
+  types in to that respective property.
+
+- But! Not all properties are of type string. So, for most of the cases, a type
+  _converter_ will extend the functionality of the inbuilt string editor by
+  providing a mechanism to convert the characters you types to the actual type's
+  value. The characters 'T','r','u','e' for example are converted to the value
+  `true` for a boolean type. So, if you have a custom type, and there is a way
+  to easy convert its value to a string representation and vice versa, then,
+  you're good! You cam just provide the type converter, and the whole round trip
+  from the property grid in VS (in the Framework process) to the actual object
+  in the .NET Server process is just happening behind the covers. You don't even
+  need to compile against the SDK NuGets to make this happen. (The sample has an
+  implementation of a type converter in the file
+  _SimpleTileRepeater.TileContentConverter.cs_.)
+
+- But! Not for all properties is there a meaningful way to convert to its
+  native value based on a string. Take DataBinding for example. The value, which
+  we need to collect from the user, and which needs to be CodeDom-serialized in
+  `InitializeComponent`, makes no sense to convert from a simple string
+  representation. (Well, that would work, but then you could code the resulting
+  and required line of code by yourself to begin with.)
+
+```CS
+  this._imageLoaderComponent.DataBindings.Add(
+      new System.Windows.Forms.Binding(
+          "ImageFilename", this._genericPictureItemBindingSource, "Filename", true));
+
+```
+
+It's more important here to provide a Type Editor with a rich UI. That type
+editor then offers the user options to select from, like the Control's property
+to bind to, the data source object, and then of course the property of that
+object data source. That editor then returns an object instance, which the
+CodeDom-serializer then serialized in a way, that by running the assignment code
+it becomes reconstructed into the same object, the type editor originally had
+constructed it based on the user's input in the dialog at design time.
+
 ## Two sample Versions and the why
 
 We already discussed, that different Controls might need different kind of UIs.
@@ -131,7 +184,7 @@ actual Control’s implementation in one assembly/project, and from the
 developer's perspective, everything needed at design times just happens in the
 server-process.
 
-![SimpleTileRepeater](https://github.com/KlausLoeffelmann/NetControlDesigners/blob/main/src/Resources/SimpleTileRepeaterActionList.gif)
+![Animated Demo of the SimpleTileRepeater Control at runtime](src/Resources/SimpleTileRepeaterActionList.gif)
 
 The second Control is the actual full blown `TileRepeater` control and has
 next to everything the `SimpleTileRepeater` has, but also the UI for the
@@ -140,13 +193,61 @@ And then, the UI for doing one of the assignments of that list of course is
 again a dedicated Type Editor, which needs to be implemented in the way just
 described. These type of control designer UIs require the most work.
 
-![TileRepeater](https://github.com/KlausLoeffelmann/NetControlDesigners/blob/main/src/Resources/TileRepeaterActionList.gif)
+![Animated Demo of the full blown TileRepeater Control at runtime](src/Resources/TileRepeaterActionList.gif)
+
+## Getting started with your own Control Designers
+
+We already have discussed how different requirements for your Control Designers
+will lead to different solutions which you will need to setup for your Control
+Library. The easiest way is a Control Library which include one or more control
+designers for the controls is the one which doesn't need a dedicated Type
+Editor.
+
+### Server-only Control Designer Projects
+
+Here are the necessary steps for a Server-only control library:
+
+- If you have not yet a project for your control library, add a .NET class
+  library to your solution, and target at least .NET 3.1.
+- Place your custom controls in that project.
+- If your controls need more than custom type converters, add the WinForms SDK
+  Nuget to the project.
+
+```
+	<ItemGroup>
+		<PackageReference Include="Microsoft.WinForms.Designer.SDK" 
+                      Version="1.1.0-prerelease-preview3.22076.5" />
+	</ItemGroup>
+```
+
+With this reference you make sure, that the types which control a control's
+Designer are not provided by the .NET runtime, but rather by the Visual Studio
+.NET _Designer. The SDK does not provide those classes and methods, but rather
+just the references to those. Once your Control Designer runs then in the
+context of the Visual Studio OOP Designer, its types and methods are used. Here
+is one example:
+
+![Screenshot of an ActionList implementation showing that DesignerList is been taken from the SDK](src/Resources/DesignerSDKTypeRerouting.png)
+
+Now, while the runtime (Framework as well as .NET) provides an `ActionList`
+implementation, in the context of Visual Studio and the OOP Designer, that
+original implementation wouldn't work, since they are designed only for
+in-process scenarios. So, the SDK principally reroutes all the relevant types to
+the OOP Designer, so that _its_ types can be used rather than those of the
+respective Runtimes. With that, the Designer can handle the communication behind
+the covers, where it's necessary. So, as for this example: Although it seems
+that the action list is rendered in the server process, since its derived type
+is defined in a (the) .NET process/assembly, the action list itself is still
+shown in the context of Visual Studio: Which in the case of Visual Studio 2022
+is the 64-Bit Framework process. All the necessary communication between the
+(server-side running) custom ActionList derivative and the client is handled by
+the Designer behind the covers.
 
 ## To make the sample compile
 
 Please note: To make this demo compile, you need to add the output of the package project, which gets build into the folder,
 
-```
+```dotnetcli
 NetControlDesigners\src\TileRepeater\NuGet\BuildOut
 ```
 
