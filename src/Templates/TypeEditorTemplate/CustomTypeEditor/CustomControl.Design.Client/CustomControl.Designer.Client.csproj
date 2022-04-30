@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
 	<PropertyGroup>
 		<TargetFramework>net472</TargetFramework>
@@ -12,6 +12,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\WinFormsControlLibrary.ClientServerCommunication\WinFormsControlLibrary.ClientServerCommunication.csproj" />
+	  <ProjectReference Include="..\CustomControl.ClientServerCommunication\CustomControl.ClientServerCommunication.csproj" />
 	</ItemGroup>
+
 </Project>

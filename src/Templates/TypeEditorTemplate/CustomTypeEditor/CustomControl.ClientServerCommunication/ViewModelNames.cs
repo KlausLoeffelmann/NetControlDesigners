@@ -1,4 +1,4 @@
-﻿namespace WinForms.Tiles.Designer.Protocol
+﻿namespace CustomControl.ClientServerCommunication
 {
     public static class ViewModelNames
     {

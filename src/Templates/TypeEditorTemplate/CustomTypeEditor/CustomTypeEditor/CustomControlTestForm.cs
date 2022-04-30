@@ -1,8 +1,8 @@
 namespace CustomTypeEditor
 {
-    public partial class Form1 : Form
+    public partial class CustomControlTestForm : Form
     {
-        public Form1()
+        public CustomControlTestForm()
         {
             InitializeComponent();
         }
