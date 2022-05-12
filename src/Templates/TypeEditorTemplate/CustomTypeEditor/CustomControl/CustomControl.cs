@@ -3,6 +3,7 @@ using System.Text;
 
 namespace CustomControl
 {
+    [Designer("CustomControlDesigner")]
     public class CustomControl : Control
     {
         public CustomControl()
@@ -40,7 +41,6 @@ namespace CustomControl
             // Drawing a frame around the control's borders:
             var pen = new Pen(ForeColor);
             var brush = new SolidBrush(ForeColor);
-            e.Graphics.DrawRectangle(pen, ClientRectangle);
 
             // Drawing the contents of the CustomProperty.
             e.Graphics.DrawString(

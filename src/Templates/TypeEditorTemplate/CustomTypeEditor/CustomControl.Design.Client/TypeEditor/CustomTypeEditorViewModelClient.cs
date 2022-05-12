@@ -60,9 +60,15 @@ namespace CustomControl.Designer.Client
             return clientViewModel;
         }
 
-        private void Initialize(CustomPropertyStoreData propertyStoreData)
+        private void Initialize(CustomPropertyStoreData? propertyStoreData)
         {
             PropertyStoreData = propertyStoreData;
+        }
+
+        internal void ExecuteOkCommand()
+        {
+            var okClickEndpointSender = Client!.Protocol.GetEndpoint<CustomTypeEditorOKClickEndpoint>().GetSender(Client);
+            okClickEndpointSender.SendRequest(new CustomTypeEditorOKClickRequest(ViewModelProxy!));
         }
 
         public CustomPropertyStoreData? PropertyStoreData { get; private set; }

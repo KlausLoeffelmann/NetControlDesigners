@@ -19,11 +19,13 @@ namespace CustomControl.Designer.Server
 
             return new CreateCustomTypeEditorViewModelResponse(
                 this,
-                new CustomPropertyStoreData(
-                    propertyStore.SomeMustHaveId,
-                    propertyStore.DateCreated,
-                    propertyStore.ListOfStrings!.ToArray(),
-                    (byte)propertyStore.CustomEnumValue));
+                propertyStore is null
+                ? null
+                : new CustomPropertyStoreData(
+                     propertyStore.SomeMustHaveId,
+                     propertyStore.DateCreated,
+                     propertyStore.ListOfStrings?.ToArray(),
+                     (byte)propertyStore.CustomEnumValue));
         }
 
         // When we reach this, TemplateQualifiedTypename as well as

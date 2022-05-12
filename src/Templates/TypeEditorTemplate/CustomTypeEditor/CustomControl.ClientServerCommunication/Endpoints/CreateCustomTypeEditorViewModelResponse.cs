@@ -11,17 +11,16 @@ namespace CustomControl.ClientServerCommunication.Endpoints
         [AllowNull]
         public object ViewModel { get; private set; }
 
-        [AllowNull]
-        public CustomPropertyStoreData PropertyStoreData { get; set; }
+        public CustomPropertyStoreData? PropertyStoreData { get; set; }
 
         public CreateCustomTypeEditorViewModelResponse() { }
 
         public CreateCustomTypeEditorViewModelResponse(
             object viewModel,
-            CustomPropertyStoreData propertyStoreData)
+            CustomPropertyStoreData? propertyStoreData)
         {
             ViewModel = viewModel ?? throw new ArgumentNullException(nameof(viewModel));
-            PropertyStoreData = propertyStoreData ?? throw new ArgumentNullException(nameof(propertyStoreData));
+            PropertyStoreData = propertyStoreData;
         }
 
         public CreateCustomTypeEditorViewModelResponse(IDataPipeReader reader) : base(reader) { }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this._mainTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this._customEnumValueLabel = new System.Windows.Forms.Label();
             this._listOfStringsLabel = new System.Windows.Forms.Label();
@@ -40,8 +41,10 @@
             this._requiredIdLabel = new System.Windows.Forms.Label();
             this._requiredIdTextBox = new System.Windows.Forms.TextBox();
             this._listOfStringTextBox = new System.Windows.Forms.TextBox();
+            this._errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             this._mainTableLayoutPanel.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // _mainTableLayoutPanel
@@ -71,14 +74,14 @@
             this._mainTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this._mainTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this._mainTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this._mainTableLayoutPanel.Size = new System.Drawing.Size(636, 289);
+            this._mainTableLayoutPanel.Size = new System.Drawing.Size(636, 263);
             this._mainTableLayoutPanel.TabIndex = 0;
             // 
             // _customEnumValueLabel
             // 
             this._customEnumValueLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this._customEnumValueLabel.AutoSize = true;
-            this._customEnumValueLabel.Location = new System.Drawing.Point(5, 264);
+            this._customEnumValueLabel.Location = new System.Drawing.Point(5, 238);
             this._customEnumValueLabel.Margin = new System.Windows.Forms.Padding(5);
             this._customEnumValueLabel.Name = "_customEnumValueLabel";
             this._customEnumValueLabel.Size = new System.Drawing.Size(128, 16);
@@ -89,7 +92,7 @@
             // 
             this._listOfStringsLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this._listOfStringsLabel.AutoSize = true;
-            this._listOfStringsLabel.Location = new System.Drawing.Point(5, 151);
+            this._listOfStringsLabel.Location = new System.Drawing.Point(5, 138);
             this._listOfStringsLabel.Margin = new System.Windows.Forms.Padding(5);
             this._listOfStringsLabel.Name = "_listOfStringsLabel";
             this._listOfStringsLabel.Size = new System.Drawing.Size(88, 16);
@@ -123,6 +126,7 @@
             // 
             // _okButton
             // 
+            this._okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
             this._okButton.Location = new System.Drawing.Point(2, 2);
             this._okButton.Margin = new System.Windows.Forms.Padding(2);
             this._okButton.Name = "_okButton";
@@ -133,6 +137,7 @@
             // 
             // _cancelButton
             // 
+            this._cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this._cancelButton.Location = new System.Drawing.Point(2, 48);
             this._cancelButton.Margin = new System.Windows.Forms.Padding(2, 10, 2, 2);
             this._cancelButton.Name = "_cancelButton";
@@ -144,6 +149,7 @@
             // _dateCreated
             // 
             this._dateCreated.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this._errorProvider.SetError(this._dateCreated, "Date can\'t be in the future.");
             this._dateCreated.Location = new System.Drawing.Point(143, 37);
             this._dateCreated.Margin = new System.Windows.Forms.Padding(5);
             this._dateCreated.Name = "_dateCreated";
@@ -154,7 +160,7 @@
             // 
             this._customEnumValueListBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this._customEnumValueListBox.FormattingEnabled = true;
-            this._customEnumValueListBox.Location = new System.Drawing.Point(143, 260);
+            this._customEnumValueListBox.Location = new System.Drawing.Point(143, 234);
             this._customEnumValueListBox.Margin = new System.Windows.Forms.Padding(5);
             this._customEnumValueListBox.Name = "_customEnumValueListBox";
             this._customEnumValueListBox.Size = new System.Drawing.Size(359, 24);
@@ -174,6 +180,7 @@
             // _requiredIdTextBox
             // 
             this._requiredIdTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+            this._errorProvider.SetError(this._requiredIdTextBox, "Please enter an Integer value.");
             this._requiredIdTextBox.Location = new System.Drawing.Point(143, 5);
             this._requiredIdTextBox.Margin = new System.Windows.Forms.Padding(5);
             this._requiredIdTextBox.Name = "_requiredIdTextBox";
@@ -188,14 +195,20 @@
             this._listOfStringTextBox.Location = new System.Drawing.Point(141, 67);
             this._listOfStringTextBox.Multiline = true;
             this._listOfStringTextBox.Name = "_listOfStringTextBox";
-            this._listOfStringTextBox.Size = new System.Drawing.Size(363, 185);
+            this._listOfStringTextBox.Size = new System.Drawing.Size(363, 159);
             this._listOfStringTextBox.TabIndex = 5;
+            // 
+            // _errorProvider
+            // 
+            this._errorProvider.ContainerControl = this;
             // 
             // CustomTypeEditorDialog
             // 
+            this.AcceptButton = this._okButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(653, 305);
+            this.CancelButton = this._cancelButton;
+            this.ClientSize = new System.Drawing.Size(653, 274);
             this.Controls.Add(this._mainTableLayoutPanel);
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "CustomTypeEditorDialog";
@@ -203,6 +216,7 @@
             this._mainTableLayoutPanel.ResumeLayout(false);
             this._mainTableLayoutPanel.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this._errorProvider)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -221,5 +235,6 @@
         private System.Windows.Forms.ComboBox _customEnumValueListBox;
         private System.Windows.Forms.TextBox _requiredIdTextBox;
         private System.Windows.Forms.TextBox _listOfStringTextBox;
+        private System.Windows.Forms.ErrorProvider _errorProvider;
     }
 }

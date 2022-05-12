@@ -4,6 +4,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.1.32407.343
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomTypeEditorTest", "CustomTypeEditor\CustomTypeEditorTest.csproj", "{CED3F44E-F60C-4D8C-B6FC-A82DD4B632F5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{28744ABA-0057-4301-8A19-743BE2AECB6F} = {28744ABA-0057-4301-8A19-743BE2AECB6F}
+		{DF56A7C2-A6F6-45E6-B2FB-535A6A28624B} = {DF56A7C2-A6F6-45E6-B2FB-535A6A28624B}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomControl.ClientServerCommunication", "CustomControl.ClientServerCommunication\CustomControl.ClientServerCommunication.csproj", "{77ABBB80-9BE5-4E81-90FF-642B71C52652}"
 EndProject
