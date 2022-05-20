@@ -149,7 +149,6 @@
             // _dateCreated
             // 
             this._dateCreated.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this._errorProvider.SetError(this._dateCreated, "Date can\'t be in the future.");
             this._dateCreated.Location = new System.Drawing.Point(143, 37);
             this._dateCreated.Margin = new System.Windows.Forms.Padding(5);
             this._dateCreated.Name = "_dateCreated";
@@ -180,7 +179,6 @@
             // _requiredIdTextBox
             // 
             this._requiredIdTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-            this._errorProvider.SetError(this._requiredIdTextBox, "Please enter an Integer value.");
             this._requiredIdTextBox.Location = new System.Drawing.Point(143, 5);
             this._requiredIdTextBox.Margin = new System.Windows.Forms.Padding(5);
             this._requiredIdTextBox.Name = "_requiredIdTextBox";
@@ -189,6 +187,7 @@
             // 
             // _listOfStringTextBox
             // 
+            this._listOfStringTextBox.AcceptsReturn = true;
             this._listOfStringTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));

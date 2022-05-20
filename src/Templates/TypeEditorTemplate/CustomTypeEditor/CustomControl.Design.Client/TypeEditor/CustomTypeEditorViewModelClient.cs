@@ -5,11 +5,14 @@ using Microsoft.DotNet.DesignTools.Client;
 using Microsoft.DotNet.DesignTools.Client.Proxies;
 using Microsoft.DotNet.DesignTools.Client.Views;
 using System;
+using System.Diagnostics;
 
 namespace CustomControl.Designer.Client
 {
     internal class CustomTypeEditorViewModelClient : ViewModelClient
     {
+        CustomPropertyStoreData? _propertyStoreData;
+
         [ExportViewModelClientFactory(ViewModelNames.CustomTypeEditorViewModel)]
         private class Factory : ViewModelClientFactory<CustomTypeEditorViewModelClient>
         {
@@ -49,7 +52,7 @@ namespace CustomControl.Designer.Client
 
             var response = createViewModelEndpointSender.SendRequest(
                 new CreateCustomTypeEditorViewModelRequest(
-                    session.Id, 
+                    session.Id,
                     customPropertyStoreProxy));
 
             var viewModel = (ObjectProxy)response.ViewModel!;
@@ -67,10 +70,13 @@ namespace CustomControl.Designer.Client
 
         internal void ExecuteOkCommand()
         {
+            if (Debugger.IsAttached)
+                Debugger.Break();
+
             var okClickEndpointSender = Client!.Protocol.GetEndpoint<CustomTypeEditorOKClickEndpoint>().GetSender(Client);
-            okClickEndpointSender.SendRequest(new CustomTypeEditorOKClickRequest(ViewModelProxy!));
+            okClickEndpointSender.SendRequest(new CustomTypeEditorOKClickRequest(ViewModelProxy, PropertyStoreData));
         }
 
-        public CustomPropertyStoreData? PropertyStoreData { get; private set; }
+        public CustomPropertyStoreData? PropertyStoreData { get; set; }
     }
 }

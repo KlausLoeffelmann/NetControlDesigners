@@ -40,6 +40,9 @@ namespace CustomControl.ClientServerCommunication.DataTransport
             SomeMustHaveId = reader.ReadString(nameof(SomeMustHaveId));
             DateCreated = reader.ReadDateTimeOrDefault(nameof(DateCreated));
 
+            if (Debugger.IsAttached)
+                Debugger.Break();
+
             ListOfStrings = reader.ReadArrayOrNull(
                 nameof(ListOfStrings), 
                 (reader) => reader.ReadString()!);
@@ -50,10 +53,14 @@ namespace CustomControl.ClientServerCommunication.DataTransport
         public void WriteProperties(IDataPipeWriter writer)
         {
             writer.Write(nameof(SomeMustHaveId), SomeMustHaveId);
-            writer.Write(nameof(DateCreated), DateCreated);
+            writer.WriteIfNotDefault(nameof(DateCreated), DateCreated);
+
+            if (Debugger.IsAttached)
+                Debugger.Break();
 
             writer.WriteArrayIfNotNull(
-                nameof(ListOfStrings), 
+                nameof(ListOfStrings),
+                ListOfStrings,
                 (writer, value) => writer.Write(value));
 
             writer.Write(nameof(CustomEnumValue), CustomEnumValue);

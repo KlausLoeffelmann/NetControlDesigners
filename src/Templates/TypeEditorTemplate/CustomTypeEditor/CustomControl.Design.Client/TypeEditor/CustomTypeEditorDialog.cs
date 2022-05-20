@@ -2,6 +2,7 @@
 using System;
 using System.ComponentModel;
 using System.ComponentModel.Design;
+using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -28,7 +29,7 @@ namespace CustomControl.Designer.Client
         }
 
         public IServiceProvider? Provider { get; }
-        public CustomTypeEditorViewModelClient? ViewModelClient { get; set; }
+        public CustomTypeEditorViewModelClient ViewModelClient { get; set; }
         public ITypeDescriptorContext? Context { get; set; }
         public IDesignerHost? Host { get; set; }
 
@@ -56,48 +57,48 @@ namespace CustomControl.Designer.Client
         protected override void OnFormClosed(FormClosedEventArgs e)
         {
             base.OnFormClosed(e);
+
             if (DialogResult == DialogResult.OK)
             {
-                ViewModelClient?.ExecuteOkCommand();
+                ViewModelClient.ExecuteOkCommand();
             }
         }
 
-        protected override void OnValidating(CancelEventArgs e)
+        protected override void OnFormClosing(FormClosingEventArgs e)
         {
-            try
-            {
-                if (string.IsNullOrWhiteSpace(_requiredIdTextBox.Text))
-                {
-                    _errorProvider.SetError(_requiredIdTextBox, "Please enter some valid ID value (alphanumerical).");
-                    e.Cancel = true;
-                    return;
-                }
+            base.OnFormClosing(e);
+            e.Cancel = FormValidating();
+        }
 
-                _errorProvider.SetError(_requiredIdTextBox, null);
+        private bool FormValidating()
+        {
+            // If we're not OK'ing, then the validation is always correct.
+            if (DialogResult != DialogResult.OK)
+                return false;
 
+            bool validationFailed = false;
 
-                if (_dateCreated.Value > DateTime.Now)
-                {
-                    _errorProvider.SetError(_requiredIdTextBox, "Date can't be in the future.");
-                    e.Cancel = true;
-                    return;
-                }
+            validationFailed |= _errorProvider.SetErrorOrNull(
+                control: _requiredIdTextBox,
+                errorCondition: () => string.IsNullOrWhiteSpace(_requiredIdTextBox.Text),
+                errorText: "Please enter some valid ID value (alphanumerical).");
 
-                _errorProvider.SetError(_requiredIdTextBox, null);
+            validationFailed |= _errorProvider.SetErrorOrNull(
+                control: _dateCreated,
+                errorCondition: () => _dateCreated.Value > DateTime.Now,
+                errorText: "Date can't be in the future.");
 
-                _propertyStore = new(
+            _propertyStore = validationFailed
+                ? null
+                : (new(
                     _requiredIdTextBox.Text,
                     _dateCreated.Value,
                     _listOfStringTextBox.Lines,
-                    (byte)_customEnumValueListBox.SelectedIndex);
-            }
-            finally
-            {
-                if (e.Cancel)
-                {
-                    _propertyStore = null;
-                }
-            }
+                    (byte)_customEnumValueListBox.SelectedIndex));
+
+            ViewModelClient.PropertyStoreData = _propertyStore;
+
+            return validationFailed;
         }
     }
 }

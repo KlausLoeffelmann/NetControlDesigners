@@ -13,7 +13,7 @@ namespace CustomControl.Designer.Server.Handlers
 
             var viewModel = CreateViewModel<CustomTypeEditorViewModel>(designerHost);
 
-            return viewModel.Initialize(request.TileRepeaterProxy!);
+            return viewModel.Initialize(request.CustomControlProxy!);
         }
     }
 }

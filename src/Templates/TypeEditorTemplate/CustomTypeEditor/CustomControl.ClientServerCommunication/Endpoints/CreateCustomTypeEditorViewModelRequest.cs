@@ -8,14 +8,14 @@ namespace CustomControl.ClientServerCommunication.Endpoints
     public class CreateCustomTypeEditorViewModelRequest : Request
     {
         public SessionId SessionId { get; private set; }
-        public object? TileRepeaterProxy { get; private set; }
+        public object? CustomControlProxy { get; private set; }
 
         public CreateCustomTypeEditorViewModelRequest() { }
 
-        public CreateCustomTypeEditorViewModelRequest(SessionId sessionId, object? templateAssignmentProxy)
+        public CreateCustomTypeEditorViewModelRequest(SessionId sessionId, object? customControlProxy)
         {
             SessionId = sessionId.IsNull ? throw new ArgumentNullException(nameof(sessionId)) : sessionId;
-            TileRepeaterProxy = templateAssignmentProxy;
+            CustomControlProxy = customControlProxy;
         }
 
         public CreateCustomTypeEditorViewModelRequest(IDataPipeReader reader) : base(reader) { }
@@ -23,13 +23,13 @@ namespace CustomControl.ClientServerCommunication.Endpoints
         protected override void ReadProperties(IDataPipeReader reader)
         {
             SessionId = reader.ReadSessionId(nameof(SessionId));
-            TileRepeaterProxy = reader.ReadObject(nameof(TileRepeaterProxy));
+            CustomControlProxy = reader.ReadObject(nameof(CustomControlProxy));
         }
 
         protected override void WriteProperties(IDataPipeWriter writer)
         {
             writer.Write(nameof(SessionId), SessionId);
-            writer.WriteObject(nameof(TileRepeaterProxy), TileRepeaterProxy);
+            writer.WriteObject(nameof(CustomControlProxy), CustomControlProxy);
         }
     }
 }
