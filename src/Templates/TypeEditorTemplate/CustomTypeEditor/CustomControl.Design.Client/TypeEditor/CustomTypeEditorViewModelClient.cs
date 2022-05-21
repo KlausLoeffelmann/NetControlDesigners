@@ -45,12 +45,7 @@ namespace CustomControl.Designer.Client
             var session = provider.GetRequiredService<DesignerSession>();
             var client = provider.GetRequiredService<IDesignToolsClient>();
 
-            var createViewModelEndpointSender = client
-                .Protocol
-                .GetEndpoint<CreateCustomTypeEditorViewModelEndpoint>()
-                .GetSender(client);
-
-            var response = createViewModelEndpointSender.SendRequest(
+            var response = client.SendRequest<CreateCustomTypeEditorViewModelResponse>(
                 new CreateCustomTypeEditorViewModelRequest(
                     session.Id,
                     customPropertyStoreProxy));
@@ -73,8 +68,7 @@ namespace CustomControl.Designer.Client
             if (Debugger.IsAttached)
                 Debugger.Break();
 
-            var okClickEndpointSender = Client!.Protocol.GetEndpoint<CustomTypeEditorOKClickEndpoint>().GetSender(Client);
-            okClickEndpointSender.SendRequest(new CustomTypeEditorOKClickRequest(ViewModelProxy, PropertyStoreData));
+            Client!.SendRequest(new CustomTypeEditorOKClickRequest(ViewModelProxy, PropertyStoreData));
         }
 
         public CustomPropertyStoreData? PropertyStoreData { get; set; }

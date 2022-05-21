@@ -28,13 +28,13 @@ namespace CustomControl.ClientServerCommunication.Endpoints
         protected override void ReadProperties(IDataPipeReader reader)
         {
             ViewModel = reader.ReadObject(nameof(ViewModel));
-            PropertyStoreData = reader.ReadDataPipeObjectOrNull<CustomPropertyStoreData>(nameof(CustomPropertyStoreData));
+            PropertyStoreData = reader.ReadDataPipeObjectOrNull<CustomPropertyStoreData>(nameof(PropertyStoreData));
         }
 
         protected override void WriteProperties(IDataPipeWriter writer)
         {
             writer.WriteObject(nameof(ViewModel), ViewModel);
-            writer.WriteDataPipeObjectIfNotNull<CustomPropertyStoreData>(nameof(CustomPropertyStoreData), PropertyStoreData!);
+            writer.WriteDataPipeObjectIfNotNull<CustomPropertyStoreData>(nameof(PropertyStoreData), PropertyStoreData!);
         }
     }
 }
