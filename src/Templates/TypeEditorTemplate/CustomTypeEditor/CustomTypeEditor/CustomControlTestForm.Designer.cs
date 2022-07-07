@@ -28,20 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CustomControlTestForm));
             this.customControl1 = new CustomControl.CustomControl();
             this.SuspendLayout();
             // 
             // customControl1
             // 
-            this.customControl1.CustomProperty.CustomEnumValue = CustomControl.CustomEnum.SecondValue;
-            this.customControl1.CustomProperty.DateCreated = new System.DateTime(2022, 7, 6, 14, 19, 8, 377);
-            this.customControl1.CustomProperty.ListOfStrings = ((System.Collections.Generic.List<string>)(resources.GetObject("resource.ListOfStrings")));
-            this.customControl1.CustomProperty.SomeMustHaveId = "123456";
-            this.customControl1.Location = new System.Drawing.Point(15, 28);
+            this.customControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.customControl1.Location = new System.Drawing.Point(15, 13);
             this.customControl1.Margin = new System.Windows.Forms.Padding(4);
             this.customControl1.Name = "customControl1";
-            this.customControl1.Size = new System.Drawing.Size(950, 506);
+            this.customControl1.Size = new System.Drawing.Size(972, 536);
             this.customControl1.TabIndex = 0;
             this.customControl1.Text = "customControl1";
             // 
