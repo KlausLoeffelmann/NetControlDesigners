@@ -6,6 +6,10 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace CustomControl.ClientServerCommunication.Endpoints
 {
+    /// <summary>
+    /// Request class for the CustomTypeEditorOKClick endpoint, passing the necessary context 
+    /// (ViewModel, content of custom property) from the Client to the Server.
+    /// </summary>
     public class CustomTypeEditorOKClickRequest : Request
     {
         [AllowNull]

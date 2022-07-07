@@ -40,9 +40,6 @@ namespace CustomControl.ClientServerCommunication.DataTransport
             SomeMustHaveId = reader.ReadString(nameof(SomeMustHaveId));
             DateCreated = reader.ReadDateTimeOrDefault(nameof(DateCreated));
 
-            if (Debugger.IsAttached)
-                Debugger.Break();
-
             ListOfStrings = reader.ReadArrayOrNull(
                 nameof(ListOfStrings), 
                 (reader) => reader.ReadString()!);

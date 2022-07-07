@@ -24,20 +24,22 @@ namespace CustomControl.Designer.Client
             var editorService = provider.GetRequiredService<IWindowsFormsEditorService>();
             var designerHost = provider.GetRequiredService<IDesignerHost>();
 
-            // value now holds the proxy of the TemplateAssignment object which is edited.
+            // value now holds the proxy of the CustomPropertyStore object the user wants to edit.
             var viewModelClient = CustomTypeEditorViewModelClient.Create(provider, value);
 
             _customTypeEditorDialog ??= new CustomTypeEditorDialog(provider, viewModelClient);
             _customTypeEditorDialog.Context = context;
             _customTypeEditorDialog.Host = designerHost;
-            _customTypeEditorDialog.ViewModelClient = viewModelClient;
 
-            // We don't need to do anything, since the Dialog has already set the
-            // property server-side.
             var dialogResult = editorService.ShowDialog(_customTypeEditorDialog);
             if (dialogResult == DialogResult.OK)
             {
-                value = viewModelClient.PropertyStoreData;
+                // By now, the UI of the Editor has instructed its (client-side) ViewModel
+                // to run the value-updating code: It passes the entered data to the server, which
+                // in turn updates the server-side ViewModel. The ViewModelClient's PropertyStore
+                // property retrieves the value (as a proxy object) directly from the server-side
+                // ViewModel.
+                value = viewModelClient.PropertyStore;
             }
 
             return value;

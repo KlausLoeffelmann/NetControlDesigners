@@ -1,6 +1,5 @@
 ﻿using Microsoft.DotNet.DesignTools.Editors;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using WinForms.Tiles.ClientServerProtocol.DataTransport;
 

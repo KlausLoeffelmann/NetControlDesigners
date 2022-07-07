@@ -5,6 +5,10 @@ using System;
 
 namespace CustomControl.ClientServerCommunication.Endpoints
 {
+    /// <summary>
+    /// Request class for the CreateCustomTypeEditorViewModel endpoint, passing the necessary context 
+    /// (SessionId, proxy of the CustomControl) from the Client to the Server.
+    /// </summary>
     public class CreateCustomTypeEditorViewModelRequest : Request
     {
         public SessionId SessionId { get; private set; }

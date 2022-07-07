@@ -19,7 +19,7 @@ namespace CustomControl
         /// <summary>
         /// Controls the Reset-Property function in the PropertyBrowser.
         /// </summary>
-        private void ResetCustomPropertyData() 
+        private void ResetCustomProperty() 
             => CustomProperty = null;
 
         /// <summary>
@@ -29,7 +29,7 @@ namespace CustomControl
         /// True, if the CodeDOM serializer should emit code for 
         /// assigning a valid content to the property in InitializeComponent.
         /// </returns>
-        private bool ShouldSerializeCustomPropertyData()
+        private bool ShouldSerializeCustomProperty()
             => CustomProperty is not null;
 
         // The only function of this control is to draw a visual

@@ -5,6 +5,9 @@ using System.Windows.Forms;
 
 namespace CustomControl.Designer.Server
 {
+    /// <summary>
+    /// The control designer of the CustomControl.
+    /// </summary>
     internal partial class CustomControlDesigner : ControlDesigner
     {
         public override DesignerActionListCollection ActionLists
@@ -20,10 +23,11 @@ namespace CustomControl.Designer.Server
             // If you want to paint custom adorner or other GDI+ based content,
             // use the paintEventArgs' Graphics methods to render it.
 
-            // We just drawing frame around the ClientRectangle with dotted brush...
+            // We just drawing frame around the ClientRectangle with a dotted brush...
             if (!(SelectionService?.GetComponentSelected(Control) ?? false))
             {
                 using var pen = new Pen(Control.ForeColor);
+
                 //...if the control is not currently selected.
                 pen.DashStyle = System.Drawing.Drawing2D.DashStyle.DashDot;
                 using var brush = new SolidBrush(Control.ForeColor);

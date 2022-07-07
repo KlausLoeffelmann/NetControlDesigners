@@ -11,8 +11,6 @@ namespace CustomControl.Designer.Client
 {
     internal class CustomTypeEditorViewModelClient : ViewModelClient
     {
-        CustomPropertyStoreData? _propertyStoreData;
-
         [ExportViewModelClientFactory(ViewModelNames.CustomTypeEditorViewModel)]
         private class Factory : ViewModelClientFactory<CustomTypeEditorViewModelClient>
         {
@@ -39,9 +37,14 @@ namespace CustomControl.Designer.Client
         ///  The ViewModelClient for controlling the NewObjectDataSource dialog.
         /// </returns>
         public static CustomTypeEditorViewModelClient Create(
-            IServiceProvider provider,
+            IServiceProvider provider, 
             object? customPropertyStoreProxy)
         {
+            if (Debugger.IsAttached)
+            {
+                Debugger.Break();
+            }
+
             var session = provider.GetRequiredService<DesignerSession>();
             var client = provider.GetRequiredService<IDesignToolsClient>();
 
@@ -63,6 +66,15 @@ namespace CustomControl.Designer.Client
             PropertyStoreData = propertyStoreData;
         }
 
+        // Executes the OK Command when the user has clicked the OK Button:
+        // It takes the _propertyStoreData, sends it to the Server along the the ViewModelProxy,
+        // so the Server can access it. The Server then creates the actual PropertyStore object 
+        // from the passed Data (remember: the client cannot do that, since it doesn't know about the
+        // CustomPropertyStore type which only exists server-side!), and stores it in its PropertyStore property.
+        // Now, when the TypeEditor continues with the codeflow in EditValue, it get's the updated Value to return to
+        // the property grid from this client-side ViewModel, namely from it's PropertyStore property. This property
+        // in turn uses the ViewModelProxy to call the server and get the Proxy of the Value from the server-side
+        // ViewModel, which our OKClickHandler has _just_ updates server-side and is therefore up-to-date!
         internal void ExecuteOkCommand()
         {
             if (Debugger.IsAttached)
@@ -71,6 +83,16 @@ namespace CustomControl.Designer.Client
             Client!.SendRequest(new CustomTypeEditorOKClickRequest(ViewModelProxy, PropertyStoreData));
         }
 
-        public CustomPropertyStoreData? PropertyStoreData { get; set; }
+        // Get, when the TypeEditor's UI need to be update its controls to show the content of the custom property.
+        // Set, when the validation of the Data which was just entered by the User passed.
+        internal CustomPropertyStoreData? PropertyStoreData { get; set; }
+
+        /// <summary>
+        /// Returns the Proxy of the server-side ViewModel's PropertyStore property.
+        /// </summary>
+        public Object? PropertyStore
+
+            // See also comment on ExecuteOKCommand.
+            => ViewModelProxy!.GetPropertyValue(nameof(PropertyStore));
     }
 }

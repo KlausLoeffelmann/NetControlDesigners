@@ -6,6 +6,10 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace CustomControl.ClientServerCommunication.Endpoints
 {
+    /// <summary>
+    /// Response class, answering the request for that Endpoint, and transporting the requested data (Proxy of the
+    /// server-side ViewModel and the data of the custom property type 'PropertyStore') back to the client.
+    /// </summary>
     public class CreateCustomTypeEditorViewModelResponse : Response
     {
         [AllowNull]

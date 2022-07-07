@@ -3,6 +3,15 @@ using System.Drawing.Design;
 
 namespace CustomControl
 {
+    /// <summary>
+    /// An example for a custom type used by a property of a custom control.
+    /// </summary>
+    /// <remarks>
+    /// Since this type is made out of different sub types, there is no editor out of the box to enter data in a 
+    /// meaningfull way when we are editing the value at design-time from within the property grid. That is the 
+    /// reason we need a dedidcated editor (CustomTypeEditor) derived from <see cref="UITypeEditor"/> which does
+    /// that job.
+    /// </remarks>
     [Editor("CustomTypeEditor", typeof(UITypeEditor))]
     public class CustomPropertyStore
     {

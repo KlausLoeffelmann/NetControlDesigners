@@ -2,7 +2,6 @@
 using System;
 using System.ComponentModel;
 using System.ComponentModel.Design;
-using System.Diagnostics;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -14,11 +13,12 @@ namespace CustomControl.Designer.Client
 
         public CustomTypeEditorDialog(IServiceProvider provider, CustomTypeEditorViewModelClient viewModelClient)
         {
+            InitializeComponent();
+
             Provider = provider;
             ViewModelClient = viewModelClient;
 
-            InitializeComponent();
-
+            // Fill the Enum Combobox with the enum values.
             _customEnumValueListBox.Items.AddRange(
                 Enum.GetValues(typeof(CustomEnumClientVersion))
                 .Cast<CustomEnumClientVersion>()
@@ -26,6 +26,9 @@ namespace CustomControl.Designer.Client
                 .ToArray());
 
             _customEnumValueListBox.SelectedIndex = 0;
+
+            // Fill the Form with the values.
+            PropertyStoreData = ViewModelClient.PropertyStoreData;
         }
 
         public IServiceProvider? Provider { get; }
@@ -73,6 +76,7 @@ namespace CustomControl.Designer.Client
         private bool FormValidating()
         {
             // If we're not OK'ing, then the validation is always correct.
+            // In this case, the existing content of _propertyStore stays current.
             if (DialogResult != DialogResult.OK)
                 return false;
 

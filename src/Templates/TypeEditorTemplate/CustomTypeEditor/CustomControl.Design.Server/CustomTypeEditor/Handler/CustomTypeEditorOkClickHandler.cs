@@ -9,15 +9,13 @@ namespace CustomControl.Designer.Server.Handlers
     {
         public override CustomTypeEditorOKClickResponse HandleRequest(CustomTypeEditorOKClickRequest request)
         {
+            // We're getting the ViewModel passed via the endpoint's request class.
             var viewModel = (CustomTypeEditorViewModel)request.ViewModel;
-            viewModel.PropertyStore = new(
-                request.PropertyStoreData.SomeMustHaveId,
-                request.PropertyStoreData.DateCreated,
-                request.PropertyStoreData.ListOfStrings?.ToList(),
-                (CustomEnum) request.PropertyStoreData.CustomEnumValue);
 
-            viewModel.OKClick();
+            // Data is complete: we're performing the OKClick server-side.
+            viewModel.OKClick(request.PropertyStoreData);
 
+            // Nothing really to return, just honoring the conventions.
             return CustomTypeEditorOKClickResponse.Empty;
         }
     }
