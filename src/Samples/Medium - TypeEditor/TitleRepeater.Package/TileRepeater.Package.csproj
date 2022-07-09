@@ -33,7 +33,7 @@
 
 	<Target Name="CopyPackage" AfterTargets="Pack">
 		<Copy SourceFiles="$(OutputPath)..\$(PackageId).$(PackageVersion).nupkg" 
-			  DestinationFolder="$(SolutionDir)NuGet\BuildOut\"/>
+			  DestinationFolder="$(SolutionDir)..\NuGet\BuildOut\"/>
 	</Target>
 	
 </Project>

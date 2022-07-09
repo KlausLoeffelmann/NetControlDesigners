@@ -11,15 +11,18 @@ namespace WinForms.Tiles
             "Gets or sets a value which determines, if the " +
             "Layout should be recalculated on resizing automatically.";
 
-        private const string TemplateTypesDescription =
-            "Gets or sets the collection of type assignments, which determines based on the item type " +
+        private const string ItemTemplateDescription =
+            "Gets or sets the type assignments, which determines based on the item type " +
             "in the data source what TileContent based type UserControl should be used for rendering " +
             "the data on binding.";
 
+        private const string SeparatorTemplateDescription =
+            "Gets or sets the type assignments, which determines based on the item type " +
+            "in the data source what TileContent based type UserControl should be used for rendering " +
+            "a visual separator on binding.";
+
         private const string DataSourceDescription = 
             "Gets or sets the data source for the TileRepeater control.";
-
-        private TemplateAssignmentItems? _templateAssignments;
 
         private IBindingList? _dataSource;
         private Action? _listUnbinder;
@@ -28,7 +31,6 @@ namespace WinForms.Tiles
 
         public TileRepeater()
         {
-            _templateAssignments = new TemplateAssignmentItems();
             base.AutoScroll = true;
         }
 
@@ -48,12 +50,11 @@ namespace WinForms.Tiles
         /// in the data source what TileContent based type UserControl should be used for rendering 
         /// the data on binding.
         /// </summary>
-        [Description(TemplateTypesDescription)]
-        public TemplateAssignmentItems? TemplateTypes
-        {
-            get => _templateAssignments;
-            set => _templateAssignments = value;
-        }
+        [Description(ItemTemplateDescription)]
+        public TemplateAssignment? ItemTemplate { get; set; }
+
+        [Description(SeparatorTemplateDescription)]
+        public TemplateAssignment? SeparatorTemplate { get; set; }
 
         /// <summary>
         /// Gets or sets the data source for the TileRepeater control.
@@ -144,8 +145,11 @@ namespace WinForms.Tiles
             SuspendLayout();
             Controls.Clear();
 
+            var templateTypes = new[] { ItemTemplate };
+
             if (_dataSource is null ||
-                TemplateTypes is null)
+                ItemTemplate is null || 
+                ItemTemplate.TileContentControlType is null)
             {
                 ResumeLayout();
                 return;
@@ -153,12 +157,49 @@ namespace WinForms.Tiles
 
             foreach (var item in _dataSource)
             {
-                var tileControl = GetTemplateControlInstance(item.GetType());
-                tileControl!.TileContent.BindingSourceComponent!.DataSource = item;
-                Controls.Add(tileControl);
+                if (GetTemplateControlInstance(item.GetType(),templateTypes) is Tile tileControl &&
+                    tileControl.TileContent.BindingSourceComponent is { })
+                {
+                    tileControl.TileContent.BindingSourceComponent.DataSource = item;
+                    Controls.Add(tileControl);
+                }
             }
 
             ResumeLayout();
+        }
+
+        private static Tile? GetTemplateControlInstance(Type templateType, TemplateAssignment?[] templateTypes)
+        {
+            // Get TileContentControl based on type:
+            var tileContentType = templateTypes
+                .Where(item => item?.TemplateType == templateType)
+                .FirstOrDefault()?.TileContentControlType;
+
+            Tile? tileControl = null;
+            TileContent tileContentInstance;
+
+            if (tileContentType is not null)
+            {
+                tileControl = new();
+
+                try
+                {
+                    tileContentInstance = (Activator.CreateInstance(tileContentType) as TileContent)!;
+                    tileContentInstance.Size = tileContentInstance.PreferredSize;
+                }
+                catch (Exception)
+                {
+                    tileContentInstance = DefaultInstanceGetter();
+                }
+
+                tileControl.TileContent = tileContentInstance;
+            }
+
+
+            return tileControl;
+
+            TileContent DefaultInstanceGetter()
+                => new TileContent() { BackColor = Color.Red };
         }
 
         protected override void Dispose(bool disposing)
@@ -245,32 +286,6 @@ namespace WinForms.Tiles
 
             lastControl.Visible = true;
             lastControl.Tag = true;
-        }
-
-        private Tile? GetTemplateControlInstance(Type templateType)
-        {
-            // Get TileContentControl based on type:
-            var tileContentType = TemplateTypes?
-                .Where(item => item.TemplateAssignment!.TemplateType == templateType)?
-                .FirstOrDefault()?.TemplateAssignment?.TileContentControlType;
-
-            Tile tileControl = new();
-
-            TileContent tileContentInstance;
-
-            try
-            {
-                tileContentInstance = (TileContent)Activator.CreateInstance(tileContentType!)!;
-                tileContentInstance.Size = tileContentInstance.PreferredSize;
-            }
-            catch (Exception)
-            {
-                // TODO: If the Activator threw, we need to have an error control here.
-                tileContentInstance = new TileContent() { BackColor = Color.Red };
-            }
-
-            tileControl.TileContent = tileContentInstance;
-            return tileControl;
         }
     }
 }

@@ -41,8 +41,11 @@ namespace WinForms.Tiles.Designer.Server
                         .SetValue(Component, value);
             }
 
-            public void InvokeTemplateTypeItemsDialog()
-                => _designer.InvokePropertyEditor(nameof(TileRepeater.TemplateTypes));
+            public void InvokeItemTemplateDialog()
+                => _designer.InvokePropertyEditor(nameof(TileRepeater.ItemTemplate));
+
+            public void InvokeSeparatorTemplateDialog()
+                => _designer.InvokePropertyEditor(nameof(TileRepeater.SeparatorTemplate));
 
             public override DesignerActionItemCollection GetSortedActionItems()
             {
@@ -65,8 +68,14 @@ namespace WinForms.Tiles.Designer.Server
 
                 actionItems.Add(new DesignerActionMethodItem(
                     this,
-                    nameof(InvokeTemplateTypeItemsDialog),
-                    "Edit template type assignments...",
+                    nameof(InvokeItemTemplateDialog),
+                    "Edit item template assignments...",
+                    true));
+
+                actionItems.Add(new DesignerActionMethodItem(
+                    this,
+                    nameof(InvokeSeparatorTemplateDialog),
+                    "Edit separator template assignments...",
                     true));
 
                 return actionItems;

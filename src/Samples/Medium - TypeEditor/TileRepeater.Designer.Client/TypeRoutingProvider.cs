@@ -15,11 +15,6 @@ namespace WinForms.Tiles.Designer.Client
                     TypeRoutingKinds.Editor, 
                     nameof(EditorNames.TemplateAssignmentEditor), 
                     typeof(TemplateAssignmentEditor)),
-
-                new TypeRoutingDefinition(
-                    TypeRoutingKinds.Editor,
-                    nameof(EditorNames.TemplateAssignmentCollectionEditor),
-                    typeof(TemplateAssignmentCollectionEditor))
             };
         }
     }

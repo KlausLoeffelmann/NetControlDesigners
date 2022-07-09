@@ -20,7 +20,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Designer", "Designer", "{43
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TileRepeater.Designer.Server", "TileRepeater.Designer.Server\TileRepeater.Designer.Server.csproj", "{FAEF2531-D827-41EB-88ED-59D71693D894}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TileRepeater.Package", "TitleRepeater.Package\TileRepeater.Package.csproj", "{00DCF7F4-3F97-4C3F-AFD0-1FD21F628220}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TileRepeater.Extended.Package", "TitleRepeater.Package\TileRepeater.Extended.Package.csproj", "{00DCF7F4-3F97-4C3F-AFD0-1FD21F628220}"
 	ProjectSection(ProjectDependencies) = postProject
 		{BCAE2509-A3BE-429F-A84B-BDEC1F30A120} = {BCAE2509-A3BE-429F-A84B-BDEC1F30A120}
 		{FAEF2531-D827-41EB-88ED-59D71693D894} = {FAEF2531-D827-41EB-88ED-59D71693D894}

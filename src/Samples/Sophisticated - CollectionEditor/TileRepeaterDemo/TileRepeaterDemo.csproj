@@ -9,7 +9,7 @@
   </PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="TileRepeater.Package" Version="*" />
+		<PackageReference Include="TileRepeater.Extended.Package" Version="*" />
 	</ItemGroup>
 
 	<ItemGroup>
