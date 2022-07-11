@@ -7,6 +7,10 @@ using System.Windows.Forms.Design;
 
 namespace CustomControl.Designer.Client
 {
+    /// <summary>
+    /// The actual client-side implementation of the CustomTypeEditor, which is called by 
+    /// Visual Studio's Property Browser.
+    /// </summary>
     public class CustomTypeEditor : UITypeEditor
     {
         CustomTypeEditorDialog? _customTypeEditorDialog;
@@ -24,7 +28,7 @@ namespace CustomControl.Designer.Client
             var editorService = provider.GetRequiredService<IWindowsFormsEditorService>();
             var designerHost = provider.GetRequiredService<IDesignerHost>();
 
-            // value now holds the proxy of the CustomPropertyStore object the user wants to edit.
+            // Value now holds the proxy of the CustomPropertyStore object the user wants to edit.
             var viewModelClient = CustomTypeEditorViewModelClient.Create(provider, value);
 
             _customTypeEditorDialog ??= new CustomTypeEditorDialog(provider, viewModelClient);
@@ -34,11 +38,13 @@ namespace CustomControl.Designer.Client
             var dialogResult = editorService.ShowDialog(_customTypeEditorDialog);
             if (dialogResult == DialogResult.OK)
             {
-                // By now, the UI of the Editor has instructed its (client-side) ViewModel
-                // to run the value-updating code: It passes the entered data to the server, which
-                // in turn updates the server-side ViewModel. The ViewModelClient's PropertyStore
-                // property retrieves the value (as a proxy object) directly from the server-side
-                // ViewModel.
+                // By now, the UI of the Editor has asked its (client-side) ViewModel
+                // to run the code which updates the property value. It passes the data to
+                // the server, which in turn updates the server-side ViewModel.
+                // When it's time to return the value from the client-side ViewModel back to the
+                // Property Browser (which has called the TypeEditor in the first place), the client-side
+                // ViewModel access its PropertyStore property, which in turn gets the required PropertyStore
+                // proxy object directly from the server-side ViewModel.
                 value = viewModelClient.PropertyStore;
             }
 

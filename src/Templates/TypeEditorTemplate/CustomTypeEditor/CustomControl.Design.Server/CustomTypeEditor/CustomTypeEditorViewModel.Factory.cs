@@ -6,6 +6,9 @@ namespace CustomControl.Designer.Server
 {
     internal partial class CustomTypeEditorViewModel
     {
+        /// <summary>
+        /// Factory class which generates the CustomTypeEditorViewModel.
+        /// </summary>
         [ExportViewModelFactory(ViewModelNames.CustomTypeEditorViewModel)]
         private class Factory : ViewModelFactory<CustomTypeEditorViewModel>
         {

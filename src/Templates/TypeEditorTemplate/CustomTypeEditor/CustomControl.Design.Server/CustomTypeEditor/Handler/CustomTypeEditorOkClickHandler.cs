@@ -1,18 +1,23 @@
 ﻿using CustomControl.ClientServerCommunication.Endpoints;
 using Microsoft.DotNet.DesignTools.Protocol.Endpoints;
-using System.Linq;
 
 namespace CustomControl.Designer.Server.Handlers
 {
     [ExportRequestHandler(EndpointNames.CustomTypeEditorEditorOKClick)]
     internal class CustomTypeEditorOkClickHandler : RequestHandler<CustomTypeEditorOKClickRequest, CustomTypeEditorOKClickResponse>
     {
+        /// <summary>
+        /// Handler for the TypeEditor Dialog's OK-Click event.
+        /// </summary>
+        /// <param name="request">Contains the ViewModel reference and the new PropertyStoreData,
+        /// which contain the new values which have been edited/entered in the TypeEditor dialog.</param>
+        /// <returns>The response, which is empty in this case, but the conventions need to be honored.</returns>
         public override CustomTypeEditorOKClickResponse HandleRequest(CustomTypeEditorOKClickRequest request)
         {
-            // We're getting the ViewModel passed via the endpoint's request class.
+            // Getting the ViewModel passed via the endpoint's request class.
             var viewModel = (CustomTypeEditorViewModel)request.ViewModel;
 
-            // Data is complete: we're performing the OKClick server-side.
+            // Delegate the actual handling of the OKClick event to the server-side ViewModel.
             viewModel.OKClick(request.PropertyStoreData);
 
             // Nothing really to return, just honoring the conventions.

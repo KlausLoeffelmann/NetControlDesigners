@@ -1,12 +1,21 @@
 ﻿using CustomControl.ClientServerCommunication.DataTransport;
 using CustomControl.ClientServerCommunication.Endpoints;
-using Microsoft.DotNet.DesignTools.Protocol.Endpoints;
 using Microsoft.DotNet.DesignTools.ViewModels;
 using System;
 using System.Linq;
 
 namespace CustomControl.Designer.Server
 {
+    /// <summary>
+    /// The server-side ViewModel for controlling the CustomTypeEditor UI.
+    /// </summary>
+    /// <remarks>
+    /// 'ViewModel' in this context is a class which holds the logic/properties to control the UI. This is the 
+    /// server-side part, but there is also a client-side part of that ViewModel. The server-side provides the logic based 
+    /// on the real types of the CustomTypeEditor, running in the context of the TFM of the custom control. It communicates 
+    /// to the client-side ViewModel part, which _then_ controls the client-side hosted UI, which in turn runs in the 
+    /// TFM-context of Visual Studio.
+    /// </remarks>
     internal partial class CustomTypeEditorViewModel : ViewModel
     {
 

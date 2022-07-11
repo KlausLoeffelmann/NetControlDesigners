@@ -3,18 +3,57 @@ using System.Text;
 
 namespace CustomControl
 {
+    /// <summary>
+    /// Custom Control sample implementation.
+    /// </summary>
+    /// <remarks>
+    /// This sample custom control implements one custom property named <see cref="CustomProperty"/> 
+    /// of type <see cref="CustomPropertyStore"/>. Its sole purpose is to demonstrate how to implement
+    /// a custom TypeEditor for editing this property's content at design time with the Out-Of-Process
+    /// WinForms Designer. 
+    /// </remarks>
     [Designer("CustomControlDesigner")]
     public class CustomControl : Control
     {
+        // Backing field for CustomProperty.
+        private CustomPropertyStore? _customProperty;
+
+        /// <summary>
+        /// Raised when CustomProperty changes.
+        /// </summary>
+        public event EventHandler? CustomPropertyChanged;
+
         public CustomControl()
         {
             DoubleBuffered = true;
             ResizeRedraw = true;
         }
 
-        [Description("A custom property composed of different value types and a string array."),
+        /// <summary>
+        /// Gets or sets a value of type <see cref="CustomPropertyStore"/> which is composed of different value types,
+        /// a custom enum and a string array.
+        /// </summary>
+        [Description("A custom property composed of different value types, a custom enum and a string array."),
          DesignerSerializationVisibility(DesignerSerializationVisibility.Content)]
-        public CustomPropertyStore? CustomProperty { get; set; }
+        public CustomPropertyStore? CustomProperty
+        {
+            get => _customProperty;
+
+            set
+            {
+                if (!Equals(value, _customProperty))
+                {
+                    _customProperty = value;
+                    OnCustomPropertyChanged(EventArgs.Empty);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Raises the CustomPropertyChanged event.
+        /// </summary>
+        protected virtual void OnCustomPropertyChanged(EventArgs e) 
+            => CustomPropertyChanged?.Invoke(this, e);
 
         /// <summary>
         /// Controls the Reset-Property function in the PropertyBrowser.

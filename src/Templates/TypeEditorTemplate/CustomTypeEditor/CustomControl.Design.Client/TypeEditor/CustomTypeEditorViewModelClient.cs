@@ -9,6 +9,9 @@ using System.Diagnostics;
 
 namespace CustomControl.Designer.Client
 {
+    /// <summary>
+    /// Client-side implementation of the ViewModel to control the TypeEditor UI.
+    /// </summary>
     internal class CustomTypeEditorViewModelClient : ViewModelClient
     {
         [ExportViewModelClientFactory(ViewModelNames.CustomTypeEditorViewModel)]
@@ -37,7 +40,7 @@ namespace CustomControl.Designer.Client
         ///  The ViewModelClient for controlling the NewObjectDataSource dialog.
         /// </returns>
         public static CustomTypeEditorViewModelClient Create(
-            IServiceProvider provider, 
+            IServiceProvider provider,
             object? customPropertyStoreProxy)
         {
             if (Debugger.IsAttached)

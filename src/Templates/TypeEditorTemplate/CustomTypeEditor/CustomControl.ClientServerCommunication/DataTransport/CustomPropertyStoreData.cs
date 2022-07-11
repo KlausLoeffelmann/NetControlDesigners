@@ -6,8 +6,9 @@ using System.Diagnostics.CodeAnalysis;
 namespace CustomControl.ClientServerCommunication.DataTransport
 {
     /// <summary>
-    /// Transport class to carry the content of the CustomPropertyData 
-    /// from the DesignToolServer's server process to the client (VS) and back.
+    /// Transport class to carry the content of the CustomPropertyStore 
+    /// from the DesignToolServer's server process to the client (Visual Studio)
+    /// and back.
     /// </summary>
     [DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
     public partial class CustomPropertyStoreData : IDataPipeObject

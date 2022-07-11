@@ -29,6 +29,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomControlPackage", "Cus
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomControl.Designer.Client", "CustomControl.Design.Client\CustomControl.Designer.Client.csproj", "{ACD9E380-5B13-403F-B2AC-78FDCCC50488}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_readme", "_readme", "{BC11BF90-A252-4F1A-8389-DF44301E6849}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
