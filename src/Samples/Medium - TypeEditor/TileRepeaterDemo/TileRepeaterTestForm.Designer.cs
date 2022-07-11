@@ -31,8 +31,12 @@ namespace TileRepeaterDemo
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            TemplateAssignmentItems templateAssignmentItems1 = new TemplateAssignmentItems();
+            Type templateType1;
+            Type tileContentType1;
+            Type templateType2;
+            Type tileContentType2;
             this._pictureTileRepeater = new WinForms.Tiles.TileRepeater();
+            this._templateItemsBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this._uiControllerBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this._mainMenuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -41,32 +45,35 @@ namespace TileRepeaterDemo
             this._quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this._statusStrip = new System.Windows.Forms.StatusStrip();
             this._imagePathStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this._templateItemsBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            templateType1 = Type.GetType("TileRepeater.Data.ListController.GenericPictureItem, TileRepeater.Data, Version=1" +
+        ".0.0.0, Culture=neutral, PublicKeyToken=null");
+            tileContentType1 = Type.GetType("TileRepeaterDemo.TileTemplates.ImageContent, TileRepeaterDemo, Version=1.0.0.0, C" +
+        "ulture=neutral, PublicKeyToken=null");
+            templateType2 = Type.GetType("TileRepeater.Data.ListController.GenericTemplateItem, TileRepeater.Data, Version=" +
+        "1.0.0.0, Culture=neutral, PublicKeyToken=null");
+            tileContentType2 = Type.GetType("TileRepeaterDemo.TileTemplates.GroupSeperatorContent, TileRepeaterDemo, Version=1" +
+        ".0.0.0, Culture=neutral, PublicKeyToken=null");
+            ((System.ComponentModel.ISupportInitialize)(this._templateItemsBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this._uiControllerBindingSource)).BeginInit();
             this._mainMenuStrip.SuspendLayout();
             this._statusStrip.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this._templateItemsBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // _pictureTileRepeater
             // 
-            this._pictureTileRepeater.AutoScroll = true;
             this._pictureTileRepeater.DataSource = this._templateItemsBindingSource;
             this._pictureTileRepeater.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._pictureTileRepeater.ItemTemplate = new WinForms.Tiles.TemplateAssignment(templateType1, tileContentType1);
             this._pictureTileRepeater.Location = new System.Drawing.Point(0, 28);
             this._pictureTileRepeater.Name = "_pictureTileRepeater";
+            this._pictureTileRepeater.SeparatorTemplate = new WinForms.Tiles.TemplateAssignment(templateType2, tileContentType2);
             this._pictureTileRepeater.Size = new System.Drawing.Size(946, 624);
             this._pictureTileRepeater.TabIndex = 0;
-            templateAssignmentItems1.Add(new WinForms.Tiles.TemplateAssignmentItem("GenericTemplateItem/GroupSeperatorContent", new WinForms.Tiles.TemplateAssignment(Type.GetType("TileRepeater.Data.ListController.GenericTemplateItem, TileRepeater.Data, Version=" +
-                    "1.0.0.0, Culture=neutral, PublicKeyToken=null"), Type.GetType("TileRepeaterDemo.TileTemplates.GroupSeperatorContent, TileRepeaterDemo, Version=1" +
-                    ".0.0.0, Culture=neutral, PublicKeyToken=null"))));
-            templateAssignmentItems1.Add(new WinForms.Tiles.TemplateAssignmentItem("LandscapePictureItem/LandscapeImageContent", new WinForms.Tiles.TemplateAssignment(Type.GetType("TileRepeater.Data.ListController.LandscapePictureItem, TileRepeater.Data, Version" +
-                    "=1.0.0.0, Culture=neutral, PublicKeyToken=null"), Type.GetType("TileRepeaterDemo.TileTemplates.LandscapeImageContent, TileRepeaterDemo, Version=1" +
-                    ".0.0.0, Culture=neutral, PublicKeyToken=null"))));
-            templateAssignmentItems1.Add(new WinForms.Tiles.TemplateAssignmentItem("PortraitPictureItem/PortraitImageContent", new WinForms.Tiles.TemplateAssignment(Type.GetType("TileRepeater.Data.ListController.PortraitPictureItem, TileRepeater.Data, Version=" +
-                    "1.0.0.0, Culture=neutral, PublicKeyToken=null"), Type.GetType("TileRepeaterDemo.TileTemplates.PortraitImageContent, TileRepeaterDemo, Version=1." +
-                    "0.0.0, Culture=neutral, PublicKeyToken=null"))));
-            this._pictureTileRepeater.TemplateTypes = templateAssignmentItems1;
+            // 
+            // _templateItemsBindingSource
+            // 
+            this._templateItemsBindingSource.DataMember = "TemplateItems";
+            this._templateItemsBindingSource.DataSource = this._uiControllerBindingSource;
             // 
             // _uiControllerBindingSource
             // 
@@ -129,11 +136,6 @@ namespace TileRepeaterDemo
             this._imagePathStatusLabel.Spring = true;
             this._imagePathStatusLabel.Text = "ImagePath";
             // 
-            // _templateItemsBindingSource
-            // 
-            this._templateItemsBindingSource.DataMember = "TemplateItems";
-            this._templateItemsBindingSource.DataSource = this._uiControllerBindingSource;
-            // 
             // TileRepeaterTestForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -146,12 +148,12 @@ namespace TileRepeaterDemo
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "TileRepeaterTestForm";
             this.Text = "WinForms PictureViewer";
+            ((System.ComponentModel.ISupportInitialize)(this._templateItemsBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this._uiControllerBindingSource)).EndInit();
             this._mainMenuStrip.ResumeLayout(false);
             this._mainMenuStrip.PerformLayout();
             this._statusStrip.ResumeLayout(false);
             this._statusStrip.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this._templateItemsBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

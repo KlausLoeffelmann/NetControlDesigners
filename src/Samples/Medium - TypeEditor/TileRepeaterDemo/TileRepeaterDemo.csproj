@@ -18,6 +18,5 @@
 
 	<ItemGroup>
 	  <Compile Update="TileTemplates\ImageContent.cs" />
-	  <Compile Update="TileTemplates\PortraitImageContent.cs" />
 	</ItemGroup>
 </Project>

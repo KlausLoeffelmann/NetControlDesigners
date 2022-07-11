@@ -4,6 +4,21 @@ using WinForms.Tiles.Simplified.Designer;
 
 namespace WinForms.Tiles.Simplified
 {
+    /// <summary>
+    /// Provides a rich list view, in that it lets each item of a datasource be visually 
+    /// represented by a UserControl derived from <see cref="TileContent"/>.
+    /// </summary>
+    /// <remarks>
+    /// When the TileRepeater's <see cref="DataSource"/> property is set, for each item of the datasource one Tile is instantiated and placed row by row in the TileRepeater.
+    /// The content of each Tile is determined by the TileRepeater's <see cref="ContentTemplate"/> property, whose instance, 
+    /// created by the TileRepeater, is assigned to the <see cref="TileContent"/> property at runtime. On instantiation, the data source item is 
+    /// assigned to that derived TileContent control, which is then bound to the respective controls on the TileControl to visualize the properties 
+    /// of each of the data source's items. Tiles also support asynchronous loading of content like pictures. To this end, the Tile calls 
+    /// <see cref="TileContent.LoadContentAsync"/> for TileContent as soon as they become visible (are getting scrolled into the visible client area 
+    /// of the TileRepeater control).
+    /// NOTE: This control is for WinForms Designer feature demonstration purposes only!
+    /// It doesn't virtualize Controls, so it is not suited for large numbers of data source items (<100!).
+    /// </remarks>
     [Designer(typeof(SimpleTileRepeaterDesigner)),
      System.ComponentModel.ComplexBindingProperties("DataSource")]
     public partial class SimpleTileRepeater : Panel
@@ -40,6 +55,10 @@ namespace WinForms.Tiles.Simplified
          Description(AutoLayoutResizeDescription)]
         public bool AutoLayoutOnResize { get; set; }
 
+        /// <summary>
+        /// Gets or sets the TileContent based UserControl which will be instantiated for 
+        /// and bound to every item in the data source collection.
+        /// </summary>
         [Description(ContentTemplateDescription)]
         public TileContentTemplate? ContentTemplate { get; set; }
 
@@ -69,8 +88,7 @@ namespace WinForms.Tiles.Simplified
                         null => null,
                         IBindingList bindingList => WireBindingList(bindingList),
                         _ => throw new ArgumentException(
-                            nameof(DataSource),
-                            "DataSource must be of type IBindingList"),
+                            "DataSource must be of type IBindingList", nameof(DataSource))
                     };
                 }
 
@@ -101,17 +119,17 @@ namespace WinForms.Tiles.Simplified
             }
         }
 
-        protected override void OnLayout(LayoutEventArgs levent)
+        protected override void OnLayout(LayoutEventArgs layoutEvent)
         {
-            if ((levent.AffectedControl is Tile && levent.AffectedProperty == nameof(Parent)) ||
+            if ((layoutEvent.AffectedControl is Tile && layoutEvent.AffectedProperty == nameof(Parent)) ||
                 (!AutoLayoutOnResize &&
-                 levent.AffectedControl is SimpleTileRepeater &&
-                 levent.AffectedProperty == nameof(DisplayRectangle)) || AutoLayoutOnResize)
+                 layoutEvent.AffectedControl is SimpleTileRepeater &&
+                 layoutEvent.AffectedProperty == nameof(DisplayRectangle)) || AutoLayoutOnResize)
             {
                 LayoutInternal();
             }
 
-            base.OnLayout(levent);
+            base.OnLayout(layoutEvent);
         }
 
         private IBindingList WireBindingList(IBindingList bindingList)
@@ -147,7 +165,7 @@ namespace WinForms.Tiles.Simplified
 
             foreach (var item in _dataSource)
             {
-                var tileControl = GetTemplateControlInstance(item.GetType());
+                var tileControl = GetTemplateControlInstance();
                 tileControl!.TileContent.BindingSourceComponent!.DataSource = item;
                 Controls.Add(tileControl);
             }
@@ -231,10 +249,9 @@ namespace WinForms.Tiles.Simplified
             lastControl.Tag = true;
         }
 
-        private Tile? GetTemplateControlInstance(Type templateType)
+        private Tile? GetTemplateControlInstance()
         {
             Tile tileControl = new();
-
             TileContent tileContentInstance;
 
             try
@@ -244,7 +261,6 @@ namespace WinForms.Tiles.Simplified
             }
             catch (Exception)
             {
-                // TODO: If the Activator threw, we need to have an error control here.
                 tileContentInstance = new TileContent() { BackColor = Color.Red };
             }
 

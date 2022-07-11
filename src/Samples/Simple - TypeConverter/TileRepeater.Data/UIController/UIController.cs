@@ -28,14 +28,7 @@ namespace TileRepeater.Data.ListController
         {
         }
 
-        private BindingList<GenericTemplateItem>? _templateItems;
         private BindingList<GenericPictureItem>? _pictureItems;
-
-        public BindingList<GenericTemplateItem>? TemplateItems
-        {
-            get => _templateItems;
-            set => SetProperty(ref _templateItems, value);
-        }
 
         public BindingList<GenericPictureItem>? PictureItems
         {
@@ -67,55 +60,6 @@ namespace TileRepeater.Data.ListController
                 {
                     pictureItems.Add(new GenericPictureItem(imageMetaData.Value));
                 }
-            }
-
-            return pictureItems;
-        }
-
-        public static BindingList<GenericTemplateItem>? GetPictureTemplateItemsFromFolder(
-        string filePath,
-        SearchOption searchOption = SearchOption.AllDirectories)
-        {
-            DirectoryInfo directoryInfo = new(filePath);
-            BindingList<GenericTemplateItem>? pictureItems = new();
-
-            var filesInPath = directoryInfo.GetFiles("*.*", searchOption)
-                .Where(file => s_defaultFileSearchPattern.Any(extension => extension == file.Extension))
-                .OrderByDescending(file => file.LastWriteTime)
-                .ToList();
-
-            if (filesInPath.Count == 0)
-            {
-                return pictureItems;
-            }
-
-            // We set DateTime MinValue, so we start with the group separator unconditionally.
-            DateTime currentDate = DateTime.MinValue;
-
-            foreach (var file in filesInPath)
-            {
-                var fileDate = file.LastWriteTime;
-
-                // Grouping by months is hardwired. Should be suffice for demo purposes.
-                if ($"{currentDate.Year}{currentDate.Month}" != $"{fileDate.Year}{fileDate.Month}")
-                {
-                    currentDate = fileDate;
-                    pictureItems.Add(new GenericTemplateItem()
-                    {
-                        Label = $"Pictures of {currentDate:MMMM}, {currentDate:yyyy}"
-                    });
-                }
-
-                GenericTemplateItem itemToAdd;
-                var imageMetaData = file.GetImageMetaData();
-
-                if (imageMetaData is null)
-                    continue;
-
-                itemToAdd = new GenericPictureItem(imageMetaData.Value);
-
-                itemToAdd.Label = file.Name;
-                pictureItems.Add(itemToAdd);
             }
 
             return pictureItems;

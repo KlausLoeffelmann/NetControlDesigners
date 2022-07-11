@@ -14,7 +14,7 @@ namespace TileRepeaterDemo.TileTemplates
         private string? _imageFilename;
 
         // We're running no more than 2 worker tasks for the image resizing at a time.
-        static SemaphoreSlim s_semaphore = new SemaphoreSlim(2);
+        static readonly SemaphoreSlim s_semaphore = new(2);
 
         public BindableAsyncImageLoaderComponent()
         {
@@ -24,10 +24,7 @@ namespace TileRepeaterDemo.TileTemplates
 
         private void BindableAsyncImageLoaderComponent_Disposed(object? sender, EventArgs e)
         {
-            if (Image is not null)
-            {
-                Image.Dispose();
-            }
+            Image?.Dispose();
         }
 
         public BindableAsyncImageLoaderComponent(IContainer container)
@@ -62,10 +59,7 @@ namespace TileRepeaterDemo.TileTemplates
         {
             get
             {
-                if (_dataBindings is null)
-                {
-                    _dataBindings = new ControlBindingsCollection(this);
-                }
+                _dataBindings ??= new ControlBindingsCollection(this);
 
                 return _dataBindings;
             }
@@ -149,11 +143,7 @@ namespace TileRepeaterDemo.TileTemplates
 
             try
             {
-                if (Image is not null)
-                {
-                    Image.Dispose();
-                }
-
+                Image?.Dispose();
                 Image = await LoadImageAsync(_imageFilename, rescaleTo);
 
             }

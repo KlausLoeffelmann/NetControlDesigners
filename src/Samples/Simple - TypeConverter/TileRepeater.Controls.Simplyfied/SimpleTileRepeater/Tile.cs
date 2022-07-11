@@ -2,7 +2,14 @@
 
 namespace WinForms.Tiles.Simplified
 {
-    public partial class Tile : UserControl
+    /// <summary>
+    /// Provides the container for a bindable Item for the <see cref="SimpleTileRepeater"/> control.
+    /// </summary>
+    /// <remarks>
+    /// Tiles are a container for a Collection of UserControls presented in a <see cref="TileRepeater"/> control. For the actual
+    /// Please read about its functionality the remarks to the TileRepeater control.
+    /// </remarks>
+    internal partial class Tile : UserControl
     {
         private const int SelectionFramePadding = 20;
         private bool _isInParentClientArea;
@@ -15,6 +22,7 @@ namespace WinForms.Tiles.Simplified
         public override Size GetPreferredSize(Size proposedSize)
         {
             var size=TileContent.GetPreferredSize(proposedSize);
+
             size += new Size(Padding.Left, Padding.Top) + 
                 new Size(Padding.Right, Padding.Bottom);
 
@@ -24,6 +32,7 @@ namespace WinForms.Tiles.Simplified
         protected override void OnLocationChanged(EventArgs e)
         {
             base.OnLocationChanged(e);
+
             if (Parent is not null)
             {
                 IsInParentClientArea =

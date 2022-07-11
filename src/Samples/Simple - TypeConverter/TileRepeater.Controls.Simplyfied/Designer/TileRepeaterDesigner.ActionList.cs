@@ -1,13 +1,20 @@
 ﻿using Microsoft.DotNet.DesignTools.Designers;
 using Microsoft.DotNet.DesignTools.Designers.Actions;
 using System.ComponentModel;
-using WinForms.Tiles.Simplified;
 using static WinForms.Tiles.Simplified.SimpleTileRepeater;
 
 namespace WinForms.Tiles.Simplified.Designer
 {
     internal partial class SimpleTileRepeaterDesigner
     {
+        /// <summary>
+        /// Action lists implementation for the <see cref="SimpleTileRepeaterDesigner"/>.
+        /// </summary>
+        /// <remarks>
+        /// Note: Action lists for the OOP-Designer can be implemented exactly like for the in-process Designer. The Designer
+        /// has to be compiled though against the Designer SDK, and ActionList related classes must come from the
+        /// <see cref="Microsoft.DotNet.DesignTools.Designers.Actions"/> namespace.
+        /// </remarks>
         private class ActionList : DesignerActionList
         {
             private const string Behavior = nameof(Behavior);

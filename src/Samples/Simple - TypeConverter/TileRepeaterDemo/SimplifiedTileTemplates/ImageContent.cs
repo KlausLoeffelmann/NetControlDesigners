@@ -33,7 +33,7 @@ namespace TileRepeaterDemo.SimplifiedTileTemplates
 
         public override Size GetPreferredSize(Size proposedSize)
 
-            // TODO: Take DPI into account.
+            // For this sample: DPI in DPIAware modes is NOT taken into account!
             => BaseDefaultSize * (int)TileSize + new Size(0, _infoLabel.Height);
 
         protected async override Task<bool> LoadContentCoreAsync()
@@ -52,7 +52,7 @@ namespace TileRepeaterDemo.SimplifiedTileTemplates
             return false;
         }
 
-        public override void DisposeContent()
+        protected override void DisposeContent()
         {
             _imageLoaderComponent.DisposeImage();
         }

@@ -1,10 +1,12 @@
 ﻿using Microsoft.DotNet.DesignTools.Designers;
 using Microsoft.DotNet.DesignTools.Designers.Actions;
-using System.Collections;
 using static WinForms.Tiles.Simplified.SimpleTileRepeater;
 
 namespace WinForms.Tiles.Simplified.Designer
 {
+    /// <summary>
+    /// Control Designer for the <see cref="SimpleTileRepeater" control./>
+    /// </summary>
     internal partial class SimpleTileRepeaterDesigner : ControlDesigner
     {
         private const string NotDefinedText = 
@@ -14,16 +16,19 @@ namespace WinForms.Tiles.Simplified.Designer
 
         private const int DescriptionOffset = 10;
 
+        /// <summary>
+        /// Hooks up the Action lists.
+        /// </summary>
+        /// <remarks>
+        /// Action lists for the OOP-Designer can be implemented exactly like for the in-process Designer. The Designer
+        /// has to be compiled though against the Designer SDK, and ActionList related classes must come from the
+        /// <see cref="Microsoft.DotNet.DesignTools.Designers.Actions"/> namespace.
+        /// </remarks>
         public override DesignerActionListCollection ActionLists
             => new()
             {
                 new ActionList(this)
             };
-
-        protected override void PreFilterEvents(IDictionary events)
-        {
-            base.PreFilterEvents(events);
-        }
 
         protected override void OnPaintAdornments(PaintEventArgs pe)
         {

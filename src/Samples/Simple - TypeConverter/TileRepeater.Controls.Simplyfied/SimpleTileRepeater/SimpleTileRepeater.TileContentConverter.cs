@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.Design;
-using System.Diagnostics;
 using System.Globalization;
 using System.Reflection;
 
@@ -8,6 +7,14 @@ namespace WinForms.Tiles.Simplified
 {
     public partial class SimpleTileRepeater
     {
+        /// <summary>
+        /// Converter for the <see cref="SimpleTileRepeater"/>'s <see cref="SimpleTileRepeater.TileContentTemplate"/> property.
+        /// </summary>
+        /// <remarks>
+        /// We are utelizing the <see cref="GetStandardValues(ITypeDescriptorContext?)"/> method to provide a list of UserControls deriving
+        /// from <see cref="TileContent"/> in the dropdown list in the Property Browser. The content of those
+        /// derived UserControls can be edited in the Designer as a standard UserControl.
+        /// </remarks>
         public class TileContentConverter : TypeConverter
         {
             private Dictionary<string, TileContentTemplate>? _userControlTypes;
