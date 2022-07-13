@@ -23,6 +23,12 @@ namespace CustomControlLibrary
     [Editor("CustomTypeEditor", typeof(UITypeEditor))]
     public class CustomPropertyStore
     {
+        // We need the default constructor for the CodeDom serializer.
+        public CustomPropertyStore()
+        {
+            SomeMustHaveId = Guid.NewGuid().ToString();
+        }
+
         public CustomPropertyStore(
             string someMustHaveId,
             DateTime dateCreated,

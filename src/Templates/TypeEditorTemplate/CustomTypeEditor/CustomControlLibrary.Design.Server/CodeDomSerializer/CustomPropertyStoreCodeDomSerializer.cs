@@ -5,12 +5,13 @@ using System.Diagnostics;
 
 namespace CustomControlLibrary.Designer.Server.Serialization
 {
+    /// <summary>
+    /// Provides a generic content serializer for reference types, which - in contrast to 
+    /// DesignerSerializationVisibility.Content - also generates code which instantiates the property's 
+    /// custom type.
+    /// </summary>
     internal class CustomPropertyStoreCodeDomSerializer : CodeDomSerializer
     {
-        private int s_variableOccuranceCounter = 1;
-
-        internal const string CustomPropertyStoreNamespace = "CustomControlLibrary";
-
         public override object Serialize(
             IDesignerSerializationManager manager,
             object value)
@@ -24,58 +25,64 @@ namespace CustomControlLibrary.Designer.Server.Serialization
 
                 // This is the left-side assignment target, we want to generate.
                 // And it describes the current context, for which we need the
-                // object generation. Like:
-                // this.tileRepeater1.TemplateAssignmentProperty
+                // object generation.
                 var contextExpression = expressionContext.Expression;
-
                 CodeStatementCollection statements = new();
 
                 // Now, we want to generate:
-                //    Type templateType1 = Type.GetType("templateType");
-                //    Type tileContentType1 = Type.GetType("tileContentTime");
-                //    {codeExpression} = new TemplateAssignment(templateType1, tileContentType1);
+                //      this.customControl1.CustomProperty = new CustomControlLibrary.CustomPropertyStore();
+                //      this.customControl1.CustomProperty.CustomEnumValue = CustomControlLibrary.CustomEnum.FourthValue;
+                //      this.customControl1.CustomProperty.DateCreated = new System.DateTime(2022, 7, 13, 0, 0, 0, 0);
+                //      this.customControl1.CustomProperty.ListOfStrings = ((System.Collections.Generic.List<string>)(resources.GetObject("resource.ListOfStrings")));
+                //      this.customControl1.CustomProperty.SomeMustHaveId = "{C0E03E00-EFDA-47AA-9BA9-B69671F7A565}";
 
-                //    CustomPropertyStore customPropertyStore1=new CustomPropertyStore.
-                //    customPropertyStore1.SomeMustHaveId = 12
-                //    customPropertyStore1.DateCreated = 12
-                //    customPropertyStore1.ListOfString = 12
-                //    customPropertyStore1.CustomEnumValue = 123                
-
-                // We define the locale variables upfront.
-                string customPropertyVariableName = $"customPropertyStore{s_variableOccuranceCounter++}";
-
-                // CustomPropertyStore customPropertyStore1;
-                CodeVariableDeclarationStatement customPropertyVarDeclStatement = new(
-                    new CodeTypeReference(nameof(CustomPropertyStore)),
-                    customPropertyVariableName);
-
-                // We need the variable reference a few times later:
-                var customPropertyReference = new CodeVariableReferenceExpression(customPropertyVariableName);
-
-                // new CustomPropertyStore();
+                // We start with 'new CustomPropertyStore()';
                 CodeObjectCreateExpression customPropertyCreateExpression = new(
                     new CodeTypeReference(typeof(CustomPropertyStore)));
 
-                // customPropertyStore1.SomeMustHaveId
-                CodePropertyReferenceExpression someMustHaveIdProperty = new(
-                    customPropertyReference,
-                    nameof(CustomPropertyStore.SomeMustHaveId));
-
-                // customPropertyStore1.SomeMustHaveId = {SomeMustHaveIdValue};
-                CodeAssignStatement someMustHaveAssignStatement = new(
-                    someMustHaveIdProperty,
-                    new CodePrimitiveExpression(propertyStore.SomeMustHaveId));
-
-                // {codeExpression} = new CustomPropertyStore();
+                // Then we do the assignment '{codeExpression} = new CustomPropertyStore()';
                 CodeAssignStatement contextAssignmentStatement = new(
                     contextExpression, customPropertyCreateExpression);
 
-                statements.AddRange(new CodeStatementCollection
+                // And from here on we're doing exactly that what the default serializer would be doing,
+                // had it detected the DesignerSerializationVisibilityAttribute set to 'Content'.
+                // It just traverses the property's object graph and creates the code for generating 
+                // the respective value types, enums, arrays, etc.
+
+                // To that end, we're _not_ getting this type's serializer, because then we would ending up with this exact serializer.
+                // This is not what we want. Instead, we want to serialize the graph of property type, so we're getting object's 
+                // default serializer...
+                var serializer = (CodeDomSerializer)manager.GetSerializer(typeof(object), typeof(CodeDomSerializer));
+
+                /// ...indicate, that we also want to generate code for setting the default values ...
+                var absolute = manager.Context[typeof(SerializeAbsoluteContext)] as SerializeAbsoluteContext;
+
+                /// ...and we finally make sure, we're not serializing things that have been serialized before, and we could just get
+                /// from the stack.
+                var result = IsSerialized(manager, value, absolute != null)
+                    ? GetExpression(manager, value)
+                    : serializer.Serialize(manager, value);
+
+                /// Now: Here is the difference to DesignerSerializationVisibility.Content: We are adding the instantiation code for our
+                /// custom (complex) property. And now ...
+                statements.Add(contextAssignmentStatement);
+
+                /// ...we're adding all the statements, which the default (object) serializer generated, which are at this point supposed to
+                /// be all the statements for assigning our custom control's property's custom type's properties.
+                if (result is CodeStatementCollection statementCollection)
                 {
-                    customPropertyVarDeclStatement,
-                    someMustHaveAssignStatement,
-                    contextAssignmentStatement
-                });
+                    foreach (CodeStatement statement in statementCollection)
+                    {
+                        statements.Add(statement);
+                    }
+                }
+                else
+                {
+                    if (result is CodeStatement statement)
+                    {
+                        statements.Add(statement);
+                    }
+                }
 
                 return statements;
             };

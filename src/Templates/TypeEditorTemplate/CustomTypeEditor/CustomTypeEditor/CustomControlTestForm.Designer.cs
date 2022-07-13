@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            CustomPropertyStore customPropertyStore1;
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CustomControlTestForm));
             this.customControl1 = new CustomControlLibrary.CustomControl();
             this.SuspendLayout();
             // 
@@ -37,8 +37,11 @@
             this.customControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            customPropertyStore1.SomeMustHaveId = "123";
-            this.customControl1.CustomProperty = new CustomControlLibrary.CustomPropertyStore(``);
+            this.customControl1.CustomProperty = new CustomControlLibrary.CustomPropertyStore();
+            this.customControl1.CustomProperty.CustomEnumValue = CustomControlLibrary.CustomEnum.FourthValue;
+            this.customControl1.CustomProperty.DateCreated = new System.DateTime(2022, 7, 13, 0, 0, 0, 0);
+            this.customControl1.CustomProperty.ListOfStrings = ((System.Collections.Generic.List<string>)(resources.GetObject("resource.ListOfStrings")));
+            this.customControl1.CustomProperty.SomeMustHaveId = "123";
             this.customControl1.Location = new System.Drawing.Point(12, 10);
             this.customControl1.Name = "customControl1";
             this.customControl1.Size = new System.Drawing.Size(778, 429);
