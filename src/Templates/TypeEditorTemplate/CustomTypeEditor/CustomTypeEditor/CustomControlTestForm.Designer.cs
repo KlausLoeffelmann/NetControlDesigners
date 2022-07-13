@@ -28,7 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.customControl1 = new CustomControl.CustomControl();
+            CustomPropertyStore customPropertyStore1;
+            this.customControl1 = new CustomControlLibrary.CustomControl();
             this.SuspendLayout();
             // 
             // customControl1
@@ -36,20 +37,20 @@
             this.customControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.customControl1.Location = new System.Drawing.Point(15, 13);
-            this.customControl1.Margin = new System.Windows.Forms.Padding(4);
+            customPropertyStore1.SomeMustHaveId = "123";
+            this.customControl1.CustomProperty = new CustomControlLibrary.CustomPropertyStore(``);
+            this.customControl1.Location = new System.Drawing.Point(12, 10);
             this.customControl1.Name = "customControl1";
-            this.customControl1.Size = new System.Drawing.Size(972, 536);
+            this.customControl1.Size = new System.Drawing.Size(778, 429);
             this.customControl1.TabIndex = 0;
             this.customControl1.Text = "customControl1";
             // 
             // CustomControlTestForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1000, 562);
+            this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.customControl1);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "CustomControlTestForm";
             this.Text = "Form1";
             this.ResumeLayout(false);
@@ -58,6 +59,6 @@
 
         #endregion
 
-        private CustomControl.CustomControl customControl1;
+        private CustomControlLibrary.CustomControl customControl1;
     }
 }

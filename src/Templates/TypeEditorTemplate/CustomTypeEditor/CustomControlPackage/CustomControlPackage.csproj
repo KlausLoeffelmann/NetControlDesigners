@@ -15,15 +15,15 @@
 
 	<Target Name="_GetFilesToPackage">
 		<ItemGroup>
-			<_File Include="$(SolutionDir)\CustomControl\bin\$(Configuration)\net7.0-windows\CustomControl.dll" />
+			<_File Include="$(SolutionDir)\CustomControlLibrary\bin\$(Configuration)\net7.0-windows\CustomControlLibrary.dll" />
 
 			<!--We need this during Control development, so we get proper Debug-Support at runtime. -->
-			<_File Include="$(SolutionDir)\CustomControl\bin\$(Configuration)\net7.0-windows\CustomControl.pdb" />
+			<_File Include="$(SolutionDir)\CustomControlLibrary\bin\$(Configuration)\net7.0-windows\CustomControlLibrary.pdb" />
 
-			<_File Include="$(SolutionDir)\CustomControl.Design.Client\bin\$(Configuration)\net472\CustomControl.Designer.Client.dll" TargetDir="Design/WinForms" />
-			<_File Include="$(SolutionDir)\CustomControl.ClientServerCommunication\bin\$(Configuration)\net472\CustomControl.ClientServerCommunication.dll" TargetDir="Design/WinForms" />
-			<_File Include="$(SolutionDir)\CustomControl.Design.Server\bin\$(Configuration)\net7.0-windows\CustomControl.Design.Server.dll" TargetDir="Design/WinForms/Server" />
-			<_File Include="$(SolutionDir)\CustomControl.ClientServerCommunication\bin\$(Configuration)\net7.0-windows\CustomControl.ClientServerCommunication.dll" TargetDir="Design/WinForms/Server" />
+			<_File Include="$(SolutionDir)\CustomControlLibrary.Design.Client\bin\$(Configuration)\net472\CustomControlLibrary.Designer.Client.dll" TargetDir="Design/WinForms" />
+			<_File Include="$(SolutionDir)\CustomControlLibrary.ClientServerCommunication\bin\$(Configuration)\net472\CustomControlLibrary.ClientServerCommunication.dll" TargetDir="Design/WinForms" />
+			<_File Include="$(SolutionDir)\CustomControlLibrary.Design.Server\bin\$(Configuration)\net7.0-windows\CustomControlLibrary.Design.Server.dll" TargetDir="Design/WinForms/Server" />
+			<_File Include="$(SolutionDir)\CustomControlLibrary.ClientServerCommunication\bin\$(Configuration)\net7.0-windows\CustomControlLibrary.ClientServerCommunication.dll" TargetDir="Design/WinForms/Server" />
 		</ItemGroup>
 
 		<ItemGroup>

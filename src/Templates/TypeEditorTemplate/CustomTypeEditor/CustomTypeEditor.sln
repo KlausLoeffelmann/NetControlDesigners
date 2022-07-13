@@ -9,15 +9,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomTypeEditorTest", "Cus
 		{DF56A7C2-A6F6-45E6-B2FB-535A6A28624B} = {DF56A7C2-A6F6-45E6-B2FB-535A6A28624B}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomControl.ClientServerCommunication", "CustomControl.ClientServerCommunication\CustomControl.ClientServerCommunication.csproj", "{77ABBB80-9BE5-4E81-90FF-642B71C52652}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomControlLibrary.ClientServerCommunication", "CustomControlLibrary.ClientServerCommunication\CustomControlLibrary.ClientServerCommunication.csproj", "{77ABBB80-9BE5-4E81-90FF-642B71C52652}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ControlDesigners", "ControlDesigners", "{3E004A1F-5169-4A04-A65B-13438A3B76B9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomControl.Design.Server", "CustomControl.Design.Server\CustomControl.Design.Server.csproj", "{3C7319C9-A4EF-43AB-8988-FE6E92CBAD8E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomControlLibrary.Design.Server", "CustomControlLibrary.Design.Server\CustomControlLibrary.Design.Server.csproj", "{3C7319C9-A4EF-43AB-8988-FE6E92CBAD8E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Controls", "Controls", "{368A4F61-2330-41B1-875E-DAFD24CF97EE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomControl", "CustomControl\CustomControl.csproj", "{DF56A7C2-A6F6-45E6-B2FB-535A6A28624B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomControlLibrary", "CustomControlLibrary\CustomControlLibrary.csproj", "{DF56A7C2-A6F6-45E6-B2FB-535A6A28624B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomControlPackage", "CustomControlPackage\CustomControlPackage.csproj", "{28744ABA-0057-4301-8A19-743BE2AECB6F}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -27,7 +27,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomControlPackage", "Cus
 		{DF56A7C2-A6F6-45E6-B2FB-535A6A28624B} = {DF56A7C2-A6F6-45E6-B2FB-535A6A28624B}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomControl.Designer.Client", "CustomControl.Design.Client\CustomControl.Designer.Client.csproj", "{ACD9E380-5B13-403F-B2AC-78FDCCC50488}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomControlLibrary.Designer.Client", "CustomControlLibrary.Design.Client\CustomControlLibrary.Designer.Client.csproj", "{ACD9E380-5B13-403F-B2AC-78FDCCC50488}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_readme", "_readme", "{BC11BF90-A252-4F1A-8389-DF44301E6849}"
 EndProject
