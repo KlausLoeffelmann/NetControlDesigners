@@ -6,7 +6,7 @@ using WinForms.Tiles.Designer.Protocol;
 namespace CustomControlLibrary.Designer.Server
 {
     /// <summary>
-    /// Class holding the TypeRoutings for resolving the control designer type on the client.
+    ///  Class holding the TypeRoutings for resolving the control designer type on the client.
     /// </summary>
     [ExportTypeRoutingDefinitionProvider]
     internal class TypeRoutingProvider : TypeRoutingDefinitionProvider

@@ -1,7 +1,7 @@
 ﻿namespace CustomControlLibrary
 {
     /// <summary>
-    /// Custom enum used in <see cref="CustomPropertyStore"/>.
+    ///  Custom enum used in <see cref="CustomPropertyStore"/>.
     /// </summary>
     public enum CustomEnum
     {

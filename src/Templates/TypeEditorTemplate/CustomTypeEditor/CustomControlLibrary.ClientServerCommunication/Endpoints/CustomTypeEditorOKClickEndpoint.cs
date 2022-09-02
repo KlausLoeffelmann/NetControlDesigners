@@ -5,7 +5,7 @@ using System.Composition;
 namespace CustomControlLibrary.ClientServerCommunication.Endpoints
 {
     /// <summary>
-    /// Endpoint to handle the event, when the user clicks the OK button of the custom type editor.
+    ///  Endpoint to handle the event, when the user clicks the OK button of the custom type editor.
     /// </summary>
     [Shared]
     [ExportEndpoint]

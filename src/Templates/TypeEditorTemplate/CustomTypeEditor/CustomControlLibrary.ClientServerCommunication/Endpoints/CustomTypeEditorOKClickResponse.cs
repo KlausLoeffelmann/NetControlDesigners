@@ -4,8 +4,8 @@ using Microsoft.DotNet.DesignTools.Protocol.Endpoints;
 namespace CustomControlLibrary.ClientServerCommunication.Endpoints
 {
     /// <summary>
-    /// Response class for this endpoint. This is not returning any relevant data, but this class is still needed
-    /// to meet the infrastructure conventions.
+    ///  Response class for this endpoint. This is not returning any relevant data, but this class is still needed
+    ///  to meet the infrastructure conventions.
     /// </summary>
     public class CustomTypeEditorOKClickResponse : Response.Empty
     {

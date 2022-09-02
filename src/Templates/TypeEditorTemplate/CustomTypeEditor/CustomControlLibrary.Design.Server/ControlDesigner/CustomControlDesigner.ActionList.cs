@@ -7,13 +7,12 @@ namespace CustomControlLibrary.Designer.Server
     internal partial class CustomControlDesigner
     {
         /// <summary>
-        /// Action lists implementation for the <see cref="CustomControl"/>.
+        ///  Action lists implementation for the <see cref="CustomControl"/>.
         /// </summary>
         /// <remarks>
-        /// Note: Action lists for the out-of-process Designer can be implemented exactly as they would be for the in-process 
-        /// Designer. The control designer has to be compiled against the Winforms Designer Extensibility SDK, and ActionList related 
-        /// classes must come from the <see cref="Microsoft.DotNet.DesignTools.Designers.Actions"/> namespace.
-        /// TODO: For further information about ActionLists, please refer to ...
+        ///  Note: Action lists for the out-of-process Designer can be implemented exactly as they would be for the in-process
+        ///  Designer, except: The control designer has to be compiled against the Winforms Designer Extensibility SDK, and ActionList
+        ///  related classes must come from the <see cref="Microsoft.DotNet.DesignTools.Designers.Actions"/> namespace.
         /// </remarks>
         private class ActionList : DesignerActionList
         {
@@ -31,7 +30,7 @@ namespace CustomControlLibrary.Designer.Server
             {
                 get => ((CustomControl?)Component)?.CustomProperty;
 
-                // This won't work, since the PropertyBrowser wouldn't get updated.
+                // Note: This code would not work, since the PropertyBrowser wouldn't get updated.
                 //set
                 //{
                 //    if (Component is { } component)

@@ -6,9 +6,9 @@ using System.Diagnostics;
 namespace CustomControlLibrary.Designer.Server.Serialization
 {
     /// <summary>
-    /// Provides a generic content serializer for reference types, which - in contrast to 
-    /// DesignerSerializationVisibility.Content - also generates code which instantiates the property's 
-    /// custom type.
+    ///  Provides a generic content serializer for reference types, which - in contrast to 
+    ///  DesignerSerializationVisibility.Content - also generates code which instantiates the property's 
+    ///  custom type.
     /// </summary>
     internal class CustomPropertyStoreCodeDomSerializer : CodeDomSerializer
     {
@@ -49,16 +49,16 @@ namespace CustomControlLibrary.Designer.Server.Serialization
                 // It just traverses the property's object graph and creates the code for generating 
                 // the respective value types, enums, arrays, etc.
 
-                // To that end, we're _not_ getting this type's serializer, because then we would ending up with this exact serializer.
-                // This is not what we want. Instead, we want to serialize the graph of property type, so we're getting object's 
-                // default serializer...
+                // To that end, we're _not_ getting this type's serializer, because then we would ending up with running 
+                // this exact serializer. This is not what we want, we would end up in a recusion. Instead, we want to serialize 
+                // the graph of property type, so we're getting object's default serializer...
                 var serializer = (CodeDomSerializer)manager.GetSerializer(typeof(object), typeof(CodeDomSerializer));
 
                 /// ...indicate, that we also want to generate code for setting the default values ...
                 var absolute = manager.Context[typeof(SerializeAbsoluteContext)] as SerializeAbsoluteContext;
 
-                /// ...and we finally make sure, we're not serializing things that have been serialized before, and we could just get
-                /// from the stack.
+                /// ...and we finally make sure, we're not serializing things that have been serialized before and could just 
+                /// get from the stack.
                 var result = IsSerialized(manager, value, absolute != null)
                     ? GetExpression(manager, value)
                     : serializer.Serialize(manager, value);
@@ -67,8 +67,8 @@ namespace CustomControlLibrary.Designer.Server.Serialization
                 /// custom (complex) property. And now ...
                 statements.Add(contextAssignmentStatement);
 
-                /// ...we're adding all the statements, which the default (object) serializer generated, which are at this point supposed to
-                /// be all the statements for assigning our custom control's property's custom type's properties.
+                /// ...we're adding all the statements, which the default (object) serializer generated, and which are at this point
+                /// supposed to be all the statements for assigning our custom control's property's custom type's properties.
                 if (result is CodeStatementCollection statementCollection)
                 {
                     foreach (CodeStatement statement in statementCollection)

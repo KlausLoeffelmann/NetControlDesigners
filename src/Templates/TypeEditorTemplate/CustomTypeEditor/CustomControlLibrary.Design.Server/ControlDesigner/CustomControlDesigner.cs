@@ -6,18 +6,17 @@ using System.Windows.Forms;
 namespace CustomControlLibrary.Designer.Server
 {
     /// <summary>
-    /// The control designer of the CustomControl.
+    ///  The control designer of the CustomControl.
     /// </summary>
     internal partial class CustomControlDesigner : ControlDesigner
     {
         /// <summary>
-        /// Attaches the Action lists to the Control Designer.
+        ///  Attaches the action lists to the control designer.
         /// </summary>
         /// <remarks>
-        /// Note: Action lists for the out-of-process Designer can be implemented exactly as they would be for the in-process 
-        /// Designer. The control designer has to be compiled against the Winforms Designer Extensibility SDK, and ActionList related 
-        /// classes must come from the <see cref="Microsoft.DotNet.DesignTools.Designers.Actions"/> namespace.
-        /// TODO: For further information about ActionLists, please refer to ...
+        ///  Note: Action lists for the out-of-process Designer can be implemented exactly as they would be for the in-process
+        ///  Designer, except: The control designer has to be compiled against the Winforms Designer Extensibility SDK, and ActionList
+        ///  related classes must come from the <see cref="Microsoft.DotNet.DesignTools.Designers.Actions"/> namespace.
         /// </remarks>
         public override DesignerActionListCollection ActionLists
             => new()

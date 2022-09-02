@@ -1,7 +1,7 @@
 ﻿#if NETFRAMEWORK
 namespace System.Diagnostics.CodeAnalysis
 {
-    // This is a helper class, so we can use the AllowNullAttribute on Framework.
+    // This is a helper class, so we can use the AllowNullAttribute on Framework TFMs.
     // Since the Client-Server is multi-targeted, and Framework doesn't provide
     // this class, we define it here, and the compiler picks it up just fine.
 

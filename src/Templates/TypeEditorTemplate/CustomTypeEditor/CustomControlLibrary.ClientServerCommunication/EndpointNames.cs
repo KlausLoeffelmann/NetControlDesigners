@@ -1,7 +1,7 @@
 ﻿namespace CustomControlLibrary.ClientServerCommunication.Endpoints
 {
     /// <summary>
-    /// Static class for holding the names of all endpoints to provide IntelliSense support.
+    ///  Static class for holding the names of all endpoints to provide IntelliSense support.
     /// </summary>
     public static class EndpointNames
     {

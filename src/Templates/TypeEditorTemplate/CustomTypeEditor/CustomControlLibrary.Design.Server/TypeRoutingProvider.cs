@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace CustomControlLibrary.Designer.Server
 {
     /// <summary>
-    /// Class holding the TypeRoutings for resolving the control designer type on the server.
+    ///  Class holding the TypeRoutings for resolving the control designer type on the server.
     /// </summary>
     [ExportTypeRoutingDefinitionProvider]
     internal class TypeRoutingProvider : TypeRoutingDefinitionProvider
