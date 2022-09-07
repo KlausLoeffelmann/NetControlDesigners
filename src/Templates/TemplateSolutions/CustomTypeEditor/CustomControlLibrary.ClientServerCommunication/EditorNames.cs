@@ -5,6 +5,6 @@
     /// </summary>
     public static class EditorNames
     {
-        public const string CustomTypeEditor = nameof(CustomTypeEditor);
+        public static readonly string CustomTypeEditor = nameof(CustomTypeEditor);
     }
 }
