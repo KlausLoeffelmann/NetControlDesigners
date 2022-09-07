@@ -7,7 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace CustomControlLibrary.ClientServerCommunication.Endpoints
 {
     /// <summary>
-    ///  Request class for the CustomTypeEditorOKClick endpoint. This passes the necessary
+    ///  Request class for the <see cref="CustomTypeEditorOKClick"/> endpoint. This passes the necessary
     ///  context (ViewModel, content of custom property) from the Client to the Server.
     /// </summary>
     public class CustomTypeEditorOKClickRequest : Request
