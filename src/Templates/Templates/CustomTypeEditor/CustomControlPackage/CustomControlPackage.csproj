@@ -5,7 +5,7 @@
 		<IncludeBuildOutput>false</IncludeBuildOutput>
 		<ProduceReferenceAssembly>false</ProduceReferenceAssembly>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<RepositoryUrl>https://github.com/dotnet/winforms-designer</RepositoryUrl>
+		<RepositoryUrl>https://github.com/dotnet/winforms</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);_GetFilesToPackage</TargetsForTfmSpecificContentInPackage>
 		<RunPostBuildEvent>Always</RunPostBuildEvent>
