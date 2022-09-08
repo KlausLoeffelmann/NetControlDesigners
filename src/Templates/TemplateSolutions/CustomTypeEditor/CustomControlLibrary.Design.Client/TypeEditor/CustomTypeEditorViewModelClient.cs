@@ -25,7 +25,7 @@ namespace CustomControlLibrary.Designer.Client
         {
             if (viewModel is null)
             {
-                throw new NullReferenceException(nameof(viewModel));
+                throw new ArgumentNullException(nameof(viewModel));
             }
         }
 

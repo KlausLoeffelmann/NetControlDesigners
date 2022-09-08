@@ -15,7 +15,7 @@
         "language": "C#",
         "type":"solution"
     },
-    "sourceName": "BlazorBffOpenIDConnect",
+    "sourceName": "WinFormsCsCustomTypeEditor",
     "preferNameDirectory": "true",
     "guids": [
         "987BBAB0-D284-4C6B-A656-11A21A885CFA",
@@ -30,28 +30,28 @@
             "datatype": "choice",
             "choices": [
               {
-                "choice": "netcoreapp3.1-windows",
+                "choice": "netcoreapp3.1",
                 "description": "Target .NET Core 3.1 for Windows"
               },
               {
-                "choice": "net5.0-windows",
+                "choice": "net5.0",
                 "description": "Target .NET 5.0 for Windows"
               },
               {
-                "choice": "net6.0-windows",
+                "choice": "net6.0",
                 "description": "Target .NET 6.0 for Windows"
               },
               {
-                "choice": "net7.0-windows",
+                "choice": "net7.0",
                 "description": "Target .NET 7.0 for Windows"
               },
               {
-                "choice": "net8.0-windows",
+                "choice": "net8.0",
                 "description": "Target .NET 8.0 for Windows"
               }
             ],
-            "replaces": "net6.0-windows",
-            "defaultValue": "net6.0-windows"
+            "replaces": "net6.0",
+            "defaultValue": "net6.0"
         },
         "ComponentLibraryName": {
           "type": "parameter",

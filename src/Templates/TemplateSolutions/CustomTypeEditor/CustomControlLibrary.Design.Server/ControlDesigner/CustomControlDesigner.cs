@@ -15,14 +15,14 @@ namespace CustomControlLibrary.Designer.Server
         /// </summary>
         /// <remarks>
         ///  Note: Action lists for the out-of-process Designer can be implemented exactly as they would be for the in-process
-        ///  Designer, except: The control designer has to be compiled against the Winforms Designer Extensibility SDK, and ActionList
+        ///  designer, except: The control designer has to be compiled against the Winforms Designer Extensibility SDK, and ActionList
         ///  related classes must come from the <see cref="Microsoft.DotNet.DesignTools.Designers.Actions"/> namespace.
         /// </remarks>
         public override DesignerActionListCollection ActionLists
             => new()
-        {
-            new ActionList(this)
-        };
+            {
+                new ActionList(this)
+            };
 
         protected override void OnPaintAdornments(PaintEventArgs paintEventArgs)
         {
@@ -48,3 +48,4 @@ namespace CustomControlLibrary.Designer.Server
         }
     }
 }
+

@@ -18,7 +18,6 @@ namespace CustomControlLibrary.Designer.Server
     /// </remarks>
     internal partial class CustomTypeEditorViewModel : ViewModel
     {
-
         public CustomTypeEditorViewModel(IServiceProvider provider)
             : base(provider)
         {
