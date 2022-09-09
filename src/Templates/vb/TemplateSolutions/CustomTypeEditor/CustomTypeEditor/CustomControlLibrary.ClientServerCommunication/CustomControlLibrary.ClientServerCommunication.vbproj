@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <RootNamespace>CustomControlLibrary.ClientServerCommunication</RootNamespace>
+    <TargetFrameworks>net6.0-windows;net472</TargetFrameworks>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.WinForms.Designer.SDK" Version="1.1.0-prerelease-preview3.22076.5" />
+  </ItemGroup>
+
+</Project>

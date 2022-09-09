@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CustomControlPackage" Version="*" />
+    <PackageReference Include="CustomControlPackage" Version="[1.*,)" />  
   </ItemGroup>
 
 </Project>
