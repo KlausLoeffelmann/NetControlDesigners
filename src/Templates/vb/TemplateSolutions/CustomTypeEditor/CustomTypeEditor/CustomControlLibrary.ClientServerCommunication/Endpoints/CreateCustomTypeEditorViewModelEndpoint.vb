@@ -31,11 +31,11 @@ Namespace CustomControlLibrary.ClientServerCommunication.Endpoints
 		End Property
 
 		Protected Overrides Function CreateRequest(ByVal reader As IDataPipeReader) As CreateCustomTypeEditorViewModelRequest
-			Return New(reader)
-		End Function
+            Return New CreateCustomTypeEditorViewModelRequest(reader)
+        End Function
 
 		Protected Overrides Function CreateResponse(ByVal reader As IDataPipeReader) As CreateCustomTypeEditorViewModelResponse
-			Return New(reader)
-		End Function
+            Return New CreateCustomTypeEditorViewModelResponse(reader)
+        End Function
 	End Class
 End Namespace

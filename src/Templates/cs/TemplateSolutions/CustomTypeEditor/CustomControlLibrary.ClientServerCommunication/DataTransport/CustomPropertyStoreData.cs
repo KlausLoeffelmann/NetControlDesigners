@@ -30,7 +30,9 @@ namespace CustomControlLibrary.ClientServerCommunication.DataTransport
             string[]? listOfStrings,
             byte customEnumValue)
         {
-            SomeMustHaveId = someMusthaveId;
+            // We use this extension method here, which works also for .NET Framework and
+            // lower than .NET 7 versions; it's defined in GlobalUtilities.cs.
+            SomeMustHaveId = someMusthaveId.OrThrowIfArgumentIsNullOrEmpty();
             DateCreated = dateCreated;
             ListOfStrings = listOfStrings;
             CustomEnumValue = customEnumValue;

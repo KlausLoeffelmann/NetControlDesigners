@@ -1,3 +1,54 @@
-﻿Public Class CreateCustomTypeEditorViewModelResponse
+﻿Imports System.Diagnostics.CodeAnalysis
+Imports CustomControlLibrary.ClientServerCommunication.CustomControlLibrary.ClientServerCommunication.DataTransport
+Imports Microsoft.DotNet.DesignTools.Protocol.DataPipe
+Imports Microsoft.DotNet.DesignTools.Protocol.Endpoints
 
-End Class
+Namespace CustomControlLibrary.ClientServerCommunication.Endpoints
+    ''' <summary>
+    '''  Response class, answering the request for that endpoint. This transports the requested data (Proxy of
+    '''  the server-side ViewModel and the data of the custom property type <c>PropertyStore</c>) back to the client.
+    ''' </summary>
+    Public Class CreateCustomTypeEditorViewModelResponse
+        Inherits Response
+
+        Private privateViewModel As Object
+
+        <AllowNull>
+        Public Property ViewModel() As Object
+            Get
+                Return privateViewModel
+            End Get
+            Private Set(ByVal value As Object)
+                privateViewModel = value
+            End Set
+        End Property
+
+        Public Property PropertyStoreData() As CustomPropertyStoreData
+
+        Public Sub New()
+        End Sub
+
+        Public Sub New(viewModel As Object, propertyStoreData As CustomPropertyStoreData)
+            'INSTANT VB TODO TASK: Throw expressions are not converted by Instant VB:
+            'ORIGINAL LINE: ViewModel = viewModel ?? throw new ArgumentNullException(nameof(viewModel));
+            Me.ViewModel = viewModel.OrThrowIfNull()
+            Me.PropertyStoreData = propertyStoreData
+        End Sub
+
+        Public Sub New(ByVal reader As IDataPipeReader)
+            MyBase.New(reader)
+        End Sub
+
+        Protected Overrides Sub ReadProperties(ByVal reader As IDataPipeReader)
+            ViewModel = reader.ReadObject(NameOf(ViewModel))
+            PropertyStoreData = reader.ReadDataPipeObjectOrNull(Of CustomPropertyStoreData)(NameOf(PropertyStoreData))
+        End Sub
+
+        Protected Overrides Sub WriteProperties(ByVal writer As IDataPipeWriter)
+            'Should be like this, but the compiler disagrees, so we use a workaround.
+            'writer.WriteObject(NameOf(ViewModel), ViewModel)
+            DataPipeWriterExtensions.WriteObject(Me, NameOf(ViewModel), ViewModel)
+            writer.WriteDataPipeObjectIfNotNull(Of CustomPropertyStoreData)(NameOf(PropertyStoreData), PropertyStoreData)
+        End Sub
+    End Class
+End Namespace

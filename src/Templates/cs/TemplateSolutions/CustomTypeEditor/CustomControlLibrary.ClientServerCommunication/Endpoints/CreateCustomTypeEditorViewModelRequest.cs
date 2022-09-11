@@ -18,7 +18,7 @@ namespace CustomControlLibrary.ClientServerCommunication.Endpoints
 
         public CreateCustomTypeEditorViewModelRequest(SessionId sessionId, object? customControlProxy)
         {
-            SessionId = sessionId.IsNull ? throw new ArgumentNullException(nameof(sessionId)) : sessionId;
+            SessionId = sessionId.OrThrowIfArgumentIsNull();
             CustomControlProxy = customControlProxy;
         }
 
