@@ -20,9 +20,9 @@
       <!--We need this during Control development, so we get proper Debug-Support at runtime. -->
       <_File Include="$(SolutionDir)\CustomControlLibrary\bin\$(Configuration)\net6.0-windows\CustomControlLibrary.pdb" />
       
-      <_File Include="$(SolutionDir)\CustomControlLibrary.Design.Client\bin\$(Configuration)\net472\CustomControlLibrary.Designer.Client.dll" TargetDir="Design/WinForms" />
+      <_File Include="$(SolutionDir)\CustomControlLibrary.Client\bin\$(Configuration)\net472\CustomControlLibrary.Client.dll" TargetDir="Design/WinForms" />
       <_File Include="$(SolutionDir)\CustomControlLibrary.Protocol\bin\$(Configuration)\net472\CustomControlLibrary.Protocol.dll" TargetDir="Design/WinForms" />
-      <_File Include="$(SolutionDir)\CustomControlLibrary.Design.Server\bin\$(Configuration)\net6.0-windows\CustomControlLibrary.Design.Server.dll" TargetDir="Design/WinForms/Server" />
+      <_File Include="$(SolutionDir)\CustomControlLibrary.Server\bin\$(Configuration)\net6.0-windows\CustomControlLibrary.Server.dll" TargetDir="Design/WinForms/Server" />
       <_File Include="$(SolutionDir)\CustomControlLibrary.Protocol\bin\$(Configuration)\net6.0-windows\CustomControlLibrary.Protocol.dll" TargetDir="Design/WinForms/Server" />
     </ItemGroup>
 

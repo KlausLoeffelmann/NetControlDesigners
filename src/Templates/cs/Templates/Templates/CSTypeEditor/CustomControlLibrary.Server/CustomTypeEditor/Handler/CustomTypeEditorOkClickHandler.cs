@@ -16,7 +16,7 @@ namespace CustomControlLibrary.Designer.Server.Handlers
         public override CustomTypeEditorOKClickResponse HandleRequest(CustomTypeEditorOKClickRequest request)
         {
             // Getting the ViewModel passed via the endpoint's request class.
-            var viewModel = (CustomTypeEditorViewModel)request.ViewModel;
+            var viewModel = (CustomTypeEditorVM)request.ViewModel;
 
             // Delegate the actual handling of the OKClick event to the server-side ViewModel.
             viewModel.OKClick(request.PropertyStoreData);

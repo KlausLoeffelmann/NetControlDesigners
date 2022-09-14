@@ -5,7 +5,7 @@ using System.Composition;
 namespace CustomControlLibrary.Protocol.Endpoints
 {
     /// <summary>
-    ///  Endpoint for the method to create the <c>CustomTypeEditor's</c> ViewModel.
+    ///  Endpoint for the method to create the CustomTypeEditor's ViewModel.
     /// </summary>
     /// <remarks>
     ///  'ViewModel' in this context is a class which holds the logic/properties to control the UI. There is a 
@@ -21,15 +21,15 @@ namespace CustomControlLibrary.Protocol.Endpoints
     /// </remarks>
     [Shared]
     [ExportEndpoint]
-    public class CreateCustomTypeEditorViewModelEndpoint 
-        : Endpoint<CreateCustomTypeEditorViewModelRequest, CreateCustomTypeEditorViewModelResponse>
+    public class CreateCustomTypeEditorVMEndpoint 
+        : Endpoint<CreateCustomTypeEditorVMRequest, CreateCustomTypeEditorVMResponse>
     {
-        public override string Name => EndpointNames.CreateCustomTypeEditorViewModel;
+        public override string Name => EndpointNames.CreateCustomTypeEditorVM;
 
-        protected override CreateCustomTypeEditorViewModelRequest CreateRequest(IDataPipeReader reader)
+        protected override CreateCustomTypeEditorVMRequest CreateRequest(IDataPipeReader reader)
             => new(reader);
 
-        protected override CreateCustomTypeEditorViewModelResponse CreateResponse(IDataPipeReader reader)
+        protected override CreateCustomTypeEditorVMResponse CreateResponse(IDataPipeReader reader)
             => new(reader);
     }
 }

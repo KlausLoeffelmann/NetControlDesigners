@@ -29,7 +29,7 @@ namespace CustomControlLibrary.Designer.Client
             var designerHost = provider.GetRequiredService<IDesignerHost>();
 
             // Value now holds the proxy of the CustomPropertyStore object the user wants to edit.
-            var viewModelClient = CustomTypeEditorViewModelClient.Create(provider, value);
+            var viewModelClient = CustomTypeEditorVMClient.Create(provider, value);
 
             _customTypeEditorDialog ??= new CustomTypeEditorDialog(provider, viewModelClient);
             _customTypeEditorDialog.Context = context;

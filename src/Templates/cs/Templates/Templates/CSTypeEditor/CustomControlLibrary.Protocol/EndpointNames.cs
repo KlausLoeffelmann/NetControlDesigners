@@ -5,7 +5,7 @@
     /// </summary>
     public static class EndpointNames
     {
-        public const string CreateCustomTypeEditorViewModel = nameof(CreateCustomTypeEditorViewModel);
+        public const string CreateCustomTypeEditorVM = nameof(CreateCustomTypeEditorVM);
         public const string CustomTypeEditorEditorOKClick = nameof(CustomTypeEditorEditorOKClick);
     }
 }
