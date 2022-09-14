@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomTypeEditorTest", "Cus
 		{DF56A7C2-A6F6-45E6-B2FB-535A6A28624B} = {DF56A7C2-A6F6-45E6-B2FB-535A6A28624B}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomControlLibrary.ClientServerCommunication", "CustomControlLibrary.ClientServerCommunication\CustomControlLibrary.ClientServerCommunication.csproj", "{77ABBB80-9BE5-4E81-90FF-642B71C52652}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomControlLibrary.Protocol", "CustomControlLibrary.Protocol\CustomControlLibrary.Protocol.csproj", "{77ABBB80-9BE5-4E81-90FF-642B71C52652}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ControlDesigners", "ControlDesigners", "{3E004A1F-5169-4A04-A65B-13438A3B76B9}"
 EndProject
