@@ -5,6 +5,6 @@
     /// </summary>
     public static class ViewModelNames
     {
-        public const string CustomTypeEditorViewModel = nameof(CustomTypeEditorViewModel);
+        public const string CustomTypeEditorVM = nameof(CustomTypeEditorVM);
     }
 }

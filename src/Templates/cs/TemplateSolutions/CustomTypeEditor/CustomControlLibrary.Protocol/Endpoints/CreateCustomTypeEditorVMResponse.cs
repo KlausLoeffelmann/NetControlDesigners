@@ -10,16 +10,16 @@ namespace CustomControlLibrary.Protocol.Endpoints
     ///  Response class, answering the request for that endpoint. This transports the requested data (Proxy of
     ///  the server-side ViewModel and the data of the custom property type <c>PropertyStore</c>) back to the client.
     /// </summary>
-    public class CreateCustomTypeEditorViewModelResponse : Response
+    public class CreateCustomTypeEditorVMResponse : Response
     {
         [AllowNull]
         public object ViewModel { get; private set; }
 
         public CustomPropertyStoreData? PropertyStoreData { get; set; }
 
-        public CreateCustomTypeEditorViewModelResponse() { }
+        public CreateCustomTypeEditorVMResponse() { }
 
-        public CreateCustomTypeEditorViewModelResponse(
+        public CreateCustomTypeEditorVMResponse(
             object viewModel,
             CustomPropertyStoreData? propertyStoreData)
         {
@@ -27,7 +27,7 @@ namespace CustomControlLibrary.Protocol.Endpoints
             PropertyStoreData = propertyStoreData;
         }
 
-        public CreateCustomTypeEditorViewModelResponse(IDataPipeReader reader) : base(reader) { }
+        public CreateCustomTypeEditorVMResponse(IDataPipeReader reader) : base(reader) { }
 
         protected override void ReadProperties(IDataPipeReader reader)
         {

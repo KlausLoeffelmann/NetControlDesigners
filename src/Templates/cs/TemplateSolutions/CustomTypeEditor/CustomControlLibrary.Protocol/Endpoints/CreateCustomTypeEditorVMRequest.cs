@@ -6,23 +6,23 @@ using System;
 namespace CustomControlLibrary.Protocol.Endpoints
 {
     /// <summary>
-    ///  Request class for the CreateCustomTypeEditorViewModel endpoint. This passes the necessary
-    ///  context  (<c>SessionId</c>, proxy of the <c>CustomControl</c>) from the client to the server.
+    ///  Request class for the <see cref="CreateCustomTypeEditorVMEndpoint"/>. This passes the necessary
+    ///  context  (SessionId, proxy of the CustomControl) from the client to the server.
     /// </summary>
-    public class CreateCustomTypeEditorViewModelRequest : Request
+    public class CreateCustomTypeEditorVMRequest : Request
     {
         public SessionId SessionId { get; private set; }
         public object? CustomControlProxy { get; private set; }
 
-        public CreateCustomTypeEditorViewModelRequest() { }
+        public CreateCustomTypeEditorVMRequest() { }
 
-        public CreateCustomTypeEditorViewModelRequest(SessionId sessionId, object? customControlProxy)
+        public CreateCustomTypeEditorVMRequest(SessionId sessionId, object? customControlProxy)
         {
             SessionId = sessionId.OrThrowIfArgumentIsNull();
             CustomControlProxy = customControlProxy;
         }
 
-        public CreateCustomTypeEditorViewModelRequest(IDataPipeReader reader) : base(reader) { }
+        public CreateCustomTypeEditorVMRequest(IDataPipeReader reader) : base(reader) { }
 
         protected override void ReadProperties(IDataPipeReader reader)
         {

@@ -12,16 +12,16 @@ namespace CustomControlLibrary.Designer.Client
     /// <summary>
     /// Client-side implementation of the ViewModel to control the TypeEditor UI.
     /// </summary>
-    internal class CustomTypeEditorViewModelClient : ViewModelClient
+    internal class CustomTypeEditorVMClient : ViewModelClient
     {
-        [ExportViewModelClientFactory(ViewModelNames.CustomTypeEditorViewModel)]
-        private class Factory : ViewModelClientFactory<CustomTypeEditorViewModelClient>
+        [ExportViewModelClientFactory(ViewModelNames.CustomTypeEditorVM)]
+        private class Factory : ViewModelClientFactory<CustomTypeEditorVMClient>
         {
-            protected override CustomTypeEditorViewModelClient CreateViewModelClient(ObjectProxy? viewModel)
+            protected override CustomTypeEditorVMClient CreateViewModelClient(ObjectProxy? viewModel)
                 => new(viewModel);
         }
 
-        public CustomTypeEditorViewModelClient(ObjectProxy? viewModel) : base(viewModel)
+        public CustomTypeEditorVMClient(ObjectProxy? viewModel) : base(viewModel)
         {
             if (viewModel is null)
             {
@@ -30,30 +30,30 @@ namespace CustomControlLibrary.Designer.Client
         }
 
         /// <summary>
-        ///  Creates an instance of this ViewModelClient and initializes it with the ServerTypes 
+        ///  Creates an instance of this VMClient and initializes it with the ServerTypes 
         ///  from which the Data Sources can be generated.
         /// </summary>
         /// <param name="session">
-        ///  The designer session to create the ViewModelClient server side.
+        ///  The designer session to create the VMClient server side.
         /// </param>
         /// <returns>
-        ///  The ViewModelClient for controlling the NewObjectDataSource dialog.
+        ///  The VMClient for controlling the TypeEditor dialog.
         /// </returns>
-        public static CustomTypeEditorViewModelClient Create(
+        public static CustomTypeEditorVMClient Create(
             IServiceProvider provider,
             object? customPropertyStoreProxy)
         {
             var session = provider.GetRequiredService<DesignerSession>();
             var client = provider.GetRequiredService<IDesignToolsClient>();
 
-            var response = client.SendRequest<CreateCustomTypeEditorViewModelResponse>(
-                new CreateCustomTypeEditorViewModelRequest(
+            var response = client.SendRequest<CreateCustomTypeEditorVMResponse>(
+                new CreateCustomTypeEditorVMRequest(
                     session.Id,
                     customPropertyStoreProxy));
 
             var viewModel = (ObjectProxy)response.ViewModel!;
 
-            var clientViewModel = provider.CreateViewModelClient<CustomTypeEditorViewModelClient>(viewModel);
+            var clientViewModel = provider.CreateViewModelClient<CustomTypeEditorVMClient>(viewModel);
             clientViewModel.Initialize(response.PropertyStoreData);
 
             return clientViewModel;

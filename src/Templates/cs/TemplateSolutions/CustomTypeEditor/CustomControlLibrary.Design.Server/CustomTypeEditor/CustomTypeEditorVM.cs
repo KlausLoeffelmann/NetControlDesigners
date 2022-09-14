@@ -16,18 +16,18 @@ namespace CustomControlLibrary.Designer.Server
     /// to the client-side ViewModel part, which _then_ controls the client-side hosted UI, which in turn runs in the 
     /// TFM-context of Visual Studio.
     /// </remarks>
-    internal partial class CustomTypeEditorViewModel : ViewModel
+    internal partial class CustomTypeEditorVM : ViewModel
     {
-        public CustomTypeEditorViewModel(IServiceProvider provider)
+        public CustomTypeEditorVM(IServiceProvider provider)
             : base(provider)
         {
         }
 
-        public CreateCustomTypeEditorViewModelResponse Initialize(object propertyStoreObject)
+        public CreateCustomTypeEditorVMResponse Initialize(object propertyStoreObject)
         {
             var propertyStore = (CustomPropertyStore)propertyStoreObject;
 
-            return new CreateCustomTypeEditorViewModelResponse(
+            return new CreateCustomTypeEditorVMResponse(
                 this,
                 propertyStore is null
                 ? null

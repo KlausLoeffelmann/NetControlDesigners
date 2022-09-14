@@ -11,7 +11,7 @@ namespace CustomControlLibrary.Designer.Client
     {
         CustomPropertyStoreData? _propertyStore;
 
-        public CustomTypeEditorDialog(IServiceProvider provider, CustomTypeEditorViewModelClient viewModelClient)
+        public CustomTypeEditorDialog(IServiceProvider provider, CustomTypeEditorVMClient viewModelClient)
         {
             InitializeComponent();
 
@@ -32,7 +32,7 @@ namespace CustomControlLibrary.Designer.Client
         }
 
         public IServiceProvider? Provider { get; }
-        public CustomTypeEditorViewModelClient ViewModelClient { get; set; }
+        public CustomTypeEditorVMClient ViewModelClient { get; set; }
         public ITypeDescriptorContext? Context { get; set; }
         public IDesignerHost? Host { get; set; }
 

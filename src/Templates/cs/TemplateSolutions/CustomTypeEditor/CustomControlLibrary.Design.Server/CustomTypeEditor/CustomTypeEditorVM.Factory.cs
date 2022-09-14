@@ -4,15 +4,15 @@ using System;
 
 namespace CustomControlLibrary.Designer.Server
 {
-    internal partial class CustomTypeEditorViewModel
+    internal partial class CustomTypeEditorVM
     {
         /// <summary>
         /// Factory class which generates the CustomTypeEditorViewModel.
         /// </summary>
-        [ExportViewModelFactory(ViewModelNames.CustomTypeEditorViewModel)]
-        private class Factory : ViewModelFactory<CustomTypeEditorViewModel>
+        [ExportViewModelFactory(ViewModelNames.CustomTypeEditorVM)]
+        private class Factory : ViewModelFactory<CustomTypeEditorVM>
         {
-            protected override CustomTypeEditorViewModel CreateViewModel(IServiceProvider provider)
+            protected override CustomTypeEditorVM CreateViewModel(IServiceProvider provider)
                 => new(provider);
         }
     }
