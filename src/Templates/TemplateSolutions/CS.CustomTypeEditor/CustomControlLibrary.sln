@@ -19,7 +19,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Controls", "Controls", "{36
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomControlLibrary", "CustomControlLibrary\CustomControlLibrary.csproj", "{DF56A7C2-A6F6-45E6-B2FB-535A6A28624B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomControlPackage", "CustomControlPackage\CustomControlPackage.csproj", "{28744ABA-0057-4301-8A19-743BE2AECB6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomControlLibrary.Package", "CustomControlLibrary.Package\CustomControlLibrary.Package.csproj", "{28744ABA-0057-4301-8A19-743BE2AECB6F}"
 	ProjectSection(ProjectDependencies) = postProject
 		{3C7319C9-A4EF-43AB-8988-FE6E92CBAD8E} = {3C7319C9-A4EF-43AB-8988-FE6E92CBAD8E}
 		{77ABBB80-9BE5-4E81-90FF-642B71C52652} = {77ABBB80-9BE5-4E81-90FF-642B71C52652}
