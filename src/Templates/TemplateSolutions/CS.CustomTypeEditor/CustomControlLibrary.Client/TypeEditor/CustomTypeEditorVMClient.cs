@@ -1,11 +1,10 @@
-﻿using CustomControlLibrary.Protocol;
+﻿using System;
+using CustomControlLibrary.Protocol;
 using CustomControlLibrary.Protocol.DataTransport;
 using CustomControlLibrary.Protocol.Endpoints;
 using Microsoft.DotNet.DesignTools.Client;
 using Microsoft.DotNet.DesignTools.Client.Proxies;
 using Microsoft.DotNet.DesignTools.Client.Views;
-using System;
-using System.Diagnostics;
 
 namespace CustomControlLibrary.Designer.Client
 {

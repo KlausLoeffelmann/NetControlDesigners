@@ -29,16 +29,16 @@ Namespace Serialization
                 Dim statements As New CodeStatementCollection()
 
                 ' Now, we want to generate:
-                '      this.customControl1.CustomProperty = new CustomControlLibrary.CustomPropertyStore();
-                '      this.customControl1.CustomProperty.CustomEnumValue = CustomControlLibrary.CustomEnum.FourthValue;
-                '      this.customControl1.CustomProperty.DateCreated = new System.DateTime(2022, 7, 13, 0, 0, 0, 0);
-                '      this.customControl1.CustomProperty.ListOfStrings = ((System.Collections.Generic.List<string>)(resources.GetObject("resource.ListOfStrings")));
-                '      this.customControl1.CustomProperty.SomeMustHaveId = "{C0E03E00-EFDA-47AA-9BA9-B69671F7A565}";
+                '      me.customControl1.CustomProperty = new CustomControlLibrary.CustomPropertyStore()
+                '      me.customControl1.CustomProperty.CustomEnumValue = CustomControlLibrary.CustomEnum.FourthValue
+                '      me.customControl1.CustomProperty.DateCreated = new System.DateTime(2022, 7, 13, 0, 0, 0, 0)
+                '      me.customControl1.CustomProperty.ListOfStrings = ((System.Collections.Generic.List<string>)(resources.GetObject("resource.ListOfStrings")))
+                '      me.customControl1.CustomProperty.SomeMustHaveId = "{C0E03E00-EFDA-47AA-9BA9-B69671F7A565}"
 
-                ' We start with 'new CustomPropertyStore()';
+                ' We start with 'new CustomPropertyStore()'
                 Dim customPropertyCreateExpression As New CodeObjectCreateExpression(New CodeTypeReference(GetType(CustomPropertyStore)))
 
-                ' Then we do the assignment '{codeExpression} = new CustomPropertyStore()';
+                ' Then we do the assignment '{codeExpression} = new CustomPropertyStore()'
                 Dim contextAssignmentStatement As New CodeAssignStatement(contextExpression, customPropertyCreateExpression)
 
                 ' And from here on we're doing exactly that what the default serializer would be doing,
@@ -56,7 +56,10 @@ Namespace Serialization
 
                 ''' ...and we finally make sure, we're not serializing things that have been serialized before and could just 
                 ''' get from the stack.
-                Dim result = If(IsSerialized(manager, value, absolute IsNot Nothing), GetExpression(manager, value), serializer.Serialize(manager, value))
+                Dim result = If(
+                    IsSerialized(manager, value, absolute IsNot Nothing),
+                    GetExpression(manager, value),
+                    serializer.Serialize(manager, value))
 
                 ''' Now: Here is the difference to DesignerSerializationVisibility.Content: We are adding the instantiation code for our
                 ''' custom (complex) property. And now ...
@@ -66,6 +69,7 @@ Namespace Serialization
                 ''' supposed to be all the statements for assigning our custom control's property's custom type's properties.
                 Dim tempVar2 As Boolean = TypeOf result Is CodeStatementCollection
                 Dim statementCollection As CodeStatementCollection = If(tempVar2, CType(result, CodeStatementCollection), Nothing)
+
                 If tempVar2 Then
                     For Each statement As CodeStatement In statementCollection
                         statements.Add(statement)

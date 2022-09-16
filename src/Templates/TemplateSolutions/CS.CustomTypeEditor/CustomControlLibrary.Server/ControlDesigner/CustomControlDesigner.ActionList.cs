@@ -42,9 +42,9 @@ namespace CustomControlLibrary.Designer.Server
                 // Do this instead:
                 set
                 {
-                    if (Component is { } component)
+                    if (Component is not null)
                     {
-                        TypeDescriptor.GetProperties(component)[nameof(CustomProperty)]?.SetValue(component, value);
+                        TypeDescriptor.GetProperties(Component)[nameof(CustomProperty)]?.SetValue(Component, value);
                     }
                 }
             }
