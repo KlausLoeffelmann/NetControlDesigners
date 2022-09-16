@@ -2,7 +2,7 @@
 Imports Microsoft.DotNet.DesignTools.Protocol.DataPipe
 Imports Microsoft.DotNet.DesignTools.Protocol.Endpoints
 
-Namespace CustomControlLibrary.ClientServerCommunication.Endpoints
+Namespace Endpoints
     ''' <summary>
     '''  Request class for the CreateCustomTypeEditorViewModel endpoint. This passes the necessary
     '''  context  (<c>SessionId</c>, proxy of the <c>CustomControl</c>) from the client to the server.

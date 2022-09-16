@@ -1,9 +1,9 @@
 ﻿Imports System.Diagnostics.CodeAnalysis
-Imports CustomControlLibrary.ClientServerCommunication.CustomControlLibrary.ClientServerCommunication.DataTransport
+Imports CustomControlLibrary.Protocol.DataTransport
 Imports Microsoft.DotNet.DesignTools.Protocol.DataPipe
 Imports Microsoft.DotNet.DesignTools.Protocol.Endpoints
 
-Namespace CustomControlLibrary.ClientServerCommunication.Endpoints
+Namespace Endpoints
     ''' <summary>
     '''  Response class, answering the request for that endpoint. This transports the requested data (Proxy of
     '''  the server-side ViewModel and the data of the custom property type <c>PropertyStore</c>) back to the client.

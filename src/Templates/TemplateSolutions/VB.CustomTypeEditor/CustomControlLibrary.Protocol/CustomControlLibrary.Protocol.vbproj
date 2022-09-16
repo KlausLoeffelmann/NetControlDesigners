@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <RootNamespace>CustomControlLibrary.ClientServerCommunication</RootNamespace>
     <TargetFrameworks>net6.0-windows;net472</TargetFrameworks>
+    <RootNamespace>CustomControlLibrary.Protocol</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>

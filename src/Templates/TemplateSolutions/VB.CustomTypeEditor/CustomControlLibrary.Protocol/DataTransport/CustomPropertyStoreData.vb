@@ -1,8 +1,7 @@
 ﻿Imports System.Diagnostics.CodeAnalysis
-Imports CustomControlLibrary.ClientServerCommunication.System.Diagnostics.CodeAnalysis
 Imports Microsoft.DotNet.DesignTools.Protocol.DataPipe
 
-Namespace CustomControlLibrary.ClientServerCommunication.DataTransport
+Namespace DataTransport
 
     ''' <summary>
     '''  Transport class to carry the content of the CustomPropertyStore 
