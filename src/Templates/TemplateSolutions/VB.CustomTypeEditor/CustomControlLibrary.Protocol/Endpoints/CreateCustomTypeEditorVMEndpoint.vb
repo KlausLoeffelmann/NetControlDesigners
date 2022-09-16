@@ -21,21 +21,21 @@ Namespace Endpoints
     ''' </remarks>
     <[Shared]>
     <ExportEndpoint>
-    Public Class CreateCustomTypeEditorViewModelEndpoint
-        Inherits Endpoint(Of CreateCustomTypeEditorViewModelRequest, CreateCustomTypeEditorViewModelResponse)
+    Public Class CreateCustomTypeEditorVMEndpoint
+        Inherits Endpoint(Of CreateCustomTypeEditorVMRequest, CreateCustomTypeEditorVMResponse)
 
         Public Overrides ReadOnly Property Name() As String
             Get
-                Return EndpointNames.CreateCustomTypeEditorViewModel
+                Return EndpointNames.CreateCustomTypeEditorVM
             End Get
         End Property
 
-        Protected Overrides Function CreateRequest(ByVal reader As IDataPipeReader) As CreateCustomTypeEditorViewModelRequest
-            Return New CreateCustomTypeEditorViewModelRequest(reader)
+        Protected Overrides Function CreateRequest(ByVal reader As IDataPipeReader) As CreateCustomTypeEditorVMRequest
+            Return New CreateCustomTypeEditorVMRequest(reader)
         End Function
 
-        Protected Overrides Function CreateResponse(ByVal reader As IDataPipeReader) As CreateCustomTypeEditorViewModelResponse
-            Return New CreateCustomTypeEditorViewModelResponse(reader)
+        Protected Overrides Function CreateResponse(ByVal reader As IDataPipeReader) As CreateCustomTypeEditorVMResponse
+            Return New CreateCustomTypeEditorVMResponse(reader)
         End Function
     End Class
 End Namespace

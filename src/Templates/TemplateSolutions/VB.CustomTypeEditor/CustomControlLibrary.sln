@@ -9,6 +9,8 @@ Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "CustomControlLibrary.Protoc
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ControlDesigners", "ControlDesigners", "{5A2ADC0D-8C70-486B-9D47-F0B318D5FA21}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "CustomControlLibrary.Client", "CustomControlLibrary.Client\CustomControlLibrary.Client.vbproj", "{B8AB91D2-BF7D-400B-A7DC-AA822EED595D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,12 +25,17 @@ Global
 		{2F7DA330-E18E-4BD3-B622-778B23C1BF57}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2F7DA330-E18E-4BD3-B622-778B23C1BF57}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2F7DA330-E18E-4BD3-B622-778B23C1BF57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8AB91D2-BF7D-400B-A7DC-AA822EED595D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8AB91D2-BF7D-400B-A7DC-AA822EED595D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8AB91D2-BF7D-400B-A7DC-AA822EED595D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8AB91D2-BF7D-400B-A7DC-AA822EED595D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{2F7DA330-E18E-4BD3-B622-778B23C1BF57} = {5A2ADC0D-8C70-486B-9D47-F0B318D5FA21}
+		{B8AB91D2-BF7D-400B-A7DC-AA822EED595D} = {5A2ADC0D-8C70-486B-9D47-F0B318D5FA21}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F8A24AC0-56FC-4F3A-B442-B24DFF98410B}

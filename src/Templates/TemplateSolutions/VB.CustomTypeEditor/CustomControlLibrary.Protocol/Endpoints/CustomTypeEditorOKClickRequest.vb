@@ -1,5 +1,4 @@
-﻿Imports System.Diagnostics.CodeAnalysis
-Imports CustomControlLibrary.Protocol.DataTransport
+﻿Imports CustomControlLibrary.Protocol.DataTransport
 Imports Microsoft.DotNet.DesignTools.Protocol.DataPipe
 Imports Microsoft.DotNet.DesignTools.Protocol.Endpoints
 
@@ -11,31 +10,29 @@ Namespace Endpoints
     Public Class CustomTypeEditorOKClickRequest
         Inherits Request
 
-        Private privatePropertyStoreData As CustomPropertyStoreData
-        Private privateViewModel As Object
+        Private _viewModel As Object
+        Private _propertyStoreData As CustomPropertyStoreData
 
-        <AllowNull>
         Public Property ViewModel() As Object
             Get
-                Return privateViewModel
+                Return _viewModel
             End Get
             Private Set(ByVal value As Object)
-                privateViewModel = value
+                _viewModel = value
             End Set
         End Property
 
-        <AllowNull>
         Public Property PropertyStoreData() As CustomPropertyStoreData
             Get
-                Return privatePropertyStoreData
+                Return _propertyStoreData
             End Get
             Private Set(ByVal value As CustomPropertyStoreData)
-                privatePropertyStoreData = value
+                _propertyStoreData = value
             End Set
         End Property
 
         Public Sub New(ByVal viewModel As Object, ByVal propertyStoreData As CustomPropertyStoreData)
-            Me.ViewModel = viewModel.OrThrowIfNull
+            Me.ViewModel = GlobalUtilities.OrThrowIfNull(viewModel)
             Me.PropertyStoreData = propertyStoreData
         End Sub
 

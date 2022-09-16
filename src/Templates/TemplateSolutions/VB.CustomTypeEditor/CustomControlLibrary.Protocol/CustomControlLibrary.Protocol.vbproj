@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>net6.0-windows;net472</TargetFrameworks>
     <RootNamespace>CustomControlLibrary.Protocol</RootNamespace>
+    <OptionStrict>On</OptionStrict>
   </PropertyGroup>
 
   <ItemGroup>

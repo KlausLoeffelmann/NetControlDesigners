@@ -20,7 +20,7 @@ Namespace Global
         ''' </summary>
         ''' <exception cref="InvalidOperationException"/>
         <MethodImpl(MethodImplOptions.AggressiveInlining)>
-        Public Sub ThrowIfNull(Of T)(<NotNull> ByVal value As T)
+        Public Sub ThrowIfNull(Of T)(ByVal value As T)
             If value Is Nothing Then
                 ThrowHelper.ThrowInvalidOperationException(ValueCannotBeNull)
             End If
@@ -32,7 +32,7 @@ Namespace Global
         ''' </summary>
         ''' <exception cref="InvalidOperationException"/>
         <Extension, MethodImpl(MethodImplOptions.AggressiveInlining)>
-        Public Function OrThrowIfNull(Of T)(<NotNull> value As T) As T
+        Public Function OrThrowIfNull(Of T)(value As T) As T
             ThrowIfNull(value)
             Return value
         End Function
@@ -53,7 +53,7 @@ Namespace Global
         ''' </summary>
         ''' <exception cref="InvalidOperationException"/>
         <MethodImpl(MethodImplOptions.AggressiveInlining)>
-        Public Sub ThrowIfNullOrEmpty(<NotNull> ByVal value As String)
+        Public Sub ThrowIfNullOrEmpty(ByVal value As String)
             If value.IsNullOrEmpty() Then
                 ThrowIfNull(value)
                 ThrowHelper.ThrowInvalidOperationException(ValueCannotBeAnEmptyString)
@@ -66,7 +66,7 @@ Namespace Global
         ''' </summary>
         ''' <exception cref="InvalidOperationException"/>
         <MethodImpl(MethodImplOptions.AggressiveInlining)>
-        Public Function OrThrowIfNullOrEmpty(<NotNull> ByVal value As String) As String
+        Public Function OrThrowIfNullOrEmpty(ByVal value As String) As String
             ThrowIfNullOrEmpty(value)
             Return value
         End Function
@@ -79,17 +79,17 @@ Namespace Global
         <Obsolete("Use ArgumentNullException.ThrowIfNull(...) instead.")>
         <MethodImpl(MethodImplOptions.AggressiveInlining)>
         Public Sub ThrowIfArgumentIsNull(
-            <NotNull> ByVal argument As Object,
+            ByVal argument As Object,
             <CallerArgumentExpression("argument")> Optional ByVal paramName As String = Nothing)
             ArgumentNullException.ThrowIfNull(argument, paramName)
 #Else
-    <MethodImpl(MethodImplOptions.AggressiveInlining)>
-    Public Sub ThrowIfArgumentIsNull(
-        <NotNull> ByVal argument As Object,
+        <MethodImpl(MethodImplOptions.AggressiveInlining)>
+        Public Sub ThrowIfArgumentIsNull(
+        ByVal argument As Object,
         <CallerArgumentExpression("argument")> Optional ByVal paramName As String = Nothing)
-        If argument Is Nothing Then
-            ThrowHelper.ThrowArgumentNullException(paramName)
-        End If
+            If argument Is Nothing Then
+                ThrowHelper.ThrowArgumentNullException(paramName)
+            End If
 #End If
         End Sub
 
@@ -100,12 +100,12 @@ Namespace Global
         ''' <exception cref="ArgumentNullException"/>
         <Extension, MethodImpl(MethodImplOptions.AggressiveInlining)>
         Public Function OrThrowIfArgumentIsNull(Of T)(
-            <NotNull> argument As T,
+            argument As T,
             <CallerArgumentExpression("argument")> Optional ByVal paramName As String = Nothing) As T
 #If NET6_0_OR_GREATER Then
             ArgumentNullException.ThrowIfNull(argument, paramName)
 #Else
-		ThrowIfArgumentIsNull(argument, paramName)
+            ThrowIfArgumentIsNull(argument, paramName)
 #End If
 
             Return argument
@@ -119,19 +119,19 @@ Namespace Global
 #If NET7_0_OR_GREATER Then
     <Obsolete("Use ArgumentException.ThrowIfNullOrEmpty(...) instead.")>
     <MethodImpl(MethodImplOptions.AggressiveInlining)>
-    Public Sub ThrowIfArgumentIsNullOrEmpty(<NotNull> ByVal argument As String, <CallerArgumentExpression("argument")> Optional ByVal paramName As String = Nothing)
+    Public Sub ThrowIfArgumentIsNullOrEmpty(ByVal argument As String, <CallerArgumentExpression("argument")> Optional ByVal paramName As String = Nothing)
 		ArgumentException.ThrowIfNullOrEmpty(argument, paramName)
 #Else
         <MethodImpl(MethodImplOptions.AggressiveInlining)>
         Public Sub ThrowIfArgumentIsNullOrEmpty(
-            <NotNull> argument As String,
+            argument As String,
             <CallerArgumentExpression("argument")> Optional paramName As String = Nothing)
 
             If argument.IsNullOrEmpty() Then
 #If NET6_0_OR_GREATER Then
                 ArgumentNullException.ThrowIfNull(argument, paramName)
 #Else
-            ThrowIfArgumentIsNull(argument, paramName)
+                ThrowIfArgumentIsNull(argument, paramName)
 #End If
                 ThrowHelper.ThrowArgumentException(ValueCannotBeAnEmptyString, paramName)
             End If
@@ -162,7 +162,7 @@ Namespace Global
         ''' <exception cref="ArgumentNullException"/>
         <Extension, MethodImpl(MethodImplOptions.AggressiveInlining)>
         Public Function OrThrowIfArgumentIsNullOrEmpty(
-            <NotNull> argument As String,
+            argument As String,
             <CallerArgumentExpression("argument")> Optional ByVal paramName As String = Nothing) As String
 
             ThrowIfArgumentIsNullOrEmpty(argument, paramName)
@@ -178,7 +178,7 @@ Namespace Global
         '''  annotations on .NET Framework.
         ''' </remarks>
         <Extension, MethodImpl(MethodImplOptions.AggressiveInlining)>
-        Public Function IsNullOrEmpty(<NotNullWhen(False)> value As String) As Boolean
+        Public Function IsNullOrEmpty(value As String) As Boolean
             Return String.IsNullOrEmpty(value)
         End Function
     End Module

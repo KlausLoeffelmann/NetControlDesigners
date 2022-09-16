@@ -2,5 +2,5 @@
 '''  Static class for holding the names of all ViewModels to provide IntelliSense support.
 ''' </summary>
 Public Module ViewModelNames
-    Public Const CustomTypeEditorViewModel As String = NameOf(CustomTypeEditorViewModel)
+    Public Const CustomTypeEditorVM As String = NameOf(CustomTypeEditorVM)
 End Module

@@ -7,7 +7,7 @@ Namespace Endpoints
     '''  Request class for the CreateCustomTypeEditorViewModel endpoint. This passes the necessary
     '''  context  (<c>SessionId</c>, proxy of the <c>CustomControl</c>) from the client to the server.
     ''' </summary>
-    Public Class CreateCustomTypeEditorViewModelRequest
+    Public Class CreateCustomTypeEditorVMRequest
         Inherits Request
 
         Private privateSessionId As SessionId

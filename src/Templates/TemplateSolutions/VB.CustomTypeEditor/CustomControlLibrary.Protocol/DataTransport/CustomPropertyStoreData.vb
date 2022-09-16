@@ -1,5 +1,4 @@
-﻿Imports System.Diagnostics.CodeAnalysis
-Imports Microsoft.DotNet.DesignTools.Protocol.DataPipe
+﻿Imports Microsoft.DotNet.DesignTools.Protocol.DataPipe
 
 Namespace DataTransport
 
@@ -28,7 +27,6 @@ Namespace DataTransport
             Me.CustomEnumValue = customEnumValue
         End Sub
 
-        <AllowNull>
         Public Property SomeMustHaveId() As String
             Get
                 Return _someMustHaveId

@@ -1,5 +1,4 @@
-﻿Imports System.Diagnostics.CodeAnalysis
-Imports CustomControlLibrary.Protocol.DataTransport
+﻿Imports CustomControlLibrary.Protocol.DataTransport
 Imports Microsoft.DotNet.DesignTools.Protocol.DataPipe
 Imports Microsoft.DotNet.DesignTools.Protocol.Endpoints
 
@@ -8,12 +7,11 @@ Namespace Endpoints
     '''  Response class, answering the request for that endpoint. This transports the requested data (Proxy of
     '''  the server-side ViewModel and the data of the custom property type <c>PropertyStore</c>) back to the client.
     ''' </summary>
-    Public Class CreateCustomTypeEditorViewModelResponse
+    Public Class CreateCustomTypeEditorVMResponse
         Inherits Response
 
         Private privateViewModel As Object
 
-        <AllowNull>
         Public Property ViewModel() As Object
             Get
                 Return privateViewModel
@@ -29,9 +27,7 @@ Namespace Endpoints
         End Sub
 
         Public Sub New(viewModel As Object, propertyStoreData As CustomPropertyStoreData)
-            'INSTANT VB TODO TASK: Throw expressions are not converted by Instant VB:
-            'ORIGINAL LINE: ViewModel = viewModel ?? throw new ArgumentNullException(nameof(viewModel));
-            Me.ViewModel = viewModel.OrThrowIfNull()
+            Me.ViewModel = GlobalUtilities.OrThrowIfArgumentIsNull(viewModel)
             Me.PropertyStoreData = propertyStoreData
         End Sub
 
@@ -46,8 +42,7 @@ Namespace Endpoints
 
         Protected Overrides Sub WriteProperties(ByVal writer As IDataPipeWriter)
             'Should be like this, but the compiler disagrees, so we use a workaround.
-            'writer.WriteObject(NameOf(ViewModel), ViewModel)
-            DataPipeWriterExtensions.WriteObject(Me, NameOf(ViewModel), ViewModel)
+            DataPipeWriterExtensions.WriteObject(writer, NameOf(ViewModel), ViewModel)
             writer.WriteDataPipeObjectIfNotNull(Of CustomPropertyStoreData)(NameOf(PropertyStoreData), PropertyStoreData)
         End Sub
     End Class

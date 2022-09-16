@@ -10,7 +10,6 @@ Namespace Global.System.Runtime.CompilerServices
         '''  This is marked with NoInlining to ensure that the JIT can better inline calling code.
         ''' </remarks>
         ''' <exception cref="ArgumentNullException"></exception>
-        <DoesNotReturn>
         <MethodImpl(MethodImplOptions.NoInlining)>
         Public Sub ThrowArgumentNullException(ByVal paramName As String)
             Throw New ArgumentNullException(paramName)
@@ -23,7 +22,6 @@ Namespace Global.System.Runtime.CompilerServices
         '''  This is marked with NoInlining to ensure that the JIT can better inline calling code.
         ''' </remarks>
         ''' <exception cref="ArgumentException"></exception>
-        <DoesNotReturn>
         <MethodImpl(MethodImplOptions.NoInlining)>
         Public Sub ThrowArgumentException(ByVal message As String, ByVal paramName As String)
             Throw New ArgumentException(message, paramName)
@@ -36,7 +34,6 @@ Namespace Global.System.Runtime.CompilerServices
         '''  This is marked with NoInlining to ensure that the JIT can better inline calling code.
         ''' </remarks>
         ''' <exception cref="InvalidOperationException"></exception>
-        <DoesNotReturn>
         <MethodImpl(MethodImplOptions.NoInlining)>
         Public Sub ThrowInvalidOperationException(ByVal message As String)
             Throw New InvalidOperationException(message)
