@@ -6,7 +6,7 @@ Friend Module ErrorProviderExtension
     ''' </summary>
     ''' <param name="errorProvider">ErrorProvider component instance.</param>
     ''' <param name="control">Control, on which the Error to set on if errorCondition is true.</param>
-    ''' <param name="errorCondition">Function delegate which checks the errir condition.</param>
+    ''' <param name="errorCondition">Function delegate which checks the error condition.</param>
     ''' <param name="errorText">Error text to be assigned in the error case.</param>
     ''' <returns>true, if an error occured.</returns>
     <System.Runtime.CompilerServices.Extension>

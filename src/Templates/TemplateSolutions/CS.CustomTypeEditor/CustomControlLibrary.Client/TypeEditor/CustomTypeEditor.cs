@@ -43,7 +43,7 @@ namespace CustomControlLibrary.Designer.Client
                 // the server, which in turn updates the server-side ViewModel.
                 // When it's time to return the value from the client-side ViewModel back to the
                 // Property Browser (which has called the TypeEditor in the first place), the client-side
-                // ViewModel access its PropertyStore property, which in turn gets the required PropertyStore
+                // ViewModel accesses its PropertyStore property, which in turn gets the required PropertyStore
                 // proxy object directly from the server-side ViewModel.
                 value = viewModelClient.PropertyStore;
             }
