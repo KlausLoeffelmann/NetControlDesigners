@@ -25,14 +25,14 @@ namespace CustomControlLibrary.Protocol.DataTransport
         }
 
         public CustomPropertyStoreData(
-            string someMusthaveId,
+            string someMustHaveId,
             DateTime dateCreated,
             string[]? listOfStrings,
             byte customEnumValue)
         {
             // We use this extension method here, which works also for .NET Framework and
             // lower than .NET 7 versions; it's defined in GlobalUtilities.cs.
-            SomeMustHaveId = someMusthaveId.OrThrowIfArgumentIsNullOrEmpty();
+            SomeMustHaveId = someMustHaveId.OrThrowIfArgumentIsNullOrEmpty();
             DateCreated = dateCreated;
             ListOfStrings = listOfStrings;
             CustomEnumValue = customEnumValue;

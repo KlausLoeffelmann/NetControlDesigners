@@ -20,8 +20,8 @@ Namespace DataTransport
         Public Sub New()
         End Sub
 
-        Public Sub New(someMusthaveId As String, dateCreated As DateTime, listOfStrings As String(), customEnumValue As Byte)
-            Me.SomeMustHaveId = someMusthaveId
+        Public Sub New(someMustHaveId As String, dateCreated As DateTime, listOfStrings As String(), customEnumValue As Byte)
+            Me.SomeMustHaveId = someMustHaveId
             Me.DateCreated = dateCreated
             Me.ListOfStrings = listOfStrings
             Me.CustomEnumValue = customEnumValue
