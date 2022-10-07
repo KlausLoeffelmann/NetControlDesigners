@@ -29,4 +29,8 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="CustomControlLibrary.Package" Version="[1.*,)" />
+  </ItemGroup>
+
 </Project>
