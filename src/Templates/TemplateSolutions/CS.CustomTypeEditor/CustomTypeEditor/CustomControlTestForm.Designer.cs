@@ -42,18 +42,20 @@
             this.customControl1.CustomPropertyStoreProperty.DateCreated = new System.DateTime(2022, 7, 13, 0, 0, 0, 0);
             this.customControl1.CustomPropertyStoreProperty.ListOfStrings = ((System.Collections.Generic.List<string>)(resources.GetObject("resource.ListOfStrings")));
             this.customControl1.CustomPropertyStoreProperty.SomeMustHaveId = "123";
-            this.customControl1.Location = new System.Drawing.Point(12, 10);
+            this.customControl1.Location = new System.Drawing.Point(20, 16);
+            this.customControl1.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.customControl1.Name = "customControl1";
-            this.customControl1.Size = new System.Drawing.Size(778, 429);
+            this.customControl1.Size = new System.Drawing.Size(1264, 686);
             this.customControl1.TabIndex = 0;
             this.customControl1.Text = "customControl1";
             // 
             // CustomControlTestForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1300, 720);
             this.Controls.Add(this.customControl1);
+            this.Margin = new System.Windows.Forms.Padding(5, 5, 5, 5);
             this.Name = "CustomControlTestForm";
             this.Text = "Form1";
             this.ResumeLayout(false);
