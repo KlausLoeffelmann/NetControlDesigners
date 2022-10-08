@@ -28,7 +28,6 @@ xcopy ".\TemplateSolutions\VB.CustomTypeEditor\CustomControlLibrary.Package\*.*"
 cd Templates
 dotnet new uninstall Microsoft.WinForms.Designer.TypeEditorTemplate
 dotnet pack
-dotnet new install 
 dotnet new install .\bin\Debug\Microsoft.WinForms.Designer.TypeEditorTemplate.1.1.0-prerelease-preview3.nupkg
 
 cd ..

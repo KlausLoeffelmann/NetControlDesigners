@@ -1,6 +1,6 @@
-﻿Imports Microsoft.DotNet.DesignTools.Designers
+﻿Imports System.ComponentModel
+Imports Microsoft.DotNet.DesignTools.Designers
 Imports Microsoft.DotNet.DesignTools.Designers.Actions
-Imports System.ComponentModel
 
 Partial Friend Class CustomControlDesigner
     ''' <summary>

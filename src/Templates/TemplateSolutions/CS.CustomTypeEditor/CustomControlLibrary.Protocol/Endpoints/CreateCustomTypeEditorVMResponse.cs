@@ -1,8 +1,8 @@
-﻿using CustomControlLibrary.Protocol.DataTransport;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
+using CustomControlLibrary.Protocol.DataTransport;
 using Microsoft.DotNet.DesignTools.Protocol.DataPipe;
 using Microsoft.DotNet.DesignTools.Protocol.Endpoints;
-using System;
-using System.Diagnostics.CodeAnalysis;
 
 namespace CustomControlLibrary.Protocol.Endpoints
 {

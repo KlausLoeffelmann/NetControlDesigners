@@ -2,7 +2,6 @@
 ' Copyright (c) Microsoft Corporation. All Rights Reserved.
 ' -------------------------------------------------------------------
 
-Imports System.Diagnostics.CodeAnalysis
 Imports System.Runtime.CompilerServices
 Imports Microsoft.DotNet.DesignTools.Protocol
 

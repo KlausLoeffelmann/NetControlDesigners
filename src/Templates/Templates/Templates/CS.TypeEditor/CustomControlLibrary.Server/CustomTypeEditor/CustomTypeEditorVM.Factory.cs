@@ -1,6 +1,6 @@
-﻿using CustomControlLibrary.Protocol;
+﻿using System;
+using CustomControlLibrary.Protocol;
 using Microsoft.DotNet.DesignTools.ViewModels;
-using System;
 
 namespace CustomControlLibrary.Designer.Server
 {

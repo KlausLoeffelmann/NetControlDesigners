@@ -1,5 +1,4 @@
 ﻿Imports Microsoft.DotNet.DesignTools.TypeRouting
-Imports System.Collections.Generic
 
 Namespace CustomControlLibrary.Designer.Server
     ''' <summary>

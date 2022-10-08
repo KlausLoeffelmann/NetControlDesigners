@@ -1,6 +1,4 @@
-﻿Imports System.Diagnostics.CodeAnalysis
-
-Namespace Global.System.Runtime.CompilerServices
+﻿Namespace Global.System.Runtime.CompilerServices
 
     Friend Module ThrowHelper
         ''' <summary>

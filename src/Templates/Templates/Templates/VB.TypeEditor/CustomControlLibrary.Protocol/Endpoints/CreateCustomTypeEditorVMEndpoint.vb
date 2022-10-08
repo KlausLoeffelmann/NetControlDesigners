@@ -1,7 +1,6 @@
-﻿Imports Microsoft.DotNet.DesignTools.Protocol.DataPipe
+﻿Imports System.Composition
+Imports Microsoft.DotNet.DesignTools.Protocol.DataPipe
 Imports Microsoft.DotNet.DesignTools.Protocol.Endpoints
-Imports System.Composition
-Imports System.Diagnostics.Eventing
 
 Namespace Endpoints
     ''' <summary>

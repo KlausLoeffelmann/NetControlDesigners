@@ -1,7 +1,7 @@
-﻿using Microsoft.DotNet.DesignTools.Serialization;
-using System.CodeDom;
+﻿using System.CodeDom;
 using System.ComponentModel.Design.Serialization;
 using System.Diagnostics;
+using Microsoft.DotNet.DesignTools.Serialization;
 
 namespace CustomControlLibrary.Designer.Server.Serialization
 {

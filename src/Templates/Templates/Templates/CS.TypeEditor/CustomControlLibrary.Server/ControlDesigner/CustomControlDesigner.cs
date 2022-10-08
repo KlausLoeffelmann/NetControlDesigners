@@ -1,7 +1,7 @@
-﻿using Microsoft.DotNet.DesignTools.Designers;
-using Microsoft.DotNet.DesignTools.Designers.Actions;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Windows.Forms;
+using Microsoft.DotNet.DesignTools.Designers;
+using Microsoft.DotNet.DesignTools.Designers.Actions;
 
 namespace CustomControlLibrary.Designer.Server
 {

@@ -9,7 +9,7 @@
     "Solution"
   ],
   "name": "WinForms .NET Custom Type Editor",
-  "identity": "WinForms.Designer.TypeEditor.Template",
+  "identity": "WinForms.Designer.TypeEditor.VBTemplate",
   "shortName": "WinFormsTypeEditor",
   "tags": {
     "language": "VB",

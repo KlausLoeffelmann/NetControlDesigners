@@ -1,7 +1,7 @@
-﻿using Microsoft.DotNet.DesignTools.Protocol.DataPipe;
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using Microsoft.DotNet.DesignTools.Protocol.DataPipe;
 
 namespace CustomControlLibrary.Protocol.DataTransport
 {

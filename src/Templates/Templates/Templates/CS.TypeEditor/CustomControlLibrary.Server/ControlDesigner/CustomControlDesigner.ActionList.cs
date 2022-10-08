@@ -1,6 +1,6 @@
-﻿using Microsoft.DotNet.DesignTools.Designers;
+﻿using System.ComponentModel;
+using Microsoft.DotNet.DesignTools.Designers;
 using Microsoft.DotNet.DesignTools.Designers.Actions;
-using System.ComponentModel;
 
 namespace CustomControlLibrary.Designer.Server
 {

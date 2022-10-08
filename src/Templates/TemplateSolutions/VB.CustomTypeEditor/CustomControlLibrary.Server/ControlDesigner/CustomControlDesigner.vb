@@ -1,7 +1,7 @@
-﻿Imports Microsoft.DotNet.DesignTools.Designers
-Imports Microsoft.DotNet.DesignTools.Designers.Actions
-Imports System.Drawing
+﻿Imports System.Drawing
 Imports System.Windows.Forms
+Imports Microsoft.DotNet.DesignTools.Designers
+Imports Microsoft.DotNet.DesignTools.Designers.Actions
 
 ''' <summary>
 '''  The control designer of the CustomControl.
