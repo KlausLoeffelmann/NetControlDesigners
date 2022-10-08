@@ -23,16 +23,18 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomControlLibrary.Packag
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CustomControlLibrary.Client", "CustomControlLibrary.Client\CustomControlLibrary.Client.csproj", "{ACD9E380-5B13-403F-B2AC-78FDCCC50488}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_Solution Items", "_Solution Items", "{F9E1756D-DE99-4E08-9FE1-CF793426EA3A}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.targets = Directory.Build.targets
+		NuGet.config = NuGet.config
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{CED3F44E-F60C-4D8C-B6FC-A82DD4B632F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CED3F44E-F60C-4D8C-B6FC-A82DD4B632F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CED3F44E-F60C-4D8C-B6FC-A82DD4B632F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CED3F44E-F60C-4D8C-B6FC-A82DD4B632F5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{77ABBB80-9BE5-4E81-90FF-642B71C52652}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{77ABBB80-9BE5-4E81-90FF-642B71C52652}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77ABBB80-9BE5-4E81-90FF-642B71C52652}.Release|Any CPU.ActiveCfg = Release|Any CPU

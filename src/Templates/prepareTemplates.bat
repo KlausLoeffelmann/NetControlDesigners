@@ -23,18 +23,12 @@ xcopy ".\TemplateSolutions\VB.CustomTypeEditor\CustomControlLibrary\*.*" ".\Temp
 xcopy ".\TemplateSolutions\VB.CustomTypeEditor\CustomControlLibrary.Protocol\*.*" ".\Templates\Templates\VB.TypeEditor\CustomControlLibrary.Protocol" /s /e /c /f /y /i
 xcopy ".\TemplateSolutions\VB.CustomTypeEditor\CustomControlLibrary.Client\*.*" ".\Templates\Templates\VB.TypeEditor\CustomControlLibrary.Client" /s /e /c /f /y /i
 xcopy ".\TemplateSolutions\VB.CustomTypeEditor\CustomControlLibrary.Server\*.*" ".\Templates\Templates\VB.TypeEditor\CustomControlLibrary.Server" /s /e /c /f /y /i
-xcopy ".\TemplateSolutions\VB.CustomTypeEditor\CustomControlLibrary.Package\*.
+xcopy ".\TemplateSolutions\VB.CustomTypeEditor\CustomControlLibrary.Package\*.*" ".\Templates\Templates\VB.TypeEditor\CustomControlLibrary.Package" /s /e /c /f /y /i
 
 cd Templates
-dotnet new uninstall Microsoft.WinForms.Designer.CS.TypeEditorTemplate
+dotnet new uninstall Microsoft.WinForms.Designer.TypeEditorTemplate
 dotnet pack
 dotnet new install 
-dotnet new install .\bin\Debug\Microsoft.WinForms.Designer.CS.TypeEditorTemplate.1.4.12-dev.nupkg
-
-dotnet new uninstall Microsoft.WinForms.Designer.VB.TypeEditorTemplate
-dotnet pack
-dotnet new install 
-dotnet new install .\bin\Debug\Microsoft.WinForms.Designer.VB.TypeEditorTemplate.1.4.12-dev.nupkg
+dotnet new install .\bin\Debug\Microsoft.WinForms.Designer.TypeEditorTemplate.1.1.0-prerelease-preview3.nupkg
 
 cd ..
-

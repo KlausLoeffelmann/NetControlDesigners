@@ -3,8 +3,8 @@
   <PropertyGroup>
     <PackageType>Template</PackageType>
     <PackageVersion>1.1.0-prerelease-preview3</PackageVersion>
-    <PackageId>Microsoft.WinForms.Designer.CS.TypeEditorTemplate</PackageId>
-    <Title>WinForms CS TypeEditor Template</Title>
+    <PackageId>Microsoft.WinForms.Designer.TypeEditorTemplate</PackageId>
+    <Title>WinForms TypeEditor Template</Title>
     <Authors>The WinForms Team</Authors>
     <Description>Template to create a Windows Forms (WinForms) TypeEditor for the Out-of-Proc Designer.</Description>
     <PackageTags>dotnet-new;templates;WinForms;TypeEditor</PackageTags>

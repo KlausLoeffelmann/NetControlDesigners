@@ -46,7 +46,7 @@ namespace CustomControlLibrary
                     _customProperty = value;
                     OnCustomPropertyStoreProperty(EventArgs.Empty);
 
-                    // We update this property only at Design-Time, not at runtime.
+                    // We update this property only at design-time, not at runtime.
                     if (IsHandleCreated && IsAncestorSiteInDesignMode)
                     {
                         Invalidate();
@@ -71,7 +71,7 @@ namespace CustomControlLibrary
         ///  Controls the Serialization of the Property.
         /// </summary>
         /// <returns>
-        ///  True, if the CodeDOM serializer should emit code for 
+        ///  <see langword="true"/>, if the CodeDOM serializer should emit code for 
         ///  assigning a valid content to the property in InitializeComponent.
         /// </returns>
         private bool ShouldSerializeCustomPropertyStoreProperty()
@@ -84,7 +84,7 @@ namespace CustomControlLibrary
             base.OnPaint(e);
 
             // We show this only at Design time, not at runtime.
-            if (this.IsAncestorSiteInDesignMode)
+            if (IsAncestorSiteInDesignMode)
             { 
 
             // Drawing a frame around the control's borders:
