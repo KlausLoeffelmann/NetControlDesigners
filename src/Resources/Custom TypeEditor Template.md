@@ -1,26 +1,60 @@
 # Type Editors with the modern WinForms Designer
 
-The way type editors in the modern WinForms Designer changed considerably. Since
-the modern WinForms Designer runs out of the Visual Studio process for showing
-most of the design-time experience, type editors for complex types need to be
-migrated. This template package for C# and Visual Basic .NET type editors helps
-with that process.
+The way type editors in the modern WinForms Designer are authored changed
+considerably with the modern Windows Forms (WinForms) Designer. Since the modern
+WinForms Designer runs out of the Visual Studio process for showing most of the
+design-time experience, type editors for complex types need to be migrated so
+that they can cooperate with the new realities of the modern WinForms Designer.
+This template package for C# and Visual Basic .NET type editors helps with that
+process.
+
+## 10.000 feet view of this template solution
+
+Disclaimer: Don't get confused with the terminology around templates. When we
+are talking about templates, we mean Visual Studio Templates. Those are the
+templates that you see, when you create a new project or solution inside of
+Visual Studio, or at the dotnet CLI. A template solution is therefore a
+collection of VS related projects to build such a template. A solution template
+(same words, different order), on the other hand, is a certain type of .NET
+template. There are item templates, project template and solution templates. A
+project template results in a new project. A solution template results in a new
+collection of projects, and an item template is usually used to add a project
+file of a certain type (a new Form, a new class, a new UserControl) to an
+existing project.
+
+This template solution contains the following parts:
+
+* Two Visual Studio solutions in both C# and VB which serve as the blue prints
+  for the solution templates, if you will. These are real WinForms control
+  designer solutions, along with a WinForms test app, whose purpose is to
+  develop the control designer's components and to test the design time
+  experience.
+* A raw skeleton of the solution templates, again both for C# and Visual Basic.
+* A batch file, which copies the relevant parts of the blue print solutions to
+  the templates folder and then runs a couple of dotnet CLI commands to pack the
+  solution template into a deployable NuGet package. This batch file also
+  installs that NuGet package, so that the generated templates become immediately
+  available in Visual Studio as well as for the usage with the dotnet CLI.
 
 ## Building the Solution Template Package
 
 A type editor for the modern out-of-process WinForms Designer is built from
 several projects. The section *Introduction to the Template Solution* gives all
 the necessary background information in detail. What’s important for building
-the templates: There are 2 Visual Studio Solutions in the repo which represent a
-working type editor, both in C\# and in Visual Basic. This solution is in the
-path .\\winforms-designer-extensibility\\Templates\\TypeEditor\\src\\TemplateSolutions*.
+the templates: There are 2 Visual Studio solutions in the repo which represent a
+working type editor, both in C\# and in Visual Basic. These solutions are
+located in the path
+.\\winforms-designer-extensibility\\Templates\\TypeEditor\\src\\TemplateSolutions*.
 
 ![Text Description automatically generated](media/28277ed906d3dcd6bc91f902b31e2850.png)
 (templateSolutionItems.png)
 
 These solutions provide:
 
-* A WinForms .NET 6 custom control project named *CustomControlLibrary* which holds the actual custom control. The custom control’s only purpose is to render the content of a composite type named *CustomPropertyStore*, which is just the composition of a bunch of properties of different types.
+* A WinForms .NET 6 custom control project named *CustomControlLibrary* which
+  holds the actual custom control. The custom control’s only purpose is to
+  render the content of a composite type named *CustomPropertyStore*, which is
+  just the composition of a bunch of properties of different types.
 
 ![Graphical user interface, application, Word Description automatically generated](media/d2b653b9baa51298dea3cf835a8ae629.png)
 
@@ -98,19 +132,19 @@ Visual Studio.
     the client projects will always target classic .NET Framework 4.7.2, as this
     is the Visual Studio target framework version. **NOTE:** The type editor
     templates support .NET Versions from 6.0 on.
-  * **PropertyTypeName:** This is the name of the individual custom property
-    the type editor will offer the editing functionality for. In the sample
-    project the templates are based on, this is the \`CustomPropertyStore\`
-    type. Every reference to this type name or file name will be renamed to
-    the class name you’re entering here.
+  * **PropertyTypeName:** This is the name of the individual custom property the
+    type editor will offer the editing functionality for. In the sample project
+    the templates are based on, this is the \`CustomPropertyStore\` type. Every
+    reference to this type name or file name will be renamed to the class name
+    you’re entering here.
   * **Type Editor Name:** This is the name of the type editor. In the sample
     project the templates are based on, this is the \`CustomTypeEditor\` type.
     Every reference to this type name or file name will be renamed to the class
     name you’re entering here.
-  * **CustomControlName:** This is the name of the custom control. In the
-  sample project the templates are based on, this is the \`CustomControl\`
-  type. And again, every reference to this type name or file name will be
-  renamed to the class name you’re entering here.
+  * **CustomControlName:** This is the name of the custom control. In the sample
+  project the templates are based on, this is the \`CustomControl\` type. And
+  again, every reference to this type name or file name will be renamed to the
+  class name you’re entering here.
 
 * Click *Create* to create the solution.
 
