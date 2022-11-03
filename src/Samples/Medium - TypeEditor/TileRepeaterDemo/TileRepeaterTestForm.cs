@@ -1,4 +1,4 @@
-using TileRepeater.Data.ListController;
+﻿using TileRepeater.Data.ListController;
 
 namespace TileRepeaterDemo
 {
@@ -15,7 +15,7 @@ namespace TileRepeaterDemo
 
         private void SetPathToImageFilesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FolderBrowserDialog folderBrowserDialog = new()
+            using FolderBrowserDialog folderBrowserDialog = new()
             {
                 Description = "Open Path to Images",
                 UseDescriptionForTitle = true

@@ -1,4 +1,5 @@
-﻿using WinForms.Tiles;
+﻿using System.Diagnostics;
+using WinForms.Tiles;
 
 namespace TileRepeaterDemo.TileTemplates
 {
@@ -15,26 +16,28 @@ namespace TileRepeaterDemo.TileTemplates
         public TileSize TileSize
         {
             get => _tileSize;
-
             set
             {
-                if (!Equals(_tileSize, value))
+                if (Equals(_tileSize, value))
                 {
-                    _tileSize = value;
-                    OnTileSizeChanged(EventArgs.Empty);
+                    return;
                 }
+
+                _tileSize = value;
+                OnTileSizeChanged(EventArgs.Empty);
             }
         }
 
         protected virtual void OnTileSizeChanged(EventArgs e)
         { }
 
-        protected virtual Size BaseDefaultSize => new Size(200, 200);
+        protected virtual Size BaseDefaultSize => new(200, 200);
 
         public override Size GetPreferredSize(Size proposedSize)
-
-            // TODO: Take DPI into account.
-            => BaseDefaultSize * (int)TileSize + new Size(0, _infoLabel.Height);
+            => new Size(
+                BaseDefaultSize.Width * (int)TileSize,
+                BaseDefaultSize.Height * (int)TileSize)
+                + new Size(0, _infoLabel.Height);
 
         protected async override Task<bool> LoadContentCoreAsync()
         {
@@ -43,42 +46,43 @@ namespace TileRepeaterDemo.TileTemplates
             // TileContent/ImageContent (it actually gets centered in it).
             await _imageLoaderComponent.LoadImageAsync(PreferredSize);
 
-            if (_imageLoaderComponent.Image is not null)
+            if (_imageLoaderComponent.Image is null)
             {
-                _pictureBox.Invalidate();
-                return true;
+                return false;
             }
 
-            return false;
+            _pictureBox.Invalidate();
+            Debug.Print($"{_imageLoaderComponent.ImageFilename} loaded.");
+            return true;
         }
 
         public override void DisposeContent()
-        {
-            _imageLoaderComponent.DisposeImage();
-        }
+            => _imageLoaderComponent.DisposeImage();
 
         private void _pictureBox_Paint(object sender, PaintEventArgs e)
         {
-            if (_imageLoaderComponent.Image is { } image)
+            if (!(_imageLoaderComponent.Image is { } image))
             {
-                var preferredSize = PreferredSize;
-                var contentRatio = (float)preferredSize.Width / (float)preferredSize.Height;
-                var imageRatio = (float)image.Size.Width / (float)image.Size.Height;
+                return;
+            }
 
-                if (contentRatio < imageRatio)
-                {
-                    e.Graphics.DrawImage(
-                        image,
-                        x: preferredSize.Width / 2 - image.Size.Width / 2,
-                        y: 0);
-                }
-                else
-                {
-                    e.Graphics.DrawImage(
-                        image,
-                        x: 0,
-                        y: preferredSize.Height / 2 - image.Size.Height / 2);
-                }
+            var preferredSize = PreferredSize;
+            var contentRatio = (float)preferredSize.Width / (float)preferredSize.Height;
+            var imageRatio = (float)image.Size.Width / (float)image.Size.Height;
+
+            if (contentRatio > imageRatio)
+            {
+                e.Graphics.DrawImage(
+                    image,
+                    x: preferredSize.Width / 2 - image.Size.Width / 2,
+                    y: 0);
+            }
+            else
+            {
+                e.Graphics.DrawImage(
+                    image,
+                    x: 0,
+                    y: preferredSize.Height / 2 - image.Size.Height / 2);
             }
         }
     }

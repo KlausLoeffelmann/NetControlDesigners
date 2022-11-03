@@ -1,34 +1,34 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace TileRepeaterDemo.TileTemplates
 {
     public partial class BindableAsyncImageLoaderComponent : Component, IBindableComponent
     {
-        public event EventHandler? ImageChanged;
-        public event EventHandler? ImageFilenameChanged;
+        // We're running no more than 2 worker tasks for the image resizing at a time.
+        private static readonly SemaphoreSlim s_semaphore = new(2);
 
         private BindingContext? _bindingContext;
         private ControlBindingsCollection? _dataBindings;
-        public event EventHandler? BindingContextChanged;
         private Image? _image;
         private string? _imageFilename;
 
-        // We're running no more than 2 worker tasks for the image resizing at a time.
-        static SemaphoreSlim s_semaphore = new SemaphoreSlim(2);
+        public event EventHandler? ImageChanged;
+        public event EventHandler? ImageFilenameChanged;
+        public event EventHandler? BindingContextChanged;
 
         public BindableAsyncImageLoaderComponent()
         {
             InitializeComponent();
-            this.Disposed += BindableAsyncImageLoaderComponent_Disposed;
+            Disposed += BindableAsyncImageLoaderComponent_Disposed;
         }
 
         private void BindableAsyncImageLoaderComponent_Disposed(object? sender, EventArgs e)
-        {
-            if (Image is not null)
-            {
-                Image.Dispose();
-            }
-        }
+            => Image?.Dispose();
 
         public BindableAsyncImageLoaderComponent(IContainer container)
         {
@@ -62,10 +62,7 @@ namespace TileRepeaterDemo.TileTemplates
         {
             get
             {
-                if (_dataBindings is null)
-                {
-                    _dataBindings = new ControlBindingsCollection(this);
-                }
+                _dataBindings ??= new ControlBindingsCollection(this);
 
                 return _dataBindings;
             }
@@ -112,11 +109,17 @@ namespace TileRepeaterDemo.TileTemplates
 
         protected async virtual void OnImageFilenameChanged(EventArgs e)
         {
-            ImageFilenameChanged?.Invoke(this, e);
-
-            if (AutoLoad)
+            try
             {
-                await LoadImageAsync();
+                ImageFilenameChanged?.Invoke(this, e);
+
+                if (AutoLoad)
+                {
+                    await LoadImageAsync();
+                }
+            }
+            catch (Exception)
+            {
             }
         }
 
@@ -149,13 +152,8 @@ namespace TileRepeaterDemo.TileTemplates
 
             try
             {
-                if (Image is not null)
-                {
-                    Image.Dispose();
-                }
-
-                Image = await LoadImageAsync(_imageFilename, rescaleTo);
-
+                Image?.Dispose();
+                Image = await LoadImageAsync(_imageFilename!, rescaleTo);
             }
             catch (Exception)
             {

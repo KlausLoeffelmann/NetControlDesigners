@@ -33,6 +33,11 @@ namespace WinForms.Tiles.Designer.Client
             Font = (Font)uiService.Styles[DialogFont];
         }
 
+        public IServiceProvider ServiceProvider { get; }
+        public TemplateAssignmentViewModelClient ViewModelClient { get; set; }
+        public ITypeDescriptorContext? Context { get; set; }
+        public IDesignerHost? Host { get; set; }
+
         private void PopulateContent()
         {
             _suspendListboxUpdates = true;
@@ -90,17 +95,21 @@ namespace WinForms.Tiles.Designer.Client
         private void TemplateTypeListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (_suspendListboxUpdates)
+            {
                 return;
-            else
-                UpdateUI();
+            }
+
+            UpdateUI();
         }
 
         private void TileContentTilesListbox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (_suspendListboxUpdates)
+            {
                 return;
-            else
-                UpdateUI();
+            }
+
+            UpdateUI();
         }
 
         private void ClearSelectionsButton_Click(object sender, EventArgs e)
@@ -114,14 +123,12 @@ namespace WinForms.Tiles.Designer.Client
             // Get the selected template type.
             TypeInfoData? templateType = _templateTypesListBox.SelectedIndex == -1
                 ? null
-                : ((ListBoxTypeItem)_templateTypesListBox.SelectedItem)
-                    .TypeInfo;
+                : ((ListBoxTypeItem)_templateTypesListBox.SelectedItem).TypeInfo;
             
             // Get the selected tile content type
             TypeInfoData? tileContentType = _tileContentTilesListbox.SelectedIndex == -1
                 ? null
-                : ((ListBoxTypeItem)_tileContentTilesListbox.SelectedItem)
-                    .TypeInfo;
+                : ((ListBoxTypeItem)_tileContentTilesListbox.SelectedItem).TypeInfo;
 
             // Assign the AssemblyQualifiedName, so we can look up the type server-side for both.
             ViewModelClient.TemplateQualifiedTypename = templateType?.AssemblyQualifiedName;
@@ -156,10 +163,5 @@ namespace WinForms.Tiles.Designer.Client
                     ? "- - -"
                     : thingToPrint.ToString();
         }
-
-        public IServiceProvider ServiceProvider { get; }
-        public TemplateAssignmentViewModelClient ViewModelClient { get; set; }
-        public ITypeDescriptorContext? Context { get; set; }
-        public IDesignerHost? Host { get; set; }
     }
 }

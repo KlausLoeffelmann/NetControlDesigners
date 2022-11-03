@@ -30,6 +30,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TileRepeater.Package", "Tit
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TileRepeater.Data", "TileRepeater.Data\TileRepeater.Data.csproj", "{B5F27F16-E2DA-4C66-A112-2C18E8BAE16C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution_Items", "Solution_Items", "{8888F7EE-F983-4B83-858A-B2505CD9458A}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.targets = Directory.Build.targets
+		NuGet.config = NuGet.config
+		readme.md = readme.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

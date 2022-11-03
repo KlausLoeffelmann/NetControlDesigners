@@ -2,34 +2,26 @@
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using TileRepeater.Data.Base;
+using CommunityToolkit.Mvvm.ComponentModel;
 using TileRepeater.Data.Image;
 
 namespace TileRepeater.Data.ListController
 {
-    public class UIController : BindableBase
+    public class UIController : ObservableObject
     {
-        // We limit the scenario for jpegs for now.
+        // We limit the scenario to jpegs for now, but the filter can change to include other types, e.g.:
         //private const string DefaultFileSearchPattern = "*.bmp|*.png|*.jpg|*.jpeg|*.gif|*.ico|*.tif|*.tiff|*.raw|*.arw|*.heic|*.nef|*.cr2";
         private const string DefaultFileSearchPattern = "*.jpg|*.jpeg";
 
         private static readonly string[] s_defaultFileSearchPattern;
 
+        private BindingList<GenericTemplateItem>? _templateItems;
+        private BindingList<GenericPictureItem>? _pictureItems;
+
         static UIController()
         {
             s_defaultFileSearchPattern = DefaultFileSearchPattern.Replace("*", "").Split('|');
         }
-
-        public UIController() : base(null)
-        {
-        }
-
-        public UIController(IServiceProvider? serviceProvider) : base(serviceProvider)
-        {
-        }
-
-        private BindingList<GenericTemplateItem>? _templateItems;
-        private BindingList<GenericPictureItem>? _pictureItems;
 
         public BindingList<GenericTemplateItem>? TemplateItems
         {
@@ -52,13 +44,7 @@ namespace TileRepeater.Data.ListController
 
             var filesInPath = directoryInfo.GetFiles("*.*", searchOption)
                 .Where(file => s_defaultFileSearchPattern.Any(extension => extension == file.Extension))
-                .OrderByDescending(file => file.LastWriteTime)
-                .ToList();
-
-            if (filesInPath.Count == 0)
-            {
-                return pictureItems;
-            }
+                .OrderByDescending(file => file.LastWriteTime);
 
             foreach (var file in filesInPath)
             {
@@ -73,21 +59,15 @@ namespace TileRepeater.Data.ListController
         }
 
         public static BindingList<GenericTemplateItem>? GetPictureTemplateItemsFromFolder(
-        string filePath,
-        SearchOption searchOption = SearchOption.AllDirectories)
+            string filePath,
+            SearchOption searchOption = SearchOption.AllDirectories)
         {
             DirectoryInfo directoryInfo = new(filePath);
             BindingList<GenericTemplateItem>? pictureItems = new();
 
             var filesInPath = directoryInfo.GetFiles("*.*", searchOption)
                 .Where(file => s_defaultFileSearchPattern.Any(extension => extension == file.Extension))
-                .OrderByDescending(file => file.LastWriteTime)
-                .ToList();
-
-            if (filesInPath.Count == 0)
-            {
-                return pictureItems;
-            }
+                .OrderByDescending(file => file.LastWriteTime);
 
             // We set DateTime MinValue, so we start with the group separator unconditionally.
             DateTime currentDate = DateTime.MinValue;
@@ -106,15 +86,16 @@ namespace TileRepeater.Data.ListController
                     });
                 }
 
-                GenericTemplateItem itemToAdd;
                 var imageMetaData = file.GetImageMetaData();
 
                 if (imageMetaData is null)
                     continue;
 
-                itemToAdd = new GenericPictureItem(imageMetaData.Value);
+                GenericPictureItem itemToAdd = new(imageMetaData.Value)
+                {
+                    Label = file.Name
+                };
 
-                itemToAdd.Label = file.Name;
                 pictureItems.Add(itemToAdd);
             }
 

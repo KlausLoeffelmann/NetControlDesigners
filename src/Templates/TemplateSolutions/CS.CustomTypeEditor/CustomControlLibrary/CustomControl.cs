@@ -55,6 +55,13 @@ namespace CustomControlLibrary
             }
         }
 
+        public class CustomPropertyStorePropertyItem
+        {
+            public CustomPropertyStore? PropertyStoreItem { get; set; }
+        }
+
+        public List<CustomPropertyStorePropertyItem?>? CustomPropertyStoreProperties { get; set; } = new List<CustomPropertyStorePropertyItem?>();
+
         /// <summary>
         ///  Raises the <see cref="CustomPropertyStorePropertyChanged"/> event.
         /// </summary>

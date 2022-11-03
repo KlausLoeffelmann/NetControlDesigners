@@ -1,25 +1,18 @@
-﻿using System;
-using TileRepeater.Data.Base;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace TileRepeater.Data.ListController
 {
-    public class GenericTemplateItem : BindableBase
+    public partial class GenericTemplateItem : ObservableObject
     {
+        // This attribute automatically generates the Property in a way ...
+        [ObservableProperty]
         private string? _label;
 
-        public GenericTemplateItem() : this(null)
-        {
-        }
-
-        public GenericTemplateItem(IServiceProvider? serviceProvider) : base(serviceProvider)
-        {
-        }
-
-        public string? Label
-        {
-            get => _label;
-            set => SetProperty(ref _label, value);
-        }
+        // ...so it's raising the correct INotifyPropertyChanged. Like this:
+        // public string? Label
+        // {
+        //     get => _label;
+        //     set => SetProperty(ref _label, value);
+        // }
     }
 }
-
