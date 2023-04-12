@@ -1,106 +1,113 @@
-﻿using System.ComponentModel;
+﻿namespace WinForms.Tiles.Simplified;
 
-namespace WinForms.Tiles.Simplified
+/// <summary>
+///  Provides the container for a bindable Item for the <see cref="SimpleTileRepeater"/> control.
+/// </summary>
+/// <remarks>
+///  Tiles are a container for a Collection of UserControls presented in a <see cref="TileRepeater"/> control. For the actual
+///  Please read about its functionality the remarks to the TileRepeater control.
+/// </remarks>
+internal partial class Tile : UserControl
 {
-    /// <summary>
-    /// Provides the container for a bindable Item for the <see cref="SimpleTileRepeater"/> control.
-    /// </summary>
-    /// <remarks>
-    /// Tiles are a container for a Collection of UserControls presented in a <see cref="TileRepeater"/> control. For the actual
-    /// Please read about its functionality the remarks to the TileRepeater control.
-    /// </remarks>
-    internal partial class Tile : UserControl
+    private const int SelectionFramePadding = 20;
+    private bool _isInParentClientArea;
+
+    public Tile()
     {
-        private const int SelectionFramePadding = 20;
-        private bool _isInParentClientArea;
+        InitializeComponent();
+    }
 
-        public Tile()
+    public override Size GetPreferredSize(Size proposedSize)
+    {
+        var size=TileContent.GetPreferredSize(proposedSize);
+
+        size += new Size(Padding.Left, Padding.Top) + 
+            new Size(Padding.Right, Padding.Bottom);
+
+        return size;
+    }
+
+    protected override void OnLocationChanged(EventArgs e)
+    {
+        base.OnLocationChanged(e);
+        CheckIdInParentClientArea();
+    }
+
+    private void CheckIdInParentClientArea()
+    {
+        if (Parent is not null)
         {
-            InitializeComponent();
+            IsInParentClientArea =
+                !(Bottom < 0 ||
+                Top > Parent.ClientSize.Height ||
+                Right < 0 ||
+                Left > Parent.ClientSize.Width);
         }
+    }
 
-        public override Size GetPreferredSize(Size proposedSize)
+    protected override void OnSizeChanged(EventArgs e)
+    {
+        base.OnSizeChanged(e);
+        CheckIdInParentClientArea();
+    }
+
+    public virtual bool IsInParentClientArea
+    {
+        get => _isInParentClientArea;
+        set
         {
-            var size=TileContent.GetPreferredSize(proposedSize);
-
-            size += new Size(Padding.Left, Padding.Top) + 
-                new Size(Padding.Right, Padding.Bottom);
-
-            return size;
-        }
-
-        protected override void OnLocationChanged(EventArgs e)
-        {
-            base.OnLocationChanged(e);
-
-            if (Parent is not null)
+            if (_isInParentClientArea!=value)
             {
-                IsInParentClientArea =
-                    !(Bottom < 0 ||
-                    Top > Parent.ClientSize.Height ||
-                    Right < 0 ||
-                    Left > Parent.ClientSize.Width);
+                _isInParentClientArea = value;
+                OnIsInParentClientAreaChanged();
             }
         }
+    }
 
-        public virtual bool IsInParentClientArea
+    protected virtual async void OnIsInParentClientAreaChanged()
+    {
+        if (TileContent is not null && IsInParentClientArea && !TileContent.IsContentLoaded)
         {
-            get => _isInParentClientArea;
-            set
+            try
             {
-                if (_isInParentClientArea!=value)
-                {
-                    _isInParentClientArea = value;
-                    OnIsInParentClientAreaChanged();
-                }
+                // This is a fire-and-forget,
+                // so we need to catch a potential
+                // exception of the async content load
+                // and just swallow it.
+                await TileContent.LoadContentAsync();
+            }
+            catch (Exception)
+            {
             }
         }
+    }
 
-        protected virtual async void OnIsInParentClientAreaChanged()
+    public TileContent TileContent
+    {
+        get
         {
-            if (TileContent is not null && IsInParentClientArea && !TileContent.IsContentLoaded)
+            if (_contentPanel.Controls.Count == 0)
             {
-                try
+                _contentPanel.Controls.Add(new TileContent()
                 {
-                    // This is a fire-and-forget,
-                    // so we need to catch a potential
-                    // exception of the async content load
-                    // and just swallow it.
-                    await TileContent.LoadContentAsync();
-                }
-                catch (Exception)
-                {
-                }
+                    Dock = DockStyle.Fill,
+                });
             }
+
+            return (_contentPanel.Controls[0] as TileContent)!;
         }
-
-        public TileContent TileContent
+        set
         {
-            get
+            if (_contentPanel.Controls.Count > 0)
             {
-                if (_contentPanel.Controls.Count == 0)
-                {
-                    _contentPanel.Controls.Add(new TileContent()
-                    {
-                        Dock = DockStyle.Fill,
-                    });
-                }
-
-                return (_contentPanel.Controls[0] as TileContent)!;
+                _contentPanel.Controls.Clear();
             }
-            set
-            {
-                if (_contentPanel.Controls.Count > 0)
-                {
-                    _contentPanel.Controls.Clear();
-                }
 
-                var tileContent = value;
-                tileContent.Dock = DockStyle.Fill;
-                tileContent.Enabled = true;
+            var tileContent = value;
+            tileContent.Dock = DockStyle.Fill;
+            tileContent.Enabled = true;
 
-                _contentPanel.Controls.Add(tileContent);
-            }
+            _contentPanel.Controls.Add(tileContent);
         }
     }
 }

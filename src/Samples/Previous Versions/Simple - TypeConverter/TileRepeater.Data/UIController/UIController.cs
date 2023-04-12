@@ -2,67 +2,103 @@
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using TileRepeater.Data.Base;
+using CommunityToolkit.Mvvm.ComponentModel;
 using TileRepeater.Data.Image;
 
-namespace TileRepeater.Data.ListController
+namespace TileRepeater.Data.ListController;
+
+public class UIController : ObservableObject
 {
-    public class UIController : BindableBase
+    // We limit the scenario to jpegs for now, but the filter can change to include other types, e.g.:
+    //private const string DefaultFileSearchPattern = "*.bmp|*.png|*.jpg|*.jpeg|*.gif|*.ico|*.tif|*.tiff|*.raw|*.arw|*.heic|*.nef|*.cr2";
+    private const string DefaultFileSearchPattern = "*.jpg|*.jpeg";
+
+    private static readonly string[] s_defaultFileSearchPattern;
+
+    private BindingList<GenericTemplateItem>? _templateItems;
+    private BindingList<GenericPictureItem>? _pictureItems;
+
+    static UIController()
     {
-        // We limit the scenario for jpegs for now.
-        //private const string DefaultFileSearchPattern = "*.bmp|*.png|*.jpg|*.jpeg|*.gif|*.ico|*.tif|*.tiff|*.raw|*.arw|*.heic|*.nef|*.cr2";
-        private const string DefaultFileSearchPattern = "*.jpg|*.jpeg";
+        s_defaultFileSearchPattern = DefaultFileSearchPattern.Replace("*", "").Split('|');
+    }
 
-        private static readonly string[] s_defaultFileSearchPattern;
+    public BindingList<GenericTemplateItem>? TemplateItems
+    {
+        get => _templateItems;
+        set => SetProperty(ref _templateItems, value);
+    }
 
-        static UIController()
+    public BindingList<GenericPictureItem>? PictureItems
+    {
+        get => _pictureItems;
+        set => SetProperty(ref _pictureItems, value);
+    }
+
+    public static BindingList<GenericPictureItem>? GetSimplePictureTemplateItemsFromFolder(
+        string filePath,
+        SearchOption searchOption = SearchOption.AllDirectories)
+    {
+        DirectoryInfo directoryInfo = new(filePath);
+        BindingList<GenericPictureItem>? pictureItems = new();
+
+        var filesInPath = directoryInfo.GetFiles("*.*", searchOption)
+            .Where(file => s_defaultFileSearchPattern.Any(extension => extension == file.Extension))
+            .OrderByDescending(file => file.LastWriteTime);
+
+        foreach (var file in filesInPath)
         {
-            s_defaultFileSearchPattern = DefaultFileSearchPattern.Replace("*", "").Split('|');
-        }
-
-        public UIController() : base(null)
-        {
-        }
-
-        public UIController(IServiceProvider? serviceProvider) : base(serviceProvider)
-        {
-        }
-
-        private BindingList<GenericPictureItem>? _pictureItems;
-
-        public BindingList<GenericPictureItem>? PictureItems
-        {
-            get => _pictureItems;
-            set => SetProperty(ref _pictureItems, value);
-        }
-
-        public static BindingList<GenericPictureItem>? GetSimplePictureTemplateItemsFromFolder(
-            string filePath,
-            SearchOption searchOption = SearchOption.AllDirectories)
-        {
-            DirectoryInfo directoryInfo = new(filePath);
-            BindingList<GenericPictureItem>? pictureItems = new();
-
-            var filesInPath = directoryInfo.GetFiles("*.*", searchOption)
-                .Where(file => s_defaultFileSearchPattern.Any(extension => extension == file.Extension))
-                .OrderByDescending(file => file.LastWriteTime)
-                .ToList();
-
-            if (filesInPath.Count == 0)
+            var imageMetaData = file.GetImageMetaData();
+            if (imageMetaData is not null)
             {
-                return pictureItems;
+                pictureItems.Add(new GenericPictureItem(imageMetaData.Value));
             }
+        }
 
-            foreach (var file in filesInPath)
+        return pictureItems;
+    }
+
+    public static BindingList<GenericTemplateItem>? GetPictureTemplateItemsFromFolder(
+        string filePath,
+        SearchOption searchOption = SearchOption.AllDirectories)
+    {
+        DirectoryInfo directoryInfo = new(filePath);
+        BindingList<GenericTemplateItem>? pictureItems = new();
+
+        var filesInPath = directoryInfo.GetFiles("*.*", searchOption)
+            .Where(file => s_defaultFileSearchPattern.Any(extension => extension == file.Extension))
+            .OrderByDescending(file => file.LastWriteTime);
+
+        // We set DateTime MinValue, so we start with the group separator unconditionally.
+        DateTime currentDate = DateTime.MinValue;
+
+        foreach (var file in filesInPath)
+        {
+            var fileDate = file.LastWriteTime;
+
+            // Grouping by months is hardwired. Should be suffice for demo purposes.
+            if ($"{currentDate.Year}{currentDate.Month}" != $"{fileDate.Year}{fileDate.Month}")
             {
-                var imageMetaData = file.GetImageMetaData();
-                if (imageMetaData is not null)
+                currentDate = fileDate;
+                pictureItems.Add(new GenericTemplateItem()
                 {
-                    pictureItems.Add(new GenericPictureItem(imageMetaData.Value));
-                }
+                    Label = $"Pictures of {currentDate:MMMM}, {currentDate:yyyy}"
+                });
             }
 
-            return pictureItems;
+            var imageMetaData = file.GetImageMetaData();
+
+            if (imageMetaData is null)
+                continue;
+
+            GenericPictureItem itemToAdd = new(imageMetaData.Value)
+            {
+                Label = file.Name
+            };
+
+            pictureItems.Add(itemToAdd);
         }
+
+        return pictureItems;
     }
 }

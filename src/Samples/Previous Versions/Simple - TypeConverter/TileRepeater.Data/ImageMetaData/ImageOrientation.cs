@@ -1,9 +1,8 @@
-﻿namespace TileRepeater.Data.Image
+﻿namespace TileRepeater.Data.Image;
+
+public enum ImageOrientation
 {
-    public enum ImageOrientation
-    {
-        Square,
-        Portrait,
-        Landscape
-    }
+    Square,
+    Portrait,
+    Landscape
 }

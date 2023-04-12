@@ -1,57 +1,36 @@
-﻿using MetadataExtractor;
-using System;
+﻿using System;
+using System.IO;
+using CommunityToolkit.Mvvm.ComponentModel;
 using TileRepeater.Data.Image;
 
-namespace TileRepeater.Data.ListController
+namespace TileRepeater.Data.ListController;
+
+public partial class GenericPictureItem : GenericTemplateItem
 {
-    public class GenericPictureItem : GenericTemplateItem
+    // This attribute automatically generates the Property in a way so it's raising the correct INotifyPropertyChanged.
+    [ObservableProperty]
+    private string? _filename;
+
+    [ObservableProperty]
+    private int _width;
+
+    [ObservableProperty]
+    private int _height;
+
+    [ObservableProperty]
+    private DateTime? _dateTaken;
+
+    public GenericPictureItem(ImageMetaData imageMetaData)
     {
-        private Tag? _metaDataTag;
-        private string? _filename;
-        private int _width;
-        private int _height;
-        private DateTime? _dateTaken;
+        Width = imageMetaData.Width;
+        Height = imageMetaData.Height;
+        DateTaken = imageMetaData.DateTaken;
+        Filename = imageMetaData.Filename;
+    }
 
-        public GenericPictureItem() : base(null)
-        {
-        }
-
-        public GenericPictureItem(ImageMetaData imageMetaData)
-        {
-            Width = imageMetaData.Width;
-            Height = imageMetaData.Height;
-            DateTaken = imageMetaData.DateTaken;
-            Filename = imageMetaData.Filename;
-        }
-
-        public string? Filename
-        {
-            get => _filename;
-            set => SetProperty(ref _filename, value);
-        }
-
-        public Tag? MetadataTag
-        {
-            get => _metaDataTag;
-            set => SetProperty(ref _metaDataTag, value);
-        }
-
-        public int Width
-        {
-            get => _width;
-            set => SetProperty(ref _width, value);
-        }
-
-        public int Height
-        {
-            get => _height;
-            set => SetProperty(ref _height, value);
-        }
-
-        public DateTime? DateTaken
-        {
-            get => _dateTaken;
-            set => SetProperty(ref _dateTaken, value);
-        }
+    public override string ToString()
+    {
+        FileInfo fileInfo = new FileInfo(Filename);
+        return $"{{{fileInfo.Name},W:{Width} H:{Height}}}";
     }
 }
