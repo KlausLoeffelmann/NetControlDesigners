@@ -46,7 +46,7 @@ public partial class ShapeRootDesigner : ComponentDesigner, IRootDesigner //, IT
             // for a root designer that overrides GetView(). In this 
             // example, a Control of type RootDesignerView is used.
             // Any class that inherits from Control will work.
-            _designerSurface = new RootDesignerView(this);
+            _designerSurface = new SampleRootDesignerView(this);
 
             //_toolboxService = (IToolboxService)this.GetService(typeof(IToolboxService));
             //// If an IToolboxService was located, update the 

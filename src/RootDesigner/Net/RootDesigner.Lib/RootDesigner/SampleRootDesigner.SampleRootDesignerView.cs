@@ -1,14 +1,16 @@
-﻿namespace RootDesignerDemo;
+﻿using Microsoft.DotNet.DesignTools.Designers;
+
+namespace RootDesignerDemo;
 
 public partial class ShapeRootDesigner
 {
     // RootDesignerView is a simple control that will be displayed 
     // in the designer window.
-    private class RootDesignerView : Control
+    private class SampleRootDesignerView : RootDesignerView
     {
         private ShapeRootDesigner m_designer;
 
-        public RootDesignerView(ShapeRootDesigner designer)
+        public SampleRootDesignerView(ShapeRootDesigner designer)
         {
             m_designer = designer;
             BackColor = Color.Blue;
