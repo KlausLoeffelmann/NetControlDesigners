@@ -8,13 +8,14 @@ public partial class ShapeRootDesigner
     // in the designer window.
     private class SampleRootDesignerView : RootDesignerView
     {
-        private ShapeRootDesigner m_designer;
+        private ShapeRootDesigner _designer;
 
         public SampleRootDesignerView(ShapeRootDesigner designer)
         {
-            m_designer = designer;
+            _designer = designer;
             BackColor = Color.Blue;
             Font = new Font(Font.FontFamily.Name, 24.0f);
+            LogInfo("Initialize SampleRootDesignerView.");
         }
 
         protected override void OnPaint(PaintEventArgs pe)
@@ -22,7 +23,7 @@ public partial class ShapeRootDesigner
             base.OnPaint(pe);
 
             // Draws the name of the component in large letters.
-            pe.Graphics.DrawString(m_designer.Component.Site.Name, Font, Brushes.Yellow, ClientRectangle);
+            pe.Graphics.DrawString(_designer.Component.Site.Name, Font, Brushes.Yellow, ClientRectangle);
         }
     }
 }
