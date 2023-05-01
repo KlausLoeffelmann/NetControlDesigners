@@ -5,6 +5,7 @@ using System.ComponentModel.Design;
 using System.Drawing;
 using System.Drawing.Design;
 using System.Windows.Forms;
+using RootDesignerDemo;
 
 namespace SampleRootDesigner
 {
@@ -12,6 +13,9 @@ namespace SampleRootDesigner
     public partial class ShapeRootDesigner : ComponentDesigner, IRootDesigner, IToolboxUser
     {
         private const string ToolboxCategory = "ShapeRootDesigner";
+        private const string VsOutputWindowPaneName = "Root Designer Demo";
+
+        private VsOutputWindowLogger _vsOutputWindowLogger = new VsOutputWindowLogger(VsOutputWindowPaneName);
         
         // Member field of custom type RootDesignerView, a control that 
         // will be shown in the Forms designer view. This member is 
@@ -21,6 +25,31 @@ namespace SampleRootDesigner
 
         private IToolboxService _toolboxService = null;
         private ToolboxItemCollection _tools;
+        private ISelectionService _selectionService = null;
+        private IDesignerHost _designerHost = null;
+
+        public override void Initialize(IComponent component)
+        {
+            base.Initialize(component);
+            _vsOutputWindowLogger.WriteLine($"ShapeRootDesigner.Initialize() for component {component.GetType().FullName} called.");
+            _selectionService = GetService(typeof(ISelectionService)) as ISelectionService;
+            if (!(_selectionService is null))
+            {
+                _vsOutputWindowLogger.WriteLine($"ShapeRootDesigner.Initialize(): ISelectionService retrieved.");
+            }
+
+            _designerHost = GetService(typeof(IDesignerHost)) as IDesignerHost;
+            if (!(_designerHost is null))
+            {
+                _vsOutputWindowLogger.WriteLine($"ShapeRootDesigner.Initialize(): IDesignerHost retrieved.");
+            }
+
+            _toolboxService = GetService(typeof(IToolboxService)) as IToolboxService;
+            if (!(_toolboxService is null))
+            {
+                _vsOutputWindowLogger.WriteLine($"ShapeRootDesigner.Initialize(): IToolboxService retrieved.");
+            }
+        }
 
         public ViewTechnology[] SupportedTechnologies => new[] { ViewTechnology.Default };
 
@@ -31,7 +60,7 @@ namespace SampleRootDesigner
 
         public void ToolPicked(ToolboxItem tool)
         {
-            // TODO: Add the code, which adds a new shape to the designer surface.
+            _vsOutputWindowLogger.WriteLine($"ToolPicked: {tool}");
         }
 
         // This method returns an instance of the view for this root
@@ -71,11 +100,11 @@ namespace SampleRootDesigner
         private void SetupToolboxItems()
         {
             CreateToolboxItem("Line Tool", "LineTool", "ShapeRootDesigner",
-                RootDesignerDemo.Properties.Resources.Rectangle);
+                RootDesignerDemo.Properties.Resources.Line);
             CreateToolboxItem("Rectangle Tool", "RectangleTool", "ShapeRootDesigner", 
                 RootDesignerDemo.Properties.Resources.Rectangle);
             CreateToolboxItem("Text Tool", "TextTool", "ShapeRootDesigner",
-                RootDesignerDemo.Properties.Resources.Rectangle);
+                RootDesignerDemo.Properties.Resources.Text);
         }
 
         private void CreateToolboxItem(string toolDisplayName, string toolTypeName, string toolboxFilterString, Bitmap toolboxBitmap)
@@ -115,5 +144,10 @@ namespace SampleRootDesigner
 
             return;
         }
+
+        internal IToolboxService ToolboxService => _toolboxService;
+        internal IDesignerHost DesignerHost => _designerHost;
+        internal ISelectionService SelectionService => _selectionService;
+        internal VsOutputWindowLogger VsOutputWindowLogger => _vsOutputWindowLogger;
     }
 }

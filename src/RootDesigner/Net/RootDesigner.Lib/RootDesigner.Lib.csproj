@@ -8,8 +8,7 @@
   </PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.WinForms.Designer.SDK" Version="1.7.1-dev">
-		</PackageReference>
+		<PackageReference Include="Microsoft.WinForms.Designer.SDK" Version="1.7.3-dev"/>
 	</ItemGroup>
 
 </Project>
