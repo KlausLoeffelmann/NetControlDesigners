@@ -7,7 +7,7 @@ namespace WinForms.Tiles.Serialization
 {
     internal class TemplateAssignmentCodeDomSerializer : CodeDomSerializer
     {
-        private int _variableOccuranceCounter = 1;
+        private int _variableOccurrenceCounter = 1;
 
         internal const string TemplateAssignmentNamespace = "WinForms.Tiles";
 
@@ -37,8 +37,8 @@ namespace WinForms.Tiles.Serialization
                 //    {codeExpression} = new TemplateAssignment(templateType1, tileContentType1);
 
                 // We define the locale variables up front.
-                string templateTypeVariableName = $"templateType{_variableOccuranceCounter}";
-                string tileContentVariableName = $"tileContentType{_variableOccuranceCounter++}";
+                string templateTypeVariableName = $"templateType{_variableOccurrenceCounter}";
+                string tileContentVariableName = $"tileContentType{_variableOccurrenceCounter++}";
 
                 // Type templateType1;
                 CodeVariableDeclarationStatement templateTypeVarDeclStatement = new(

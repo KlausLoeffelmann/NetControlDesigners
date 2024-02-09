@@ -33,9 +33,6 @@ public partial class ShapeRootDesigner
 
             _guard = true;
 
-            if (Debugger.IsAttached)
-                Debugger.Break();
-
             if (_asyncToolboxService != null)
             {
                 await _asyncToolboxService.SetCursorAsync();
