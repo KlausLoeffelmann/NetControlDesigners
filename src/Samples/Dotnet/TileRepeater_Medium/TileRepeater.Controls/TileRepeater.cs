@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace WinForms.Tiles
 {
-    [Designer("TileRepeaterDesigner"),
+    [Designer("WinForms.Tiles.Designer.Server.TileRepeaterDesigner"),
      System.ComponentModel.ComplexBindingProperties("DataSource")]
     public partial class TileRepeater : Panel
     {
